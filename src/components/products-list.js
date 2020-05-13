@@ -23,7 +23,7 @@ class ProductsList extends Component {
             })
     }
 
-    deleteExercise = id => {
+    deleteProduct = id => {
         axios.delete('http://localhost:5000/products/' + id)
             .then(res => console.log(res.data))
             .catch(err => console.error(err));
@@ -62,7 +62,7 @@ class ProductsList extends Component {
                                     Edit
                                 </a> | <button
                                 className="btn btn-danger"
-                                onClick={() => this.deleteExercise(product._id)}
+                                onClick={() => this.deleteProduct(product._id)}
                             >
                                 Delete
                             </button>

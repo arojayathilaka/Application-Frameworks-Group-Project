@@ -74,15 +74,15 @@ class Home extends Component{
 
     //}
 
-    loadProducts() {
-        fetch('http://localhost:5000/products/')
-            .then(res => res.json())
-            .then(products => {
-                this.setState({ products })
-
-            });
-        
-    }
+    // loadProducts() {
+    //     fetch('http://localhost:5000/products/')
+    //         .then(res => res.json())
+    //         .then(products => {
+    //             this.setState({ products })
+    //
+    //         });
+    //
+    // }
 
     componentWillMount() {
 

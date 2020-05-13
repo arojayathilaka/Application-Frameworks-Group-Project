@@ -8,6 +8,7 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
+    const category = req.body.category;
     const prodId = Number(req.body.prodId);
     const name = req.body.name;
     const price = Number(req.body.price);
@@ -16,6 +17,7 @@ router.route('/add').post((req, res) => {
     const ratings = Number(req.body.ratings);
 
     const newProduct = new Product({
+        category,
         prodId,
         name,
         price,
@@ -44,6 +46,7 @@ router.route('/:id').delete((req, res) => {
 router.route('/update/:id').post((req, res) => {
     Product.findById(req.params.id)
         .then(product => {
+            product.category = req.body.category;
             product.prodId = req.body.prodId;
             product.name = req.body.name;
             product.price = req.body.price;

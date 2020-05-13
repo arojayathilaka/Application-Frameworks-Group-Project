@@ -6,12 +6,14 @@ class AddProduct extends Component {
         super(props);
 
         this.state = {
+            category: 'Shoes',
             prodId: 0,
             name: '',
             price: 0,
             discount: 0,
             comments: '',
             ratings: 0,
+            categories: ['Shoes', 'Skirts', 'Trousers']
         }
     }
 
@@ -33,10 +35,17 @@ class AddProduct extends Component {
         })
     };
 
+    onChangeCategory = event => {
+        this.setState({
+            category: event.target.value
+        })
+    };
+
     onSubmit = event => {
         event.preventDefault();
 
         const product = {
+            category: this.state.category,
             prodId: this.state.prodId,
             name: this.state.name,
             price: this.state.price,
@@ -60,6 +69,24 @@ class AddProduct extends Component {
             <div>
                 <h3>Add New Product</h3>
                 <form onSubmit={this.onSubmit}>
+                    <div className="form-group">
+                        <label>Category: </label>
+                        <select
+                            required
+                            className="form-control"
+                            value={this.state.category}
+                            onChange={this.onChangeCategory}>
+                            {this.state.categories.map(category => {
+                                return (
+                                    <option
+                                        key={category}
+                                        value={category}>{category}
+                                    </option>
+                                )
+                            })
+                            }
+                        </select>
+                    </div>
                     <div className="form-group">
                         <label>Product ID: </label>
                         <input
