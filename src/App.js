@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css"
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Home from "./components/home";
 import AddProduct from "./components/add-product";
 import Product from "./components/product-details";
@@ -10,7 +10,7 @@ import EditProduct from "./components/edit-product";
 
 function App() {
   return (
-      <div className="container-md m-5">
+      <div >
 
           <Router>
               <div>

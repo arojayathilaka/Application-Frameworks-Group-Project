@@ -133,7 +133,7 @@ class Home extends Component{
                                     {/*<img alt="" src='https://upload.wikimedia.org/wikipedia/en/8/86/Posternotebook.jpg' />*/}
                                     {/*<img*/}
                                     {/*    src={'http://localhost:5000/images/' + this.state.imageFiles[product.id-1].filename}*/}
-                                    {/*    // src={this.state.images[product.prodId-1]}*/}
+                                    {/*     // src={this.state.images[product.prodId-1]}*/}
                                     {/*    alt=""*/}
                                     {/*    style={{width: "100%"}}*/}
                                     {/*/>*/}

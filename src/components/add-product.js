@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import '../stylesheets/add-product.css';
 
 class AddProduct extends Component {
     constructor(props) {
@@ -7,12 +8,12 @@ class AddProduct extends Component {
 
         this.state = {
             category: 'Shoes',
-            prodId: 0,
+            prodId: '',
             name: '',
-            price: 0,
-            discount: 0,
+            price: '',
+            discount: '',
             comments: '',
-            ratings: 0,
+            ratings: '',
             categories: ['Shoes', 'Skirts', 'Trousers']
         }
     }
@@ -65,71 +66,72 @@ class AddProduct extends Component {
 
     render() {
         return(
+            <div className= "BackImage">
+                <div className="AddProduct">
+                    <h3>Add New Product</h3>
+                    <form onSubmit={this.onSubmit}>
+                        <div className="form-group">
+                            <label>Category: </label>
+                            <select
+                                required
+                                className="form-control"
+                                value={this.state.category}
+                                onChange={this.onChangeCategory}>
+                                {this.state.categories.map(category => {
+                                    return (
+                                        <option
+                                            key={category}
+                                            value={category}>{category}
+                                        </option>
+                                    )
+                                })
+                                }
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>Product ID: </label>
+                            <input
+                                type="text"
+                                required
+                                className="form-control"
+                                value={this.state.prodId}
+                                onChange={this.onChangeProdId}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Name: </label>
+                            <input
+                                type="text"
+                                required
+                                className="form-control"
+                                value={this.state.name}
+                                onChange={this.onChangeName}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Price: </label>
+                            <input
+                                type="text"
+                                required
+                                className="form-control"
+                                value={this.state.price}
+                                onChange={this.onChangePrice}
+                            />
+                        </div>
 
-            <div>
-                <h3>Add New Product</h3>
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>Category: </label>
-                        <select
-                            required
-                            className="form-control"
-                            value={this.state.category}
-                            onChange={this.onChangeCategory}>
-                            {this.state.categories.map(category => {
-                                return (
-                                    <option
-                                        key={category}
-                                        value={category}>{category}
-                                    </option>
-                                )
-                            })
-                            }
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label>Product ID: </label>
-                        <input
-                            type="text"
-                            required
-                            className="form-control"
-                            value={this.state.prodId}
-                            onChange={this.onChangeProdId}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Name: </label>
-                        <input
-                            type="text"
-                            required
-                            className="form-control"
-                            value={this.state.name}
-                            onChange={this.onChangeName}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Price: </label>
-                        <input
-                            type="text"
-                            required
-                            className="form-control"
-                            value={this.state.price}
-                            onChange={this.onChangePrice}
-                        />
-                    </div>
+                        <div className="form-group">
+                            <input type="submit" value="Add Product" className="btn btn-primary" />
+                        </div>
+                    </form>
 
-                    <div className="form-group">
-                        <input type="submit" value="Add Product" className="btn btn-primary" />
-                    </div>
-                </form>
-
-                <form action="http://localhost:5000/images/add" method="POST" encType="multipart/form-data"  >
-                    <div className="custom-file mb-3">
-                        <input type="file" name="file" id="file" className="custom-file-input"/>
-                        <label htmlFor="file" className="custom-file-label">Choose Image File</label>
-                    </div>
-                    <input type="submit" value="submit" className="btn btn-primary"/>
-                </form>
+                    <form action="http://localhost:5000/images/add" method="POST" encType="multipart/form-data"  >
+                        <div className="custom-file mb-3">
+                            <input type="file" name="file" id="file" className="custom-file-input"/>
+                            <label htmlFor="file" className="custom-file-label">Choose Image File</label>
+                        </div>
+                        <input style={{marginBottom: "10px"}} type="submit" value="submit" className="btn btn-primary"/>
+                    </form>
+                </div>
             </div>
         );
     }
