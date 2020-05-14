@@ -11,29 +11,29 @@ class Home extends Component{
             products: [],
             imageFiles: [],
             images: [],
-            image: ''
+            image: '',
+            img: ''
         }
     }
 
-    // arrayBufferToBase64(buffer) {
-    //     let binary = '';
-    //     const bytes = [].slice.call(new Uint8Array(buffer));
-    //     bytes.forEach((b) => binary += String.fromCharCode(b));
-    //     return window.btoa(binary);
-    // };
+    arrayBufferToBase64(buffer) {
+        let binary = '';
+        const bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        return window.btoa(binary);
+    };
 
     componentDidMount() {
-        // fetch('http://localhost:5000/images/image')
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //         console.log(data);
-        //         const base64Flag = 'data:image/jpeg;base64,';
-        //         const imageStr =
-        //             this.arrayBufferToBase64(data.img.data.data);
-        //         this.setState({
-        //             img: base64Flag + imageStr
-        //         })
-        //     })
+        fetch('http://localhost:5000/images/image')
+            .then((res) => res.json())
+            .then(data => {
+                console.log(data);
+                const base64Flag = 'data:image/jpeg;base64,';
+                const imageStr = this.arrayBufferToBase64(data.img.data.data);
+                this.setState({
+                    img: base64Flag + imageStr
+                })
+            });
 
         axios.get('http://localhost:5000/images/')
             .then(res => {
@@ -117,7 +117,7 @@ class Home extends Component{
     }
 
     render() {
-        //const {img} = this.state;
+        const {img} = this.state;
         // if (this.state.products === null) {
         //     return null;
         // }
@@ -137,9 +137,9 @@ class Home extends Component{
                                     {/*    alt=""*/}
                                     {/*    style={{width: "100%"}}*/}
                                     {/*/>*/}
-                                    {/*<img*/}
-                                    {/*    src={img}*/}
-                                    {/*    alt='Helpful alt text'/>*/}
+                                    <img
+                                        src={img}
+                                        alt='Helpful alt text'/>
                                 </div>
                                 <div className="ProductDetails">
                                     <p>{product.name}</p>

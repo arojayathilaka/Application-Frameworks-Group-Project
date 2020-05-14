@@ -1,0 +1,8 @@
+.BackImage {
+    background-image: url(../images/denim2.jpg);
+    height: 100vh;
+}
+.AddProduct {
+    margin-left: 30px;
+    margin-right: 800px;
+}
