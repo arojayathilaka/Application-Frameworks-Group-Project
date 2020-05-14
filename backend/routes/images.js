@@ -19,7 +19,7 @@ router.route('/add').post(upload.single('file'), (req, res) => {
     newImage.img.data = fs.readFileSync(req.file.path);
     newImage.img.contentType = 'image/jpeg';  // or 'image/png'
     newImage.save();
-    res.json({message: 'New image added to the db!'});
+    res.json({message: 'Image added to the db!'});
 
 });
 
