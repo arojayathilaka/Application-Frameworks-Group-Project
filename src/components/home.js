@@ -33,7 +33,7 @@ class Home extends Component{
         //         })
         //     });
 
-        fetch('http://localhost:5000/images/')
+        fetch('http://localhost:5000/images')
             .then((res) => res.json())
             .then(data => {
                console.log(data);
@@ -49,7 +49,7 @@ class Home extends Component{
                })
             });
 
-        axios.get('http://localhost:5000/products/')
+        axios.get('http://localhost:5000/products')
             .then(res => {
                 this.setState({
                     products: res.data
