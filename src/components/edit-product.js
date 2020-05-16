@@ -7,10 +7,12 @@ class EditProduct extends Component {
         super(props);
 
         this.state = {
-            prodId: 0,
+            category: '',
+            prodId: '',
             name: '',
-            price: 0,
-            discount: 0
+            price: '',
+            discount: '',
+            categories: ['Shoes', 'Skirts', 'Trousers']
         }
     }
 
@@ -18,11 +20,11 @@ class EditProduct extends Component {
         axios.get('http://localhost:5000/products/' + this.props.match.params.id)
             .then(res =>
                 this.setState({
+                    category: res.data.category,
                     prodId: res.data.prodId,
                     name: res.data.name,
                     price: res.data.price,
-                    duration: res.data.duration,
-                    date: new Date(res.data.date)
+                    duration: res.data.duration
                 }))
             .catch(err => console.log(err));
     }
@@ -51,6 +53,11 @@ class EditProduct extends Component {
         })
     };
 
+    onChangeCategory = event => {
+        this.setState({
+            category: event.target.value
+        })
+    };
 
     onSubmit = event => {
         event.preventDefault();
@@ -59,12 +66,13 @@ class EditProduct extends Component {
             prodId: this.state.prodId,
             name: this.state.name,
             price: this.state.price,
-            discount: this.state.discount
+            discount: this.state.discount,
+            category: this.state.category
         };
 
         console.log(product);
 
-        axios.post('http://localhost:5000/products/update/' + this.props.match.params.id, product)
+        axios.put('http://localhost:5000/products/update/' + this.props.match.params.id, product)
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
 
@@ -76,6 +84,24 @@ class EditProduct extends Component {
             <div>
                 <h3>Edit Product</h3>
                 <form onSubmit={this.onSubmit}>
+                    <div className="form-group">
+                        <label>Category: </label>
+                        <select
+                            required
+                            className="form-control"
+                            value= {this.state.category}
+                            onChange={this.onChangeCategory}>
+                            {this.state.categories.map(category => {
+                                return (
+                                    <option
+                                        key={category}
+                                        value={category}>{category}
+                                    </option>
+                                )
+                            })
+                            }
+                        </select>
+                    </div>
                     <div className="form-group">
                         <label>Product ID: </label>
                         <input  type="text"

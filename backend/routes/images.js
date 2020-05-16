@@ -3,6 +3,7 @@ let Image = require('../models/image.model');
 const fs = require('fs');
 const multer = require('multer');
 
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/')
@@ -24,13 +25,25 @@ router.route('/add').post(upload.single('file'), (req, res) => {
 });
 
 router.route('/image').get((req, res) => {
-    Image.findOne({}, 'img createdAt', (err, img) => {
+    Image.findOne({}, (err, img) => {
         if (err)
             res.send(err);
         console.log(img);
         res.contentType('json');
         res.send(img);
     }).sort({ createdAt: 'desc' });
+});
+
+router.route('/').get((req, res) => {
+   Image.find({}, (err, img) => {
+       //const imgArray = img.map(element => element._id);
+       if (err)
+           res.send(err);
+       console.log(img);
+       res.contentType('json');
+       res.send(img);
+       //res.send(imgArray);
+   });
 });
 
 // app.get('/images/:filename', (req, res) => {
@@ -61,14 +74,14 @@ router.route('/image').get((req, res) => {
 //     })
 // });
 
-router.route('/').get((req, res) => {
-    Image.findOne({}, 'img createdAt', (err, img) => {
-        if (err)
-            res.send(err);
-        console.log(img);
-        res.contentType('json');
-        res.send(img);
-    }).sort({ createdAt: 'desc' });
+// router.route('/').get((req, res) => {
+//     Image.findOne({}, 'img createdAt', (err, img) => {
+//         if (err)
+//             res.send(err);
+//         console.log(img);
+//         res.contentType('json');
+//         res.send(img);
+//     }).sort({ createdAt: 'desc' });
     // Image.find().toArray((err, images) => {
     //     if (err)
     //         res.send(err);
@@ -76,7 +89,7 @@ router.route('/').get((req, res) => {
     //     res.contentType('json');
     //     res.send(images);
     // })
-});
+//});
 
 // app.get('/images', (req, res) => {
 //     gfs.files.find().toArray((err, files) => {
