@@ -58,10 +58,13 @@ class AddProduct extends Component {
         console.log(product);
 
         axios.post('http://localhost:5000/products/add', product)
-            .then(res => console.log(res.data))
+            .then(res => {
+                console.log(res.data);
+                alert("Product Added Successfully!");
+            })
             .catch(err => console.log(err));
 
-        window.location = '/';
+        //window.location = '/';
     };
 
     render() {
@@ -127,9 +130,9 @@ class AddProduct extends Component {
                     <form action="http://localhost:5000/images/add" method="POST" encType="multipart/form-data"  >
                         <div className="custom-file mb-3">
                             <input type="file" name="file" id="file" className="custom-file-input"/>
-                            <label htmlFor="file" className="custom-file-label">Choose Image File</label>
+                            <label htmlFor="file" className="custom-file-label">Choose Product Image</label>
                         </div>
-                        <input style={{marginBottom: "10px"}} type="submit" value="submit" className="btn btn-primary"/>
+                        <input style={{marginBottom: "10px"}} type="submit" value="Add Product Image" className="btn btn-primary"/>
                     </form>
                 </div>
             </div>
