@@ -99,7 +99,11 @@ console.log(mongoose
 const productsRouter = require('./routes/products');
 const imagesRouter = require('./routes/images');
 const cartItemsRouter = require('./routes/cartItems');
+const creditCardPaymentRouter = require('./routes/creditCardPayment');
+const cashOnDeliveryRouter = require('./routes/cashOnDelivery');
 
+app.use('/creditCardPayment', creditCardPaymentRouter);
+app.use('/cashOnDelivery', cashOnDeliveryRouter);
 app.use('/products', productsRouter);
 app.use('/images', imagesRouter);
 app.use('/cartItems', cartItemsRouter);
