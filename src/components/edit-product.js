@@ -72,10 +72,17 @@ class EditProduct extends Component {
 
         console.log(product);
 
-        axios.put('http://localhost:5000/products/update/' + this.props.match.params.id, product)
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err));
-
+        if (product.prodId === '') alert("Please enter product ID");
+        else if (product.name === '') alert("Please enter product name");
+        else if (product.price === '') alert("Please enter product price");
+        else {
+            axios.put('http://localhost:5000/products/update/' + this.props.match.params.id, product)
+                .then(res => {
+                    console.log(res.data);
+                    alert("Product Updated Successfully!");
+                })
+                .catch(err => console.log(err));
+        }
         //window.location = '/';
     };
 

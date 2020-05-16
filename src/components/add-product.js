@@ -57,12 +57,17 @@ class AddProduct extends Component {
 
         console.log(product);
 
-        axios.post('http://localhost:5000/products/add', product)
-            .then(res => {
-                console.log(res.data);
-                alert("Product Added Successfully!");
-            })
-            .catch(err => console.log(err));
+        if (product.prodId === '') alert("Please enter product ID");
+        else if (product.name === '') alert("Please enter product name");
+        else if (product.price === '') alert("Please enter product price");
+        else {
+            axios.post('http://localhost:5000/products/add', product)
+                .then(res => {
+                    console.log(res.data);
+                    alert("Product Added Successfully!");
+                })
+                .catch(err => console.log(err));
+        }
 
         //window.location = '/';
     };
