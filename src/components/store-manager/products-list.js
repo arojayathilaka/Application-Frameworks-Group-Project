@@ -9,7 +9,8 @@ class ProductsList extends Component {
             name: '',
             price: 0,
             discount: 0,
-            products: []
+            products: [],
+            imageIDs: []
         }
     }
 
@@ -20,18 +21,41 @@ class ProductsList extends Component {
             })
             .catch(err => {
                 console.error(err)
-            })
+            });
+
+        axios.get('http://localhost:5000/images')
+            .then(res => {
+                console.log(res.data);
+                const imageIDs = [];
+                res.data.forEach(image => {
+                    imageIDs.push(image._id);
+                });
+                this.setState({
+                    imageIDs: imageIDs
+                })
+            });
     }
 
     deleteProduct = id => {
-        axios.delete('http://localhost:5000/products/' + id)
-            .then(res => console.log(res.data))
+        axios.delete('http://localhost:5000/products/delete/' + id)
+            .then(res => {
+                console.log(res.data);
+                alert('Product Image Deleted!')
+            })
             .catch(err => console.error(err));
 
         this.setState({
             products: this.state.products.filter(product => product._id !== id)
         })
+    };
 
+    deleteProductImage = id => {
+        axios.delete('http://localhost:5000/images/delete/' + id)
+            .then(res => {
+                console.log(res.data);
+                alert('Product Image Deleted!')
+            })
+            .catch(err => console.error(err));
     };
 
     render() {
@@ -54,18 +78,22 @@ class ProductsList extends Component {
                             <td>{product.price}</td>
                             <td>{product.discount}</td>
                             <td>
-                                {/*<Link to={'/edit/'+ product._id}>Edit</Link>*/}
                                 <a
                                     href={'/edit/'+ product._id}
                                     className="btn btn-secondary"
                                 >
                                     Edit
                                 </a> | <button
-                                className="btn btn-danger"
-                                onClick={() => this.deleteProduct(product._id)}
-                            >
-                                Delete
-                            </button>
+                                    className="btn btn-danger"
+                                    onClick={() => this.deleteProductImage(this.state.imageIDs[product.prodId-1])}
+                                >
+                                    Delete Product Image
+                                </button> | <button
+                                    className="btn btn-danger"
+                                    onClick={() => this.deleteProduct(product._id)}
+                                >
+                                    Delete Product
+                                </button>
                             </td>
                         </tr>
                     ))}

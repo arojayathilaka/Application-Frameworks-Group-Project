@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import '../stylesheets/add-product.css';
+import '../../stylesheets/add-product.css';
 
 class AddProduct extends Component {
     constructor(props) {
@@ -36,6 +36,12 @@ class AddProduct extends Component {
         })
     };
 
+    onChangeDiscount = event => {
+        this.setState({
+            discount: event.target.value
+        })
+    };
+
     onChangeCategory = event => {
         this.setState({
             category: event.target.value
@@ -68,8 +74,8 @@ class AddProduct extends Component {
 
     render() {
         return(
-            <div className= "BackImage">
-                <div className="AddProduct">
+            <div className= "backImage">
+                <div className="addProduct">
                     <h3>Add New Product</h3>
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
@@ -120,6 +126,15 @@ class AddProduct extends Component {
                                 className="form-control"
                                 value={this.state.price}
                                 onChange={this.onChangePrice}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Discount: </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={this.state.discount}
+                                onChange={this.onChangeDiscount}
                             />
                         </div>
 

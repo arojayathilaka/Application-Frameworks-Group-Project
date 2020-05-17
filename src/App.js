@@ -3,10 +3,10 @@ import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Home from "./components/home";
-import AddProduct from "./components/add-product";
+import AddProduct from "./components/store-manager/add-product";
 import Product from "./components/product-details";
-import ProductsList from "./components/products-list";
-import EditProduct from "./components/edit-product";
+import ProductsList from "./components/store-manager/products-list";
+import EditProduct from "./components/store-manager/edit-product";
 
 function App() {
   return (

@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 // const multer = require('multer');
 // const GridFsStorage = require('multer-gridfs-storage');
 // const Grid = require('gridfs-stream');
-const methodOverride = require('method-override');
+//const methodOverride = require('method-override');
 
 require('dotenv').config();
 
@@ -17,19 +17,19 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(methodOverride('_method'));
-app.set('view engine', 'ejs');
+//app.use(methodOverride('_method'));
+//app.set('view engine', 'ejs');
 
 const uri = process.env.ATLAS_URI;
 
-console.log(mongoose
+mongoose
     .connect(uri, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true
     })
     .then(() => console.log('MongoDB database connection established successfully'))
-    .catch(err => console.log(err)));
+    .catch(err => console.log(err));
 
 // let gfs;
 //
