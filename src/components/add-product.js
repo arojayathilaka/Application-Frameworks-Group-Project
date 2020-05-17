@@ -44,7 +44,6 @@ class AddProduct extends Component {
 
     onSubmit = event => {
         event.preventDefault();
-
         const product = {
             category: this.state.category,
             prodId: this.state.prodId,
@@ -57,17 +56,12 @@ class AddProduct extends Component {
 
         console.log(product);
 
-        if (product.prodId === '') alert("Please enter product ID");
-        else if (product.name === '') alert("Please enter product name");
-        else if (product.price === '') alert("Please enter product price");
-        else {
-            axios.post('http://localhost:5000/products/add', product)
-                .then(res => {
-                    console.log(res.data);
-                    alert("Product Added Successfully!");
-                })
-                .catch(err => console.log(err));
-        }
+        axios.post('http://localhost:5000/products/add', product)
+            .then(res => {
+                console.log(res.data);
+                alert("Product Added Successfully!");
+            })
+            .catch(err => console.log(err));
 
         //window.location = '/';
     };
@@ -101,6 +95,7 @@ class AddProduct extends Component {
                             <input
                                 type="text"
                                 required
+                                pattern="\d+"
                                 className="form-control"
                                 value={this.state.prodId}
                                 onChange={this.onChangeProdId}
@@ -121,6 +116,7 @@ class AddProduct extends Component {
                             <input
                                 type="text"
                                 required
+                                pattern="\d+"
                                 className="form-control"
                                 value={this.state.price}
                                 onChange={this.onChangePrice}

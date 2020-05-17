@@ -72,17 +72,13 @@ class EditProduct extends Component {
 
         console.log(product);
 
-        if (product.prodId === '') alert("Please enter product ID");
-        else if (product.name === '') alert("Please enter product name");
-        else if (product.price === '') alert("Please enter product price");
-        else {
-            axios.put('http://localhost:5000/products/update/' + this.props.match.params.id, product)
-                .then(res => {
-                    console.log(res.data);
-                    alert("Product Updated Successfully!");
-                })
-                .catch(err => console.log(err));
-        }
+        axios.put('http://localhost:5000/products/update/' + this.props.match.params.id, product)
+            .then(res => {
+                console.log(res.data);
+                alert("Product Updated Successfully!");
+            })
+            .catch(err => console.log(err));
+
         //window.location = '/';
     };
 
@@ -113,6 +109,7 @@ class EditProduct extends Component {
                         <label>Product ID: </label>
                         <input  type="text"
                                 required
+                                pattern="\d+"
                                 className="form-control"
                                 value={this.state.prodId}
                                 onChange={this.onChangeId}
@@ -131,6 +128,7 @@ class EditProduct extends Component {
                         <label>Price: </label>
                         <input  type="text"
                                 required
+                                pattern="\d+"
                                 className="form-control"
                                 value={this.state.price}
                                 onChange={this.onChangePrice}
