@@ -21,7 +21,6 @@ router.route('/add').post(upload.single('file'), (req, res) => {
     newImage.img.contentType = 'image/jpeg';  // or 'image/png'
     newImage.save();
     res.json({message: 'Image added to the db!'});
-
 });
 
 router.route('/image').get((req, res) => {

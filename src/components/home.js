@@ -22,23 +22,21 @@ class Home extends Component{
     };
 
     componentDidMount() {
-        // fetch('http://localhost:5000/images/image/')
-        //     .then((res) => res.json())
-        //     .then(data => {
-        //         console.log(data);
-        //         const base64Flag = 'data:image/jpeg;base64,';
-        //         const imageStr = this.arrayBufferToBase64(data.img.data.data);
-        //         this.setState({
-        //             image: base64Flag + imageStr
-        //         })
-        //     });
+        axios.get('http://localhost:5000/images/image')
+            .then(res => {
+                console.log(res.data);
+                const base64Flag = 'data:image/jpeg;base64,';
+                const imageStr = this.arrayBufferToBase64(res.data.img.data.data);
+                this.setState({
+                    image: base64Flag + imageStr
+                })
+            });
 
-        fetch('http://localhost:5000/images')
-            .then((res) => res.json())
-            .then(data => {
-               console.log(data);
+        axios.get('http://localhost:5000/images')
+            .then(res => {
+               console.log(res.data);
                const images = [];
-               data.forEach(img => {
+               res.data.forEach(img => {
                    const base64Flag = 'data:image/jpeg;base64,';
                    const imageStr = this.arrayBufferToBase64(img.img.data.data);
                    const image = base64Flag + imageStr;
