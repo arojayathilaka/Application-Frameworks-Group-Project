@@ -1,10 +1,14 @@
 const router = require('express').Router();
-let Product = require('../models/product.model');
+const Product = require('../models/product.model');
 
 router.route('/').get((req, res) => {
     Product.find()
-        .then(products => res.json(products))
-        .catch(err => res.status(400).json('Error: ' + err));
+        .then(products =>
+            res.status(200).send(products)
+        )
+        .catch(err =>
+            res.status(400).send('Error: ' + err)
+        );
 });
 
 router.route('/add').post((req, res) => {
@@ -27,20 +31,29 @@ router.route('/add').post((req, res) => {
     });
 
     newProduct.save()
-        .then(() => res.json('Product added!'))
-        .catch(err => res.status(400).json('Error: ' + err));
+        .then(() => res.send('Product added!'))
+        .catch(err =>
+            res.status(400).send('Error: ' + err)
+        );
 });
 
 router.route('/:id').get((req, res) => {
     Product.findById(req.params.id)
-        .then(product => res.json(product))
-        .catch(err => res.status(400).json('Error: ' + err));
+        //.then(product => res.json(product))
+        .then(product => {
+            res.status(200).send(product);
+        })
+        .catch(err =>
+            res.status(400).send('Error: ' + err)
+        );
 });
 
-router.route('/:id').delete((req, res) => {
+router.route('/delete/:id').delete((req, res) => {
     Product.findByIdAndDelete(req.params.id)
-        .then(() => res.json('Product deleted!'))
-        .catch(err => res.status(400).json('Error: ' + err));
+        .then(() => res.send('Product deleted!'))
+        .catch(err =>
+            res.status(400).send('Error: ' + err)
+        );
 });
 
 router.route('/update/:id').put((req, res) => {
@@ -55,10 +68,14 @@ router.route('/update/:id').put((req, res) => {
             product.ratings = req.body.ratings;
 
             product.save()
-                .then(() => res.json('Product updated!'))
-                .catch(err => res.status(400).json('Error: ' + err));
+                .then(() => res.send('Product updated!'))
+                .catch(err =>
+                    res.status(400).json('Error: ' + err)
+                );
         })
-        .catch(err => res.status(400).json('Error: ' + err));
+        .catch(err =>
+            res.status(400).json('Error: ' + err)
+        );
 });
 
 module.exports = router;

@@ -1,8 +1,7 @@
 const router = require('express').Router();
-let Image = require('../models/image.model');
+const Image = require('../models/image.model');
 const fs = require('fs');
 const multer = require('multer');
-
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -20,19 +19,18 @@ router.route('/add').post(upload.single('file'), (req, res) => {
     newImage.img.data = fs.readFileSync(req.file.path);
     newImage.img.contentType = 'image/jpeg';  // or 'image/png'
     newImage.save();
-    res.json({message: 'Image added to the db!'});
-
+    res.send('Image added to the db!');
 });
 
-router.route('/image').get((req, res) => {
-    Image.findOne({}, (err, img) => {
-        if (err)
-            res.send(err);
-        console.log(img);
-        res.contentType('json');
-        res.send(img);
-    }).sort({ createdAt: 'desc' });
-});
+// router.route('/image').get((req, res) => {
+//     Image.findOne({}, (err, img) => {
+//         if (err)
+//             res.send(err);
+//         console.log(img);
+//         res.contentType('json');
+//         res.send(img);
+//     }).sort({ createdAt: 'desc' });
+// });
 
 router.route('/').get((req, res) => {
    Image.find({}, (err, img) => {
@@ -46,6 +44,13 @@ router.route('/').get((req, res) => {
    });
 });
 
+router.route('/delete/:id').delete((req, res) => {
+    Image.findByIdAndDelete(req.params.id)
+        .then(() => res.send('Image deleted!'))
+        .catch(err =>
+            res.status(400).send('Error: ' + err)
+        )
+});
 // app.get('/images/:filename', (req, res) => {
 //     gfs.files.findOne({filename: req.params.filename}, (err, file) => {
 //         if (!file || file.length === 0){
