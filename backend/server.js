@@ -102,6 +102,7 @@ const cartItemsRouter = require('./routes/cartItems');
 const creditCardPaymentRouter = require('./routes/creditCardPayment');
 const cashOnDeliveryRouter = require('./routes/cashOnDelivery');
 const userDetailsRouter = require('./routes/userDetails');
+const categoriesRouter = require('./routes/categories');
 
 app.use('/creditCardPayment', creditCardPaymentRouter);
 app.use('/cashOnDelivery', cashOnDeliveryRouter);
@@ -109,6 +110,7 @@ app.use('/products', productsRouter);
 app.use('/images', imagesRouter);
 app.use('/cartItems', cartItemsRouter);
 app.use('/userDetails', userDetailsRouter);
+app.use('/categories', categoriesRouter);
 
 app.listen(port, err => {
     if (err) {

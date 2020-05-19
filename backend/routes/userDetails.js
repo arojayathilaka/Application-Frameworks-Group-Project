@@ -1,7 +1,6 @@
 const router = require('express').Router();
 let userDetail = require('../models/userDetails.models');
 let UserSession = require('../models/UserSession');
-let Category = require('../models/Category');
 
 const nodemailer = require('nodemailer');
 
@@ -17,11 +16,7 @@ router.route('/:id').get((req, res) => {
         .catch(err => res.status(400).json('Error: '+err));
 });
 
-router.route('/get').post((req, res) =>{
-    Category.find()
-        .then(categories => res.json(categories))
-        .catch(err => res.status(400).json('Error: '+err));
-});
+
 
 router.route('/add').post((req, res) => {
 
@@ -146,56 +141,6 @@ router.route('/getSM').post((req, res) => {
         email: email
     }).then(smdetails => res.json(smdetails))
         .catch(err => res.status(400).json('Error: '+err));
-});
-
-router.route('/addCategory').post((req, res) => {
-
-    const categoryname = req.body.categoryname;
-
-    if (!categoryname){
-        return res.send({
-            success: false,
-            message: 'Category Name can not be blank.'
-        });
-    }
-
-    console.log('here');
-
-    Category.find({
-        categoryname: categoryname
-    },(err, previousCategories) =>{
-        if(err){
-            return res.send({
-                success: false,
-                message: 'Error: Server error'
-            });
-
-        }
-        else if(previousCategories.length > 0){
-            return res.send({
-                success: false,
-                message: 'this category is also exist.'
-            });
-        }
-        else{
-            const newCategoryDetails = new Category({
-                categoryname,
-            });
-            newCategoryDetails.save((err, category) => {
-
-                if(err){
-                    return res.send({
-                        success: false,
-                        message: 'Error: Server error'
-                    });
-                }
-                return res.send({
-                    success: true,
-                    message: 'new category added.'
-                });
-            })
-        }
-    });
 });
 
 router.route('/update').put((req, res) => {
@@ -348,7 +293,7 @@ router.route('/delete').post((req, res) => {
         userid: userid
     },(err, deleteUsers) =>{
         if(err){
-            console.log('amanda');
+
             return res.send({
                 success: false,
                 message: 'Error: Server error'

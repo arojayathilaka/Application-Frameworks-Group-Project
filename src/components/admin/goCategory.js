@@ -17,7 +17,7 @@ class Category extends Component{
         }
     }
     componentDidMount() {
-        axios.post('http://localhost:5000/userDetails/get')
+        axios.post('http://localhost:5000/categories/get')
             .then(response =>{
                 this.setState({categories: response.data})
                 console.log(response.data);
