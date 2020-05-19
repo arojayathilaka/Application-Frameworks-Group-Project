@@ -1,4 +1,4 @@
-
+import '../stylesheets/home.css';
 import React, {Component} from "react";
 import axios from "axios"
 
@@ -76,11 +76,11 @@ class Home extends Component{
             itemId: prodId,
             itemName: name,
             price: price,
-            //discount: discount,
-            discount: 0,
+            discount: discount,
             quantity: this.state.quantity,
-            //totalPrice: this.state.totalPrice,
-            totalPrice:1000,
+            totalPrice: this.state.quantity * price ,
+
+
         };
 
 
@@ -103,7 +103,7 @@ class Home extends Component{
     render() {
             return (
                 this.state.products.map(product => (
-                    <div key={product.prodId}>
+                    <div class={product} key={product.prodId}>
                         <div className="ProductArea">
                             <div className="Product">
                                 <div className="ProductImage">
