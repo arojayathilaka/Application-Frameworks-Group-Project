@@ -85,7 +85,7 @@ class AddStoreManager extends Component{
             contact: this.state.contact,
             email: this.state.email,
             password: this.state.password
-        }
+        };
 
         console.log(storemanager);
 

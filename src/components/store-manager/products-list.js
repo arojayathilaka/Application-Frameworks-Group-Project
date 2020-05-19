@@ -9,7 +9,7 @@ class ProductsList extends Component {
             name: '',
             price: 0,
             discount: 0,
-            products: [],
+            allProducts: [],
             imageIDs: []
         }
     }
@@ -17,7 +17,7 @@ class ProductsList extends Component {
     componentDidMount() {
         axios.get('http://localhost:5000/products/')
             .then(res => {
-                this.setState({products: res.data})
+                this.setState({allProducts: res.data})
             })
             .catch(err => {
                 console.error(err)
@@ -45,7 +45,7 @@ class ProductsList extends Component {
             .catch(err => console.error(err));
 
         this.setState({
-            products: this.state.products.filter(product => product._id !== id)
+            allProducts: this.state.allProducts.filter(product => product._id !== id)
         })
     };
 
@@ -59,6 +59,7 @@ class ProductsList extends Component {
     };
 
     render() {
+        const products = this.state.allProducts.filter(product => (product.category === this.props.match.params.category));
         return(
             <div>
                 <h2>Products List</h2>
@@ -72,7 +73,7 @@ class ProductsList extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.products.map(product => (
+                    {products.map(product => (
                         <tr key={product._id}>
                             <td>{product.name}</td>
                             <td>{product.price}</td>

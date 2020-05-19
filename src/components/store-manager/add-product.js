@@ -7,15 +7,30 @@ class AddProduct extends Component {
         super(props);
 
         this.state = {
-            category: 'Shoes',
+            category: '',
             prodId: '',
             name: '',
             price: '',
             discount: '',
             comments: '',
             ratings: '',
-            categories: ['Shoes', 'Skirts', 'Trousers']
+            categories: []
         }
+    }
+
+    componentDidMount() {
+        axios.post('http://localhost:5000/userDetails/get')
+            .then(res =>{
+                if (res.data.length > 0) {
+                    this.setState({
+                        categories: res.data,
+                        category: res.data[0].categoryname
+                    });
+                }
+            })
+            .catch((error) =>{
+                console.log(error);
+            });
     }
 
     onChangeProdId = event => {
@@ -88,8 +103,8 @@ class AddProduct extends Component {
                                 {this.state.categories.map(category => {
                                     return (
                                         <option
-                                            key={category}
-                                            value={category}>{category}
+                                            key={category._id}
+                                            value={category.categoryname}>{category.categoryname}
                                         </option>
                                     )
                                 })

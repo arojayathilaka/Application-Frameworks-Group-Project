@@ -7,7 +7,7 @@ const goAdminHome = (
     <div>
         <Link to={"/adminHome"} style={{textDecoration:"none"}}><input type="submit" style={{ color:"#fff", backgroundColor:"#9B59B6"}} value="Go To Admin Home" class="btn btn-lg btn-block"/><br/><br/></Link>
     </div>
-)
+);
 
 class AdminLogin extends Component{
     constructor(props) {
@@ -38,8 +38,8 @@ class AdminLogin extends Component{
 
     sweetalertfunction(){
         swal({
-            title: "Login!",
-            text: "You are Successfully Login!",
+            title: "Logged in!",
+            text: "You are Successfully Logged in!",
             icon: "success",
             button: true,
         }).then(()=>{
@@ -61,7 +61,7 @@ class AdminLogin extends Component{
         const storemanager = {
             name: this.state.name,
             password: this.state.password
-        }
+        };
 
         console.log(storemanager);
 

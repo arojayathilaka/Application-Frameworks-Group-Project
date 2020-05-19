@@ -13,6 +13,7 @@ class Home extends Component{
         this.state = {
             products: [],
             images: [],
+            imagesData: [],
             image: '',
             quantity:0,
 
@@ -26,30 +27,34 @@ class Home extends Component{
     };
 
 
-    arrayBufferToBase64(buffer) {
-        let binary = '';
-        const bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach((b) => binary += String.fromCharCode(b));
-        return window.btoa(binary);
-    };
-
     componentDidMount() {
+        // axios.get('http://localhost:5000/images/image')
+        //     .then(res => {
+        //         console.log(res.data);
+        //         const base64Flag = 'data:image/jpeg;base64,';
+        //         const imageStr = this.arrayBufferToBase64(res.data.img.data.data);
+        //         this.setState({
+        //             image: base64Flag + imageStr
+        //         })
+        //     });
 
-
-        fetch('http://localhost:5000/images')
-            .then((res) => res.json())
-            .then(data => {
-                console.log(data);
-                const images = [];
-                data.forEach(img => {
-                    const base64Flag = 'data:image/jpeg;base64,';
-                    const imageStr = this.arrayBufferToBase64(img.img.data.data);
-                    const image = base64Flag + imageStr;
-                    images.push(image);
-                });
-                this.setState({
-                    images: images
-                })
+        axios.get('http://localhost:5000/images')
+            .then(res => {
+               console.log(res.data);
+               this.setState({
+                   imagesData: res.data
+               });
+               // const images = [];
+               // res.data.forEach(img => {
+               //     const base64Flag = 'data:image/jpeg;base64,';
+               //     const imageStr = this.arrayBufferToBase64(img.img.data.data);
+               //     const image = base64Flag + imageStr;
+               //     images.push(image);
+               // });
+               // this.setState({
+               //     images: images
+               // })
+                //console.log(images)
             });
 
             axios.get('http://localhost:5000/products')
@@ -96,19 +101,52 @@ class Home extends Component{
 
     window.location = '/cartItems/';
 
-}
+};
 
 
+
+    arrayBufferToBase64(buffer) {
+        let binary = '';
+        const bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        return window.btoa(binary);
+    };
+
+    createImage = (prodId) => {
+        const imgData = this.state.imagesData.find(imageData => (imageData.imgId === prodId));
+        console.log(imgData);
+        const base64Flag = 'data:image/jpeg;base64,';
+        const imageStr = this.arrayBufferToBase64(imgData.img.data.data);
+        return base64Flag + imageStr;
+    };
 
     render() {
-            return (
+        //let image;
+        return (
                 this.state.products.map(product => (
                     <div key={product.prodId}>
                         <div className="ProductArea">
                             <div className="Product">
                                 <div className="ProductImage">
+                                    {/*{console.log(this.state.imagesData.find(imageData => (imageData.imgId === product.prodId)))}*/}
+                                    {/*{this.state.imagesData.forEach(imageData => {*/}
+                                    {/*    if (imageData.imgId === product.prodId) {*/}
+                                    {/*        const base64Flag = 'data:image/jpeg;base64,';*/}
+                                    {/*        const imageStr = this.arrayBufferToBase64(imageData.img.data.data);*/}
+                                    {/*        const image =  base64Flag + imageStr;*/}
+                                    {/*    }*/}
+                                    {/*})}*/}
                                     <img
-                                        src={this.state.images[product.prodId-1]}
+                                        //src={this.createImage(this.state.imagesData.find(imageData => (imageData.imgId === product.prodId)))}
+                                        //src={() => {this.createImage(product.prodId)}}
+                                        src={() => {this.state.imagesData.forEach(imageData => {
+                                            if (imageData.imgId === product.prodId) {
+                                                const base64Flag = 'data:image/jpeg;base64,';
+                                                const imageStr = this.arrayBufferToBase64(imageData.img.data.data);
+                                                return base64Flag + imageStr;
+                                            }
+                                        })}}
+                                        //src={image}
                                         //src={img}
                                         alt={product.name}/>
                                 </div>
