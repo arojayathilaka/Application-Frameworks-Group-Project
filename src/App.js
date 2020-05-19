@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Home from "./components/home";
@@ -33,8 +32,8 @@ function App() {
               <Route path="/addSM" component={AddStoreManager} />
               <Route path="/updateSM/:id" component={UpdateStoreManager} />
               <Route path="/deleteSM/:id" component={DeleteStoreManager} />
-              <Link to="/cartItems">Shopping Cart</Link>
-              <Link to="/add">add</Link>
+              {/*<Link to="/cartItems">Shopping Cart</Link>*/}
+              {/*<Link to="/add">add</Link>*/}
               <Route path="/" exact component={Home}/>
               <Route path="/add" exact component={AddProduct}/>
               <Route path="/productsList/:category" exact component={ProductsList}/>
@@ -43,10 +42,6 @@ function App() {
               <Route path="/edit/:id" exact component={EditProduct}/>
           </Router>
     </div>
-
-
-
-
   );
 }
 
