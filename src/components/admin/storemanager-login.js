@@ -79,8 +79,8 @@ class StoreManagerLogin extends Component{
 
     sweetalertfunction(){
         swal({
-            title: "Login!",
-            text: "You are Successfully Login!",
+            title: "Logged in!",
+            text: "You are Successfully Logged in!",
             icon: "success",
             button: true,
         }).then(()=>{
@@ -97,7 +97,7 @@ class StoreManagerLogin extends Component{
         const storemanager = {
             email: this.state.email,
             password: this.state.password
-        }
+        };
 
         console.log(storemanager);
 

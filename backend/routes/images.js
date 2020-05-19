@@ -68,18 +68,6 @@ router.route('/delete/:id').delete((req, res) => {
 // });
 
 // router.route('/').get((req, res) => {
-//     Image.find().fetch( (err, result) => {
-//
-//         const imgArray= result.map(element => element._id);
-//         console.log(imgArray);
-//
-//         if (err) return console.log(err);
-//         res.send(imgArray)
-//
-//     })
-// });
-
-// router.route('/').get((req, res) => {
 //     Image.findOne({}, 'img createdAt', (err, img) => {
 //         if (err)
 //             res.send(err);

@@ -7,15 +7,30 @@ class AddProduct extends Component {
         super(props);
 
         this.state = {
-            category: 'Shoes',
+            category: '',
             prodId: '',
             name: '',
             price: '',
             discount: '',
             comments: '',
             ratings: '',
-            categories: ['Shoes', 'Skirts', 'Trousers']
+            categories: []
         }
+    }
+
+    componentDidMount() {
+        axios.post('http://localhost:5000/userDetails/get')
+            .then(res =>{
+                if (res.data.length > 0) {
+                    this.setState({
+                        categories: res.data,
+                        category: res.data[0].categoryname
+                    });
+                }
+            })
+            .catch((error) =>{
+                console.log(error);
+            });
     }
 
     onChangeProdId = event => {
@@ -88,8 +103,8 @@ class AddProduct extends Component {
                                 {this.state.categories.map(category => {
                                     return (
                                         <option
-                                            key={category}
-                                            value={category}>{category}
+                                            key={category._id}
+                                            value={category.categoryname}>{category.categoryname}
                                         </option>
                                     )
                                 })
@@ -143,12 +158,24 @@ class AddProduct extends Component {
                         </div>
                     </form>
 
-                    <form action="http://localhost:5000/images/add" method="POST" encType="multipart/form-data"  >
+                    <form action="http://localhost:5000/images/add" method="POST" encType="multipart/form-data">
+                        <h4>Image Upload</h4>
+                        <div className="form-group">
+                            <input
+                                type="hidden"
+                                name="imageId"
+                                id="imageId"
+                                required
+                                pattern="\d+"
+                                className="form-control"
+                                value={this.state.prodId}
+                            />
+                        </div>
                         <div className="custom-file mb-3">
                             <input type="file" name="file" id="file" className="custom-file-input"/>
                             <label htmlFor="file" className="custom-file-label">Choose Product Image</label>
                         </div>
-                        <input style={{marginBottom: "10px"}} type="submit" value="Add Product Image" className="btn btn-primary"/>
+                        <input style={{marginBottom: "20px"}} type="submit" value="Add Product Image" className="btn btn-primary"/>
                     </form>
                 </div>
             </div>

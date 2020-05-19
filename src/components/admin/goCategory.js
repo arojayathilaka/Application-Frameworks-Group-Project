@@ -3,10 +3,10 @@ import axios from "axios";
 
 const CategoryView = props => (
     <div className="nav flex-column nav-pills" aria-orientation="vertical">
-        <a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" style={{color:"#000"}} href="#v-pills-profile"
+        <a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" style={{color:"#000"}} href={"/productsList/" + props.categoryview.categoryname}
            role="tab" aria-controls="v-pills-profile" aria-selected="false">{props.categoryview.categoryname}</a>
     </div>
-)
+);
 
 class Category extends Component{
     constructor(props) {
@@ -17,9 +17,10 @@ class Category extends Component{
         }
     }
     componentDidMount() {
-        axios.post('http://localhost:5000/userDetails/get')
+        axios.post('http://localhost:5000/categories/get')
             .then(response =>{
                 this.setState({categories: response.data})
+                console.log(response.data);
             })
             .catch((error) =>{
                 console.log(error);

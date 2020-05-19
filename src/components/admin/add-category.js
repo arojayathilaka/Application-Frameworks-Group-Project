@@ -41,7 +41,7 @@ class CategoryAdd extends Component{
 
         console.log(category);
 
-        axios.post('http://localhost:5000/userDetails/addCategory', category)
+        axios.post('http://localhost:5000/categories/addCategory', category)
             .then(res => {
                 if (res.data.success === true) {
                     this.sweetalertfunction();
