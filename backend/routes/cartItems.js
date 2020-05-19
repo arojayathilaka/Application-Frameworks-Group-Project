@@ -14,9 +14,6 @@ router.route('/add').post((req, res) => {
     const discount = Number(req.body.discount);
     const quantity = Number(req.body.quantity);
     const totalPrice = Number(req.body.totalPrice);
-    //const comments = req.body.comments;
-    //const ratings = Number(req.body.ratings);
-
 
     const newCartItem = new CartItem({
         itemId,

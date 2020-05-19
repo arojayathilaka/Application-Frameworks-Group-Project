@@ -7,12 +7,24 @@ class Home extends Component{
     constructor(props) {
         super(props);
 
+        this.onChangeQuantity = this.onChangeQuantity.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+
         this.state = {
             products: [],
             images: [],
-            image: ''
+            image: '',
+            quantity:0,
+
         }
     }
+
+    onChangeQuantity = event => {
+        this.setState({
+            quantity: event.target.value
+        })
+    };
+
 
     arrayBufferToBase64(buffer) {
         let binary = '';
@@ -22,42 +34,71 @@ class Home extends Component{
     };
 
     componentDidMount() {
-        // axios.get('http://localhost:5000/images/image')
-        //     .then(res => {
-        //         console.log(res.data);
-        //         const base64Flag = 'data:image/jpeg;base64,';
-        //         const imageStr = this.arrayBufferToBase64(res.data.img.data.data);
-        //         this.setState({
-        //             image: base64Flag + imageStr
-        //         })
-        //     });
 
-        axios.get('http://localhost:5000/images')
-            .then(res => {
-               console.log(res.data);
-               const images = [];
-               res.data.forEach(img => {
-                   const base64Flag = 'data:image/jpeg;base64,';
-                   const imageStr = this.arrayBufferToBase64(img.img.data.data);
-                   const image = base64Flag + imageStr;
-                   images.push(image);
-               });
-               this.setState({
-                   images: images
-               })
-            });
 
-        axios.get('http://localhost:5000/products')
-            .then(res => {
-                this.setState({
-                    products: res.data
+        fetch('http://localhost:5000/images')
+            .then((res) => res.json())
+            .then(data => {
+                console.log(data);
+                const images = [];
+                data.forEach(img => {
+                    const base64Flag = 'data:image/jpeg;base64,';
+                    const imageStr = this.arrayBufferToBase64(img.img.data.data);
+                    const image = base64Flag + imageStr;
+                    images.push(image);
                 });
-                console.log(this.state.products)
-            })
-            .catch(err => {
-                console.log(err)
+                this.setState({
+                    images: images
+                })
             });
-    }
+
+            axios.get('http://localhost:5000/products')
+                .then(res => {
+                    this.setState({
+                        products: res.data
+                    });
+                    console.log(this.state.products)
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+
+
+
+        }
+
+
+    onSubmit = (event, prodId, name, price, discount) => {
+        event.preventDefault();
+
+        const cartItem = {
+
+            itemId: prodId,
+            itemName: name,
+            price: price,
+            //discount: discount,
+            discount: 0,
+            quantity: this.state.quantity,
+            //totalPrice: this.state.totalPrice,
+            totalPrice:1000,
+        };
+
+
+        console.log(cartItem);
+
+        axios.post('http://localhost:5000/cartItems/add', cartItem)
+            .then(res => {
+                console.log(res.data);
+                alert("Product Added to the Shopping Cart!");
+            })
+            .catch(err => console.log(err));
+
+
+    window.location = '/cartItems/';
+
+}
+
+
 
     render() {
             return (
@@ -74,6 +115,29 @@ class Home extends Component{
                                 <div className="ProductDetails">
                                     <p>{product.name}</p>
                                     <p>{product.price}</p>
+                                    <p>{product.discount}</p>
+                                    <form
+                                        // onSubmit={this.onSubmit(product.prodId, product.name, product.price, product.discount)}
+                                        onSubmit={event => this.onSubmit(event, product.prodId, product.name, product.price, product.discount)}
+                                    >
+                                    <label>Quantity: </label>
+                                    <input
+                                        type="text"
+                                        required
+                                        className="form-control"
+                                        value={this.state.quantity}
+                                        onChange={this.onChangeQuantity}
+                                    />
+                                        <div className="form-group">
+                                            <input type="submit" value="Add To Shpping Cart" className="btn btn-primary" />
+                                        </div>
+                                    </form>
+                                <br/>
+
+                                    <br/>
+
+                                    <br/>
+
                                     <a href={"/product/" + product._id}>more details</a>
                                 </div>
                             </div>
