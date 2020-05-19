@@ -428,9 +428,10 @@ router.route('/signin').post((req, res) => {
         }
 
         const userSession = new UserSession();
-        userSession.userId = user._id;
-        console.log(userSession.userId);
+        userSession.username = user.username;
+
         userSession.save((err, doc) => {
+            console.log(userSession.username);
             if (err){
                 console.log(err);
                 return res.send({
