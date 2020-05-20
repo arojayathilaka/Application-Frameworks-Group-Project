@@ -1,21 +1,25 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+
 import axios from 'axios';
 
 
  class CartItemList extends Component {
 
 
+
+
     constructor(props) {
         super(props);
         this.state = {
-            itemId:0,
+            itemId: 0,
             itemName: '',
             price: 0,
             discount: 0,
-            quantity:0,
-            totalPrice:0,
-            cartItems: []
+            quantity: 0,
+            totalPrice: 0,
+            cartItems: [],
+
+
         }
     }
 
@@ -78,6 +82,9 @@ import axios from 'axios';
                                 <td>{cartItem.discount}</td>
                                 <td>{cartItem.quantity}</td>
                                 <td>{cartItem.totalPrice}</td>
+
+
+
                                 <td>
                                     {/*<Link to={'/edit/'+ product._id}>Edit</Link>*/}
                                     <a
@@ -99,6 +106,14 @@ import axios from 'axios';
 
                         </tbody>
                     </table>
+
+
+                <p>TOTAL PAYMENT = </p>
+                <div className="form-group">
+                    <input type="submit" value="CHECKOUT" className="btn btn-primary" />
+                </div>
+
+
                 </div>
 
 
