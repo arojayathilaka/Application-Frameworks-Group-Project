@@ -12,11 +12,11 @@ class Product extends Component{
         // this.onChangeDiscount = this.onChangeDiscount.bind(this);
 
         this.state = {
-            // category: '',
-            // prodId: 0,
-            // name: '',
-            // price: 0,
-            // discount: 0,
+            category: '',
+            prodId: 0,
+            name: '',
+            price: 0,
+            discount: 0,
             comments: "",
             ratings: 0
         }
@@ -43,7 +43,8 @@ class Product extends Component{
     onChangeComments = event => {
         this.setState({
             comments: event.target.value
-        })
+        });
+        console.log(this.state.comments)
     };
 
     // onChangeComments(e){
@@ -55,7 +56,8 @@ class Product extends Component{
     onChangeRatings = event => {
         this.setState({
             ratings: event.target.value
-        })
+        });
+        console.log(this.state.ratings)
     };
 
     // onChangeRatings(e){
@@ -84,22 +86,23 @@ class Product extends Component{
             .catch(err => console.log(err));
     }
 
-    onSubmit(e){
+    onSubmit = e => {
         e.preventDefault();
-
-        const commentRating = {
-            // category: this.state.category,
-            // prodId: this.state.prodId,
-            // name: this.state.name,
-            // price: this.state.price,
-            // discount: this.state.discount,
-            comments: this.state.comments,
-            ratings: this.state.ratings
-        }
+        console.log(this);
         console.log(this.state.comments)
         console.log(this.state.ratings)
+        const commentRating = {
+            category: this.state.category,
+            prodId: this.state.prodId,
+            name: this.state.name,
+            price: this.state.price,
+            discount: this.state.discount,
+            comments: this.state.comments,
+            ratings: this.state.ratings
+        };
+
         console.log(commentRating);
-        axios.post('http://localhost:5000/productDetails/add' + this.props.match.params.id, commentRating)
+        axios.put('http://localhost:5000/products/update/' + this.props.match.params.id, commentRating)
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
     }
