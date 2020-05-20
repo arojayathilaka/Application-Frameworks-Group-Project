@@ -1,10 +1,10 @@
 import React from 'react';
+import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
 import Home from "./components/home";
 import AddProduct from "./components/store-manager/add-product";
-import Product from "./components/user/product-details";
+import Product from "./components/user/productDetails.component";
 import ProductsList from "./components/store-manager/products-list";
 import EditProduct from "./components/store-manager/edit-product";
 import AdminLogin from "./components/admin/admin-login";
@@ -18,6 +18,8 @@ import DeleteStoreManager from "./components/admin/delete-storemanager";
 import Category from "./components/admin/goCategory";
 import AdminHome from "./components/admin/admin-home";
 import CartItemList from "./components/user/cartItem-list.component";
+import EditCartItem from "./components/edit-cartItem.component";
+
 import Navlink from "./components/user/navlink.component";
 import creditCardPayment from "./components/user/creditCardPayment.component";
 import cashOnDelivery from "./components/user/cashOnDelivery.component";
@@ -41,16 +43,21 @@ function App() {
               <Route path="/addSM" component={AddStoreManager} />
               <Route path="/updateSM/:id" component={UpdateStoreManager} />
               <Route path="/deleteSM/:id" component={DeleteStoreManager} />
-              {/*<Link to="/cartItems">Shopping Cart</Link>*/}
-              {/*<Link to="/add">add</Link>*/}
+              <Link to="/cartItems">Shopping Cart</Link>
+              <Link to="/add">add</Link>
               <Route path="/" exact component={Home}/>
               <Route path="/add" exact component={AddProduct}/>
               <Route path="/productsList/:category" exact component={ProductsList}/>
+              <Route path="/cartItems/:id" exact component={EditCartItem}/>
               <Route path="/cartItems" exact component={CartItemList}/>
               <Route path="/product/:id" exact component={Product}/>
               <Route path="/edit/:id" exact component={EditProduct}/>
           </Router>
     </div>
+
+
+
+
   );
 }
 
