@@ -1,7 +1,7 @@
-import '../stylesheets/home.css';
 import React, {Component} from "react";
 import axios from "axios";
-import '../stylesheets/products-home.css'
+import '../stylesheets/products-home.css';
+import '../stylesheets/home.css';
 
 class Home extends Component{
 
