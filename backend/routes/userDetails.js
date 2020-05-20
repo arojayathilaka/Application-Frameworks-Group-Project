@@ -81,50 +81,66 @@ router.route('/add').post((req, res) => {
             });
         }
         else{
-            const newUserDetails = new userDetail({
-                userid,
-                username,
-                contact,
-                email,
-                password,
-            });
-            newUserDetails.save((err, user) => {
-
-                let transporter = nodemailer.createTransport({
-                    host: 'smtp.gmail.com',
-                    port: 587,
-                    secure: false,
-                    auth: {
-                        user: 'myc8783@gmail.com',
-                        pass: '#company1#'
-                    }
-                });
-
-                let mailOptions = {
-                    to: req.body.email,
-                    subject: 'Your fashion store login password',
-                    text: 'login password: '+req.body.password
-                };
-
-                // send mail with defined transport object
-                transporter.sendMail(mailOptions, (error, info) => {
-                    if (error) {
-                        return console.log(error);
-                    }
-                    console.log("ggggggg");
-                });
-
+            userDetail.find({
+                userid: userid
+            },(err, previousID) => {
                 if(err){
                     return res.send({
                         success: false,
                         message: 'Error: Server error'
                     });
                 }
-                return res.send({
-                    success: true,
-                    message: 'new user added.'
-                });
-            })
+                else if(previousID.length > 0){
+                    console.log('account exist');
+                    return res.send({
+                        success: false,
+                        message: 'User ID already exist.'
+                    });
+                }
+                else{
+                    const newUserDetails = new userDetail({
+                        userid,
+                        username,
+                        contact,
+                        email,
+                        password,
+                    });
+                    newUserDetails.save((err, user) => {
+                        let transporter = nodemailer.createTransport({
+                            host: 'smtp.gmail.com',
+                            port: 587,
+                            secure: false,
+                            auth: {
+                                user: 'myc8783@gmail.com',
+                                pass: '#company1#'
+                            }
+                        });
+                        let mailOptions = {
+                            to: req.body.email,
+                            subject: 'Your fashion store login password',
+                            text: 'login password: '+req.body.password
+                        };
+                        // send mail with defined transport object
+                        transporter.sendMail(mailOptions, (error, info) => {
+                            if (error) {
+                                return console.log(error);
+                            }
+                            console.log("ggggggg");
+                        });
+                        if(err){
+                            return res.send({
+                                success: false,
+                                message: 'Error: Server error'
+                            });
+                        }
+                        return res.send({
+                            success: true,
+                            message: 'new user added.'
+                        });
+                    });
+                }
+            });
+
         }
     });
 });
