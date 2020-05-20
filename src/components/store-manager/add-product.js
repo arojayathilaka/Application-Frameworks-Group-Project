@@ -84,6 +84,16 @@ class AddProduct extends Component {
             })
             .catch(err => console.log(err));
 
+        this.setState({
+            category: '',
+            prodId: '',
+            name: '',
+            price: '',
+            discount: '',
+            comments: '',
+            ratings: ''
+        })
+
         //window.location = '/';
     };
 
