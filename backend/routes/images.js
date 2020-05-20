@@ -22,15 +22,15 @@ router.route('/add').post(upload.single('file'), (req, res) => {
     res.send('Image added to the db!');
 });
 
-// router.route('/image').get((req, res) => {
-//     Image.findOne({}, (err, img) => {
-//         if (err)
-//             res.send(err);
-//         console.log(img);
-//         res.contentType('json');
-//         res.send(img);
-//     }).sort({ createdAt: 'desc' });
-// });
+router.route('/image').get((req, res) => {
+    Image.findOne({}, (err, img) => {
+        if (err)
+            res.send(err);
+        console.log(img);
+        res.contentType('json');
+        res.send(img);
+    }).sort({ createdAt: 'desc' });
+});
 
 router.route('/').get((req, res) => {
    Image.find({}, (err, img) => {

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import axios from 'axios'
+import axios from 'axios';
+import '../../stylesheets/edit-product.css';
 
 class EditProduct extends Component {
 
@@ -12,11 +13,24 @@ class EditProduct extends Component {
             name: '',
             price: '',
             discount: '',
-            categories: ['Shoes', 'Skirts', 'Trousers']
+            categories: []
         }
     }
 
     componentDidMount() {
+        axios.post('http://localhost:5000/userDetails/get')
+            .then(res =>{
+                if (res.data.length > 0) {
+                    this.setState({
+                        categories: res.data,
+                        // category: res.data[0].categoryname
+                    });
+                }
+            })
+            .catch((error) =>{
+                console.log(error);
+            });
+
         axios.get('http://localhost:5000/products/' + this.props.match.params.id)
             .then(res =>
                 this.setState({
@@ -84,21 +98,23 @@ class EditProduct extends Component {
 
     render() {
         return(
-            <div>
+            <div className="backImg">
+                <div className="editProduct">
+                <br/>
                 <h3>Edit Product</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Category: </label>
+                        <br/>
                         <select
                             required
-                            className="form-control"
                             value= {this.state.category}
                             onChange={this.onChangeCategory}>
                             {this.state.categories.map(category => {
                                 return (
                                     <option
-                                        key={category}
-                                        value={category}>{category}
+                                        key={category._id}
+                                        value={category.categoryname}>{category.categoryname}
                                     </option>
                                 )
                             })
@@ -107,47 +123,48 @@ class EditProduct extends Component {
                     </div>
                     <div className="form-group">
                         <label>Product ID: </label>
+                        <br/>
                         <input  type="text"
                                 required
                                 pattern="\d+"
-                                className="form-control"
                                 value={this.state.prodId}
                                 onChange={this.onChangeId}
                         />
                     </div>
                     <div className="form-group">
                         <label>Product Name: </label>
+                        <br/>
                         <input  type="text"
                                 required
-                                className="form-control"
                                 value={this.state.name}
                                 onChange={this.onChangeName}
                         />
                     </div>
                     <div className="form-group">
                         <label>Price: </label>
+                        <br/>
                         <input  type="text"
                                 required
                                 pattern="\d+"
-                                className="form-control"
                                 value={this.state.price}
                                 onChange={this.onChangePrice}
                         />
                     </div>
                     <div className="form-group">
                         <label>Discount: </label>
+                        <br/>
                         <input
                             type="text"
-                            className="form-control"
                             value={this.state.discount}
                             onChange={this.onChangeDiscount}
                         />
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Edit Product" className="btn btn-primary" />
+                        <input type="submit" value="Edit Product" className="btnEdit"/>
                     </div>
                 </form>
+            </div>
             </div>
         );
     }

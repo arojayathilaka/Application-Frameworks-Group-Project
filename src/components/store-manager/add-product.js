@@ -89,15 +89,16 @@ class AddProduct extends Component {
 
     render() {
         return(
-            <div className= "backImage">
+            <div className="backImage">
                 <div className="addProduct">
+                    <br/>
                     <h3>Add New Product</h3>
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <label>Category: </label>
+                            <br/>
                             <select
                                 required
-                                className="form-control"
                                 value={this.state.category}
                                 onChange={this.onChangeCategory}>
                                 {this.state.categories.map(category => {
@@ -113,61 +114,60 @@ class AddProduct extends Component {
                         </div>
                         <div className="form-group">
                             <label>Product ID: </label>
+                            <br/>
                             <input
                                 type="text"
                                 required
                                 pattern="\d+"
-                                className="form-control"
                                 value={this.state.prodId}
                                 onChange={this.onChangeProdId}
                             />
                         </div>
                         <div className="form-group">
                             <label>Name: </label>
+                            <br/>
                             <input
                                 type="text"
                                 required
-                                className="form-control"
                                 value={this.state.name}
                                 onChange={this.onChangeName}
                             />
                         </div>
                         <div className="form-group">
                             <label>Price: </label>
+                            <br/>
                             <input
                                 type="text"
                                 required
                                 pattern="\d+"
-                                className="form-control"
                                 value={this.state.price}
                                 onChange={this.onChangePrice}
                             />
                         </div>
                         <div className="form-group">
                             <label>Discount: </label>
+                            <br/>
                             <input
                                 type="text"
-                                className="form-control"
                                 value={this.state.discount}
                                 onChange={this.onChangeDiscount}
                             />
                         </div>
 
                         <div className="form-group">
-                            <input type="submit" value="Add Product" className="btn btn-primary" />
+                            <input type="submit" value="Add Product" className="btnAdd" />
                         </div>
                     </form>
 
                     <form action="http://localhost:5000/images/add" method="POST" encType="multipart/form-data">
                         <h4>Image Upload</h4>
-                        <div className="form-group">
+                        <div>
                             <input
                                 type="hidden"
                                 name="imageId"
                                 id="imageId"
                                 required
                                 pattern="\d+"
-                                className="form-control"
                                 value={this.state.prodId}
                             />
                         </div>
@@ -175,7 +175,7 @@ class AddProduct extends Component {
                             <input type="file" name="file" id="file" className="custom-file-input"/>
                             <label htmlFor="file" className="custom-file-label">Choose Product Image</label>
                         </div>
-                        <input style={{marginBottom: "20px"}} type="submit" value="Add Product Image" className="btn btn-primary"/>
+                        <input style={{marginBottom: "30px"}} type="submit" value="Add Product Image" className="btnImageAdd"/>
                     </form>
                 </div>
             </div>

@@ -20,6 +20,9 @@ import AdminHome from "./components/admin/admin-home";
 import CartItemList from "./components/user/cartItem-list.component";
 import EditCartItem from "./components/edit-cartItem.component";
 
+import Navlink from "./components/user/navlink.component";
+import creditCardPayment from "./components/user/creditCardPayment.component";
+import cashOnDelivery from "./components/user/cashOnDelivery.component";
 
 function App() {
   return (
@@ -29,6 +32,11 @@ function App() {
               <Route path="/adminLogin" component={AdminLogin} />
               <Route path="/adminHome" component={AdminHome} />
               <Route path="/smLogin" component={StoreManagerLogin} />
+              <div className="container">
+                  <Navlink/>
+                  <Route path="/creditCardPayment" exact component={creditCardPayment}/>
+                  <Route path="/cashOnDelivery" exact component={cashOnDelivery}/>
+              </div>
               <Route path="/gocategory" component={Category} />
               <Route path="/addCategory" component={CategoryAdd} />
               <Route path="/viewSM" component={ViewStoreManager} />
