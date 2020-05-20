@@ -18,6 +18,8 @@ import DeleteStoreManager from "./components/admin/delete-storemanager";
 import Category from "./components/admin/goCategory";
 import AdminHome from "./components/admin/admin-home";
 import CartItemList from "./components/user/cartItem-list.component";
+import EditCartItem from "./components/edit-cartItem.component";
+
 
 function App() {
   return (
@@ -38,6 +40,7 @@ function App() {
               <Route path="/" exact component={Home}/>
               <Route path="/add" exact component={AddProduct}/>
               <Route path="/productsList/:category" exact component={ProductsList}/>
+              <Route path="/cartItems/:id" exact component={EditCartItem}/>
               <Route path="/cartItems" exact component={CartItemList}/>
               <Route path="/product/:id" exact component={Product}/>
               <Route path="/edit/:id" exact component={EditProduct}/>
