@@ -1,6 +1,7 @@
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.min.css"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import Home from "./components/home";
 import AddProduct from "./components/store-manager/add-product";
 import Product from "./components/user/product-details";
@@ -17,6 +18,9 @@ import DeleteStoreManager from "./components/admin/delete-storemanager";
 import Category from "./components/admin/goCategory";
 import AdminHome from "./components/admin/admin-home";
 import CartItemList from "./components/user/cartItem-list.component";
+import Navlink from "./components/user/navlink.component";
+import creditCardPayment from "./components/user/creditCardPayment.component";
+import cashOnDelivery from "./components/user/cashOnDelivery.component";
 
 function App() {
   return (
@@ -26,6 +30,11 @@ function App() {
               <Route path="/adminLogin" component={AdminLogin} />
               <Route path="/adminHome" component={AdminHome} />
               <Route path="/smLogin" component={StoreManagerLogin} />
+              <div className="container">
+                  <Navlink/>
+                  <Route path="/creditCardPayment" exact component={creditCardPayment}/>
+                  <Route path="/cashOnDelivery" exact component={cashOnDelivery}/>
+              </div>
               <Route path="/gocategory" component={Category} />
               <Route path="/addCategory" component={CategoryAdd} />
               <Route path="/viewSM" component={ViewStoreManager} />

@@ -1,4 +1,4 @@
-
+import '../stylesheets/home.css';
 import React, {Component} from "react";
 import axios from "axios";
 import '../stylesheets/products-home.css'
@@ -78,11 +78,11 @@ class Home extends Component{
             itemId: prodId,
             itemName: name,
             price: price,
-            //discount: discount,
-            discount: 0,
+            discount: discount,
             quantity: this.state.quantity,
-            //totalPrice: this.state.totalPrice,
-            totalPrice:1000,
+            totalPrice: this.state.quantity * price ,
+
+
         };
 
         console.log(cartItem);
