@@ -41,18 +41,16 @@ router.route('/:id').delete((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/update/:id').post((req, res) => {
+router.route('/update/:id').put((req, res) => {
     CartItem.findById(req.params.id)
         .then(cartItem => {
-            cartItem.itemId = req.body.itemId;
-            cartItem.itemName = req.body.itemName;
-            cartItem.price = req.body.price;
-            cartItem.discount = req.body.discount;
+
             cartItem.quantity = req.body.quantity;
-            cartItem.totalPrice = req.body.totalPrice;
+
+
 
             cartItem.save()
-                .then(() => res.json('Shopping Cart Item has been updated!'))
+                .then(() => res.json('Product Quantity has been updated!'))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(400).json('Error: ' + err));
