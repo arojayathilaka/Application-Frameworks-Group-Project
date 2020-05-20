@@ -13,13 +13,16 @@ class EditProduct extends Component {
             name: '',
             price: '',
             discount: '',
-            categories: []
+            categories: [],
+            image: '',
+            imageData: '',
+            isEditing: false
         }
     }
 
     componentDidMount() {
-        axios.post('http://localhost:5000/userDetails/get')
-            .then(res =>{
+        axios.post('http://localhost:5000/categories/get')
+            .then(res => {
                 if (res.data.length > 0) {
                     this.setState({
                         categories: res.data,
@@ -32,15 +35,34 @@ class EditProduct extends Component {
             });
 
         axios.get('http://localhost:5000/products/' + this.props.match.params.id)
-            .then(res =>
+            .then(res => {
                 this.setState({
                     category: res.data.category,
                     prodId: res.data.prodId,
                     name: res.data.name,
                     price: res.data.price,
                     duration: res.data.duration
-                }))
+                });
+                console.log(this.state.prodId);
+                })
             .catch(err => console.log(err));
+
+        axios.get('http://localhost:5000/images')
+            .then(res => {
+                console.log(res.data);
+                const imageData = res.data.find(imageData => (imageData.imgId === this.state.prodId));
+                this.setState({
+                    imageData: imageData
+                });
+                console.log(imageData._id);
+                const base64Flag = 'data:image/jpeg;base64,';
+                const imageStr = this.arrayBufferToBase64(imageData.img.data.data);
+                const image = base64Flag + imageStr;
+                this.setState({
+                    image: image
+                })
+            });
+        console.log(this.state.isEditing)
     }
 
     onChangeId = event => {
@@ -94,6 +116,19 @@ class EditProduct extends Component {
             .catch(err => console.log(err));
 
         //window.location = '/';
+    };
+
+    arrayBufferToBase64(buffer) {
+        let binary = '';
+        const bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        return window.btoa(binary);
+    };
+
+    setIsEditing = () => {
+      this.setState({
+          isEditing: true
+      })
     };
 
     render() {
@@ -161,8 +196,33 @@ class EditProduct extends Component {
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Edit Product" className="btnEdit"/>
+                        <input type="submit" value="Update Product" className="btnUpdate"/>
                     </div>
+                </form>
+                <h4>Update Product Image</h4>
+                <img src={this.state.isEditing ? "" : this.state.image} alt=""/>
+                <form action={"http://localhost:5000/images/update/" + this.state.imageData._id} method="POST" encType="multipart/form-data">
+                    <div>
+                        <input
+                            type="hidden"
+                            name="imageId"
+                            id="imageId"
+                            required
+                            pattern="\d+"
+                            value={this.state.prodId}
+                            onChange={this.onChangeProdId}
+                        />
+                    </div>
+                    {
+                        this.state.isEditing ? (
+                            <div className="custom-file mb-3">
+                                <input type="file" name="file" id="file" className="custom-file-input"/>
+                                <label htmlFor="file" className="custom-file-label">Choose Product Image</label>
+                            </div>
+                        ) : ""
+                    }
+                    <input type={this.state.isEditing ? "hidden" : "button"} value="Edit Product Image" className="btnUpdateImg" onClick={this.setIsEditing}/>
+                    <input type={this.state.isEditing ? "submit" : "hidden"} value="Update Product Image" className="btnUpdateImg" />
                 </form>
             </div>
             </div>

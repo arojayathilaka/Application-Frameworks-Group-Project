@@ -60,6 +60,24 @@ router.route('/delete/:id').delete((req, res) => {
             res.status(400).send('Error: ' + err)
         )
 });
+
+router.route('/update/:id').post(upload.single('file'), (req, res) => {
+    Image.findById(req.params.id)
+        .then(image => {
+            image.img.data = fs.readFileSync(req.file.path);
+            image.img.contentType = 'image/jpeg';
+            image.imgId =  req.body.imageId;
+
+            image.save()
+                .then(() => res.send('Product updated!'))
+                .catch(err =>
+                    res.status(400).json('Error: ' + err)
+                );
+        })
+        .catch(err =>
+            res.status(400).json('Error: ' + err)
+        );
+});
 // app.get('/images/:filename', (req, res) => {
 //     gfs.files.findOne({filename: req.params.filename}, (err, file) => {
 //         if (!file || file.length === 0){

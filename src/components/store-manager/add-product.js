@@ -19,7 +19,7 @@ class AddProduct extends Component {
     }
 
     componentDidMount() {
-        axios.post('http://localhost:5000/userDetails/get')
+        axios.post('http://localhost:5000/categories/get')
             .then(res =>{
                 if (res.data.length > 0) {
                     this.setState({
@@ -160,7 +160,7 @@ class AddProduct extends Component {
                     </form>
 
                     <form action="http://localhost:5000/images/add" method="POST" encType="multipart/form-data">
-                        <h4>Image Upload</h4>
+                        <h4>Product Image Upload</h4>
                         <div>
                             <input
                                 type="hidden"
@@ -169,6 +169,7 @@ class AddProduct extends Component {
                                 required
                                 pattern="\d+"
                                 value={this.state.prodId}
+                                onChange={this.onChangeProdId}
                             />
                         </div>
                         <div className="custom-file mb-3">
