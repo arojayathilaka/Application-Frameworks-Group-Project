@@ -15,9 +15,18 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.route('/add').post(upload.single('file'), (req, res) => {
-    const newImage = new Image();
-    newImage.img.data = fs.readFileSync(req.file.path);
-    newImage.img.contentType = 'image/jpeg';  // or 'image/png'
+    const data = fs.readFileSync(req.file.path);
+    const contentType = 'image/jpeg';
+    const imgId = Number(req.body.imageId);
+    const newImage = new Image({
+        img: {
+            data: data,
+            contentType: contentType
+        },
+        imgId: imgId
+    });
+    // newImage.img.data = fs.readFileSync(req.file.path);
+    // newImage.img.contentType = 'image/jpeg';  // or 'image/png'
     newImage.save();
     res.send('Image added to the db!');
 });
