@@ -44,7 +44,6 @@ import axios from 'axios';
 
     };
 
-
     render() {
         return (
             <div>
@@ -99,6 +98,10 @@ import axios from 'axios';
 
                         </tbody>
                     </table>
+
+                <div className={"form-group"}>
+                    <input type="submit" value="CHECKOUT" className="btn btn-primary"/>
+                </div>
                 </div>
 
 

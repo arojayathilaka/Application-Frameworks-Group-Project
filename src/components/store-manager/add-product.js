@@ -19,7 +19,7 @@ class AddProduct extends Component {
     }
 
     componentDidMount() {
-        axios.post('http://localhost:5000/userDetails/get')
+        axios.post('http://localhost:5000/categories/get')
             .then(res =>{
                 if (res.data.length > 0) {
                     this.setState({

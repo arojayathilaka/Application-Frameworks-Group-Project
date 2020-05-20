@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import Home from "./components/home";
 import AddProduct from "./components/store-manager/add-product";
-import Product from "./components/user/product-details";
+import Product from "./components/user/productDetails.component";
 import ProductsList from "./components/store-manager/products-list";
 import EditProduct from "./components/store-manager/edit-product";
 import AdminLogin from "./components/admin/admin-login";
