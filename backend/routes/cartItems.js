@@ -46,7 +46,7 @@ router.route('/update/:id').put((req, res) => {
         .then(cartItem => {
 
             cartItem.quantity = req.body.quantity;
-
+            cartItem.totalPrice = req.body.totalPrice;
 
 
             cartItem.save()

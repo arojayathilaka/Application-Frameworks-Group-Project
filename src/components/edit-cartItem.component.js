@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
+
  class EditCartItem extends Component {
 
 
@@ -19,6 +20,7 @@ import axios from 'axios';
              discount: 0,
              quantity: 0,
              totalPrice: 0,
+             cartItems:[]
          }
      }
 
@@ -29,12 +31,12 @@ import axios from 'axios';
                  this.setState({
 
 
-                     itemId: res.data.itemId(),
-                     itemName: res.data.itemName(),
-                     price: res.data.price(),
-                     discount: res.data.discount(),
+                     itemId: res.data.itemId,
+                     itemName: res.data.itemName,
+                     price: res.data.price,
+                     discount: res.data.discount,
                      quantity: res.data.quantity,
-                     totalPrice: res.data.totalPrice(),
+                     totalPrice: res.data.totalPrice,
 
 
                  }))
@@ -53,7 +55,7 @@ import axios from 'axios';
 
 
 
-     onSubmit = event => {
+     onSubmit = event  => {
          event.preventDefault();
 
          const cartItem = {
@@ -61,7 +63,7 @@ import axios from 'axios';
 
 
              quantity: this.state.quantity,
-             //totalPrice: this.state.quantity * price ,
+             totalPrice: (this.state.quantity * this.state.price)-(this.state.discount) ,
 
 
          };
@@ -85,6 +87,9 @@ import axios from 'axios';
      render() {
 
          return (
+
+
+
 
              <div>
                  <h3>Update the Product Quantity</h3>
