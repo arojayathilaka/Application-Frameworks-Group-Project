@@ -31,6 +31,8 @@ import axios from 'axios';
 
                 this.setState({cartItems: res.data})
 
+                console.log(res.data);
+
             })
             .catch(error => {
 
@@ -51,12 +53,12 @@ import axios from 'axios';
             // })
                  .then( res => {
                      console.log(res.data);
-                     let totPrice = 0;
+                     let FinaltotPrice = 0;
                      res.data.forEach(cartItem => {
-                         totPrice = totPrice + cartItem.totalPrice;
+                         FinaltotPrice = FinaltotPrice + cartItem.totalPrice;
                      });
                      this.setState({
-                         totalPrice: totPrice
+                         totalPrice: FinaltotPrice
                      });
                      console.log(this.state.totalPrice);
                  })
@@ -76,9 +78,7 @@ import axios from 'axios';
     };
 
 
-    selectPaymentMethod = () => {
-        window.location = "/selectPaymentMethod";
-    }
+
 
 
     render() {
@@ -103,7 +103,7 @@ import axios from 'axios';
 
 
                       </thead>
-                        <tbody>
+                        <tbody style={{backgroundColor:"#AF7AC5"}}>
 
 
                         {this.state.cartItems.map(cartItem => (
@@ -140,10 +140,15 @@ import axios from 'axios';
                     </table>
 
 
-                <p>TOTAL PAYMENT = 10000 </p>
+                <h3 style={{float:"right"}}>Total Price = {this.state.totalPrice} </h3>
+
+                <br/>
+                    <br/>
+
                 <div className="form-group">
-                    <input type="submit" value="CHECKOUT" className="btn btn-primary" onClick={this.selectPaymentMethod}/>
+                    <input type="submit" value="CHECKOUT" className="btn btn-primary " style={{backgroundColor: "#AF7AC5",float:"right"}} />
                 </div>
+
 
                 </div>
 
