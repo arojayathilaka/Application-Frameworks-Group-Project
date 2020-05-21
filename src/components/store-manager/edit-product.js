@@ -262,50 +262,50 @@ class EditProduct extends Component {
                                     />
                                 </form>
                             ) : (
-                            <div>
-                                <img src={this.state.isEditing ? "" : this.state.image} alt=""/>
-                                <form
-                                    action={"http://localhost:5000/images/update/" + this.state.imageData._id}
-                                    method="POST" encType="multipart/form-data"
-                                >
-                                    <input
-                                        type="hidden"
-                                        name="imageId"
-                                        id="imageId"
-                                        required
-                                        pattern="\d+"
-                                        value={this.state.prodId}
-                                        onChange={this.onChangeProdId}
-                                    />
-                                    {
-                                        this.state.isEditing ? (
-                                            <div>
-                                                <div className="custom-file mb-3">
-                                                    <input type="file" name="file" id="file" className="custom-file-input"/>
-                                                    <label htmlFor="file" className="custom-file-label">Choose Product Image</label>
+                                <div>
+                                    <img src={this.state.isEditing ? null : this.state.image} alt=""/>
+                                    <form
+                                        action={"http://localhost:5000/images/update/" + this.state.imageData._id}
+                                        method="POST" encType="multipart/form-data"
+                                    >
+                                        <input
+                                            type="hidden"
+                                            name="imageId"
+                                            id="imageId"
+                                            required
+                                            pattern="\d+"
+                                            value={this.state.prodId}
+                                            onChange={this.onChangeProdId}
+                                        />
+                                        {
+                                            this.state.isEditing ? (
+                                                <div>
+                                                    <div className="custom-file mb-3">
+                                                        <input type="file" name="file" id="file" className="custom-file-input"/>
+                                                        <label htmlFor="file" className="custom-file-label">Choose Product Image</label>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ) : ""
-                                    }
-                                    <input
-                                        type={this.state.isEditing ? "hidden" : "button"}
-                                        value="Edit Product Image"
-                                        className="btnUpdateImg"
-                                        onClick={this.setIsEditing}
-                                    />
-                                    <input
-                                        type={this.state.isEditing ? "submit" : "hidden"}
-                                        value="Update Product Image"
-                                        className="btnUpdateImg" />
-                                </form>
+                                            ) : null
+                                        }
+                                        <input
+                                            type={this.state.isEditing ? "hidden" : "button"}
+                                            value="Edit Product Image"
+                                            className="btnUpdateImg"
+                                            onClick={this.setIsEditing}
+                                        />
+                                        <input
+                                            type={this.state.isEditing ? "submit" : "hidden"}
+                                            value="Update Product Image"
+                                            className="btnUpdateImg" />
+                                    </form>
 
-                                <input
-                                    type="button"
-                                    value="Delete Product Image"
-                                    className="btnDeleteImg"
-                                    onClick={() => this.deleteProductImage(this.state.imageData._id)}
-                                />
-                            </div>
+                                    <input
+                                        type="button"
+                                        value="Delete Product Image"
+                                        className="btnDeleteImg"
+                                        onClick={() => this.deleteProductImage(this.state.imageData._id)}
+                                    />
+                                </div>
                             )
                     }
                 </div>
