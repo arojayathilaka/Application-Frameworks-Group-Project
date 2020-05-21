@@ -14,11 +14,7 @@ class Product extends Component{
         super(props);
 
         this.state = {
-            category: '',
             prodId: 0,
-            name: '',
-            price: 0,
-            discount: 0,
             comments: "",
             ratings: 0
         }
@@ -59,20 +55,17 @@ class Product extends Component{
     onSubmit = e => {
         e.preventDefault();
         console.log(this);
-        console.log(this.state.comments)
-        console.log(this.state.ratings)
+        console.log(this.state.prodId);
+        console.log(this.state.comments);
+        console.log(this.state.ratings);
         const commentRating = {
-            category: this.state.category,
             prodId: this.state.prodId,
-            name: this.state.name,
-            price: this.state.price,
-            discount: this.state.discount,
             comments: this.state.comments,
             ratings: this.state.ratings
         };
 
         console.log(commentRating);
-        axios.put('http://localhost:5000/products/update/' + this.props.match.params.id, commentRating)
+        axios.post('http://localhost:5000/productDetails/add', commentRating)
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
     }
