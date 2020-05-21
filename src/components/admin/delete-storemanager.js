@@ -157,7 +157,7 @@ class DeleteStoreManager extends Component{
                         </div>
 
                         <div className="form-group">
-                            <input type="submit" value="Delete StoreManagers" className="btn btn-danger"/>
+                            <input type="submit" value="Delete StoreManagers" style={{color:"#fff",backgroundColor:"#F23A59"}} className="btn"/>
                         </div>
 
                     </form>
