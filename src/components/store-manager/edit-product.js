@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import axios from 'axios';
 import '../../stylesheets/edit-product.css';
+import swal from "sweetalert";
 
 class EditProduct extends Component {
 
@@ -16,7 +17,8 @@ class EditProduct extends Component {
             categories: [],
             image: '',
             imageData: '',
-            isEditing: false
+            isEditing: false,
+            isDeleted: false
         }
     }
 
@@ -51,16 +53,23 @@ class EditProduct extends Component {
             .then(res => {
                 console.log(res.data);
                 const imageData = res.data.find(imageData => (imageData.imgId === this.state.prodId));
-                this.setState({
-                    imageData: imageData
-                });
-                console.log(imageData._id);
-                const base64Flag = 'data:image/jpeg;base64,';
-                const imageStr = this.arrayBufferToBase64(imageData.img.data.data);
-                const image = base64Flag + imageStr;
-                this.setState({
-                    image: image
-                })
+                if (imageData !== undefined) {
+                    this.setState({
+                        imageData: imageData,
+                        isDeleted: false
+                    });
+                    console.log(imageData._id);
+                    const base64Flag = 'data:image/jpeg;base64,';
+                    const imageStr = this.arrayBufferToBase64(imageData.img.data.data);
+                    const image = base64Flag + imageStr;
+                    this.setState({
+                        image: image
+                    })
+                } else {
+                    this.setState({
+                        isDeleted: true
+                    })
+                }
             });
         console.log(this.state.isEditing)
     }
@@ -111,7 +120,12 @@ class EditProduct extends Component {
         axios.put('http://localhost:5000/products/update/' + this.props.match.params.id, product)
             .then(res => {
                 console.log(res.data);
-                alert("Product Updated Successfully!");
+                swal({
+                    title: "Product Updated!",
+                    text: "You successfully updated the product.",
+                    icon: "success",
+                    button: true,
+                })
             })
             .catch(err => console.log(err));
 
@@ -131,100 +145,170 @@ class EditProduct extends Component {
       })
     };
 
+    deleteProductImage = id => {
+        axios.delete('http://localhost:5000/images/delete/' + id)
+            .then(res => {
+                console.log(res.data);
+                swal({
+                    title: "Product Image Deleted!",
+                    text: "You successfully deleted the product image.",
+                    icon: "success",
+                    button: true,
+                });
+                this.setState({
+                    isDeleted: true
+                })
+            })
+            .catch(err => console.error(err));
+    };
+
     render() {
         return(
             <div className="backImg">
                 <div className="editProduct">
-                <br/>
-                <h3>Edit Product</h3>
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>Category: </label>
-                        <br/>
-                        <select
-                            required
-                            value= {this.state.category}
-                            onChange={this.onChangeCategory}>
-                            {this.state.categories.map(category => {
-                                return (
-                                    <option
-                                        key={category._id}
-                                        value={category.categoryname}>{category.categoryname}
-                                    </option>
-                                )
-                            })
-                            }
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label>Product ID: </label>
-                        <br/>
-                        <input  type="text"
+                    <br/>
+                    <h3>Edit Product</h3>
+                    <form onSubmit={this.onSubmit}>
+                        <div className="form-group">
+                            <label>Category: </label>
+                            <br/>
+                            <select
                                 required
+                                value= {this.state.category}
+                                onChange={this.onChangeCategory}>
+                                {this.state.categories.map(category => {
+                                    return (
+                                        <option
+                                            key={category._id}
+                                            value={category.categoryname}>{category.categoryname}
+                                        </option>
+                                    )
+                                })
+                                }
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>Product ID: </label>
+                            <br/>
+                            <input  type="text"
+                                    required
+                                    pattern="\d+"
+                                    value={this.state.prodId}
+                                    onChange={this.onChangeId}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Product Name: </label>
+                            <br/>
+                            <input  type="text"
+                                    required
+                                    pattern="[A-Za-z\s]{1,}"
+                                    value={this.state.name}
+                                    onChange={this.onChangeName}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Price: </label>
+                            <br/>
+                            <input  type="text"
+                                    required
+                                    pattern="\d+"
+                                    value={this.state.price}
+                                    onChange={this.onChangePrice}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Discount: </label>
+                            <br/>
+                            <input
+                                type="text"
                                 pattern="\d+"
-                                value={this.state.prodId}
-                                onChange={this.onChangeId}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Product Name: </label>
-                        <br/>
-                        <input  type="text"
-                                required
-                                value={this.state.name}
-                                onChange={this.onChangeName}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Price: </label>
-                        <br/>
-                        <input  type="text"
-                                required
-                                pattern="\d+"
-                                value={this.state.price}
-                                onChange={this.onChangePrice}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Discount: </label>
-                        <br/>
-                        <input
-                            type="text"
-                            value={this.state.discount}
-                            onChange={this.onChangeDiscount}
-                        />
-                    </div>
+                                value={this.state.discount}
+                                onChange={this.onChangeDiscount}
+                            />
+                        </div>
 
-                    <div className="form-group">
-                        <input type="submit" value="Update Product" className="btnUpdate"/>
-                    </div>
-                </form>
-                <h4>Update Product Image</h4>
-                <img src={this.state.isEditing ? "" : this.state.image} alt=""/>
-                <form action={"http://localhost:5000/images/update/" + this.state.imageData._id} method="POST" encType="multipart/form-data">
-                    <div>
-                        <input
-                            type="hidden"
-                            name="imageId"
-                            id="imageId"
-                            required
-                            pattern="\d+"
-                            value={this.state.prodId}
-                            onChange={this.onChangeProdId}
-                        />
-                    </div>
+                        <div className="form-group">
+                            <input type="submit" value="Update Product" className="btnUpdate"/>
+                        </div>
+                    </form>
                     {
-                        this.state.isEditing ? (
-                            <div className="custom-file mb-3">
-                                <input type="file" name="file" id="file" className="custom-file-input"/>
-                                <label htmlFor="file" className="custom-file-label">Choose Product Image</label>
+                        this.state.isDeleted ?
+                            (
+                                <form
+                                    action="http://localhost:5000/images/add"
+                                    method="POST" encType="multipart/form-data"
+                                >
+                                    <p>No product image found, use below to add a product image</p>
+                                    <div>
+                                        <input
+                                            type="hidden"
+                                            name="imageId"
+                                            id="imageId"
+                                            required
+                                            pattern="\d+"
+                                            value={this.state.prodId}
+                                            onChange={this.onChangeProdId}
+                                        />
+                                    </div>
+                                    <div className="custom-file mb-3">
+                                        <input type="file" name="file" id="file" className="custom-file-input"/>
+                                        <label htmlFor="file" className="custom-file-label">Choose Product Image</label>
+                                    </div>
+                                    <input
+                                        style={{marginBottom: "30px"}}
+                                        type="submit" value="Add Product Image"
+                                        className="btnImageAdd"
+                                    />
+                                </form>
+                            ) : (
+                            <div>
+                                <img src={this.state.isEditing ? "" : this.state.image} alt=""/>
+                                <form
+                                    action={"http://localhost:5000/images/update/" + this.state.imageData._id}
+                                    method="POST" encType="multipart/form-data"
+                                >
+                                    <input
+                                        type="hidden"
+                                        name="imageId"
+                                        id="imageId"
+                                        required
+                                        pattern="\d+"
+                                        value={this.state.prodId}
+                                        onChange={this.onChangeProdId}
+                                    />
+                                    {
+                                        this.state.isEditing ? (
+                                            <div>
+                                                <div className="custom-file mb-3">
+                                                    <input type="file" name="file" id="file" className="custom-file-input"/>
+                                                    <label htmlFor="file" className="custom-file-label">Choose Product Image</label>
+                                                </div>
+                                            </div>
+                                        ) : ""
+                                    }
+                                    <input
+                                        type={this.state.isEditing ? "hidden" : "button"}
+                                        value="Edit Product Image"
+                                        className="btnUpdateImg"
+                                        onClick={this.setIsEditing}
+                                    />
+                                    <input
+                                        type={this.state.isEditing ? "submit" : "hidden"}
+                                        value="Update Product Image"
+                                        className="btnUpdateImg" />
+                                </form>
+
+                                <input
+                                    type="button"
+                                    value="Delete Product Image"
+                                    className="btnDeleteImg"
+                                    onClick={() => this.deleteProductImage(this.state.imageData._id)}
+                                />
                             </div>
-                        ) : ""
+                            )
                     }
-                    <input type={this.state.isEditing ? "hidden" : "button"} value="Edit Product Image" className="btnUpdateImg" onClick={this.setIsEditing}/>
-                    <input type={this.state.isEditing ? "submit" : "hidden"} value="Update Product Image" className="btnUpdateImg" />
-                </form>
-            </div>
+                </div>
             </div>
         );
     }

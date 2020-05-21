@@ -1,6 +1,6 @@
 .backImg {
     background-image: url(../images/shirts.jpg);
-    height: 1010px;
+    height: 1030px;
 }
 .editProduct {
     margin-left: 30px;
@@ -8,6 +8,10 @@
 }
 h3 {
     color: #4A235A
+}
+p {
+    color: #cb2715;
+    margin-bottom: 10px;
 }
 label {
     color: #7d3f9c;
@@ -38,6 +42,7 @@ select {
     border: 0;
     border-radius: 4px;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 img {
     width: 300px;
@@ -53,5 +58,15 @@ img {
     border: 0;
     border-radius: 4px;
     cursor: pointer;
-
+}
+.btnDeleteImg {
+    background-color: #d12717;
+    color: white;
+    height: 40px;
+    width: 180px;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
