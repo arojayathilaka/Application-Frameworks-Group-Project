@@ -18,7 +18,7 @@ import axios from 'axios';
             quantity: 0,
             totalPrice: 0,
             cartItems: [],
-
+           // payment:0
 
         }
     }
@@ -28,14 +28,31 @@ import axios from 'axios';
     componentDidMount() {
         axios.get('http://localhost:5000/cartItems/')
             .then(res => {
+
                 this.setState({cartItems: res.data})
+
             })
             .catch(error => {
 
                 console.log(error);
             })
 
+
+             axios.get('http://localhost:5000/cartItems/')
+            .then((cartItems) => {
+                  let payment = 0;
+                for (var i = 0; i < this.cartItems.length; i++) {
+                    payment = payment += (this.state.totalPrice);
+                }
+
+
+
+                this.setState({  payment });
+            })
+
+
     }
+
 
     deleteCartItem = id => {
         axios.delete('http://localhost:5000/cartItems/' + id)
@@ -49,13 +66,16 @@ import axios from 'axios';
     };
 
 
+
+
+
     render() {
         return (
-            <div>
+            <div >
 
                     <h2>Shopping Cart</h2>
-                    <table className="table table-dark table-hover">
-                        <thead>
+                    <table className="table table-dark table-hover" >
+                        <thead >
                         <tr>
 
 
@@ -108,7 +128,8 @@ import axios from 'axios';
                     </table>
 
 
-                <p>TOTAL PAYMENT = </p>
+                <p>TOTAL PAYMENT = 10000 </p>
+
                 <div className="form-group">
                     <input type="submit" value="CHECKOUT" className="btn btn-primary" />
                 </div>
