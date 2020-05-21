@@ -43,15 +43,14 @@ function App() {
               <Route path="/addSM" component={AddStoreManager} />
               <Route path="/updateSM/:id" component={UpdateStoreManager} />
               <Route path="/deleteSM/:id" component={DeleteStoreManager} />
-              <Link to="/cartItems">Shopping Cart</Link>
-              <Link to="/add">add</Link>
+              {/*<Link to="/cartItems">Shopping Cart</Link>*/}
               <Route path="/" exact component={Home}/>
-              <Route path="/add" exact component={AddProduct}/>
+              <Route path="/addProduct" exact component={AddProduct}/>
               <Route path="/productsList/:category" exact component={ProductsList}/>
               <Route path="/cartItems/:id" exact component={EditCartItem}/>
               <Route path="/cartItems" exact component={CartItemList}/>
               <Route path="/product/:id" exact component={Product}/>
-              <Route path="/edit/:id" exact component={EditProduct}/>
+              <Route path="/editProduct/:id" exact component={EditProduct}/>
           </Router>
     </div>
 

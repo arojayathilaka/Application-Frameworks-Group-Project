@@ -59,6 +59,10 @@ class ProductsList extends Component {
         })
     };
 
+    gotoAddProduct = () => {
+      window.location = '/addProduct';
+    };
+
     render() {
         const products = this.state.allProducts.filter(product => (product.category === this.props.match.params.category));
         return(
@@ -81,7 +85,7 @@ class ProductsList extends Component {
                             <td>{product.discount}</td>
                             <td>
                                 <a
-                                    href={'/edit/'+ product._id}
+                                    href={'/editProduct/'+ product._id}
                                     className="btn btn-secondary"
                                 >
                                     Edit
@@ -96,6 +100,7 @@ class ProductsList extends Component {
                     ))}
                     </tbody>
                 </table>
+                <button className="gotoAddBtn" onClick={this.gotoAddProduct}>Add a new product</button>
             </div>
         );
     }
