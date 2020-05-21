@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import '../../stylesheets/add-product.css';
+import swal from "sweetalert";
 
 class AddProduct extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class AddProduct extends Component {
     }
 
     componentDidMount() {
-        axios.post('http://localhost:5000/userDetails/get')
+        axios.post('http://localhost:5000/categories/get')
             .then(res =>{
                 if (res.data.length > 0) {
                     this.setState({
@@ -80,9 +81,33 @@ class AddProduct extends Component {
         axios.post('http://localhost:5000/products/add', product)
             .then(res => {
                 console.log(res.data);
-                alert("Product Added Successfully!");
+                swal({
+                    title: "Product Added!",
+                    text: "You successfully added the new product.",
+                    icon: "success",
+                    button: true,
+                })
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                swal({
+                    title: "Error!",
+                    text: "Couldn't add the product.",
+                    icon: "error",
+                    button: true,
+                    dangerMode: true,
+                });
+            });
+
+        // this.setState({
+        //     category: '',
+        //     prodId: '',
+        //     name: '',
+        //     price: '',
+        //     discount: '',
+        //     comments: '',
+        //     ratings: ''
+        // })
 
         //window.location = '/';
     };
@@ -129,6 +154,7 @@ class AddProduct extends Component {
                             <input
                                 type="text"
                                 required
+                                pattern="[A-Za-z\s]{1,}"
                                 value={this.state.name}
                                 onChange={this.onChangeName}
                             />
@@ -149,6 +175,7 @@ class AddProduct extends Component {
                             <br/>
                             <input
                                 type="text"
+                                pattern="\d+"
                                 value={this.state.discount}
                                 onChange={this.onChangeDiscount}
                             />
@@ -160,7 +187,7 @@ class AddProduct extends Component {
                     </form>
 
                     <form action="http://localhost:5000/images/add" method="POST" encType="multipart/form-data">
-                        <h4>Image Upload</h4>
+                        <h4>Product Image Upload</h4>
                         <div>
                             <input
                                 type="hidden"
@@ -169,6 +196,7 @@ class AddProduct extends Component {
                                 required
                                 pattern="\d+"
                                 value={this.state.prodId}
+                                onChange={this.onChangeProdId}
                             />
                         </div>
                         <div className="custom-file mb-3">

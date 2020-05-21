@@ -15,9 +15,18 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.route('/add').post(upload.single('file'), (req, res) => {
-    const newImage = new Image();
-    newImage.img.data = fs.readFileSync(req.file.path);
-    newImage.img.contentType = 'image/jpeg';  // or 'image/png'
+    const data = fs.readFileSync(req.file.path);
+    const contentType = 'image/jpeg';
+    const imgId = Number(req.body.imageId);
+    const newImage = new Image({
+        img: {
+            data: data,
+            contentType: contentType
+        },
+        imgId: imgId
+    });
+    // newImage.img.data = fs.readFileSync(req.file.path);
+    // newImage.img.contentType = 'image/jpeg';  // or 'image/png'
     newImage.save();
     res.send('Image added to the db!');
 });
@@ -50,6 +59,24 @@ router.route('/delete/:id').delete((req, res) => {
         .catch(err =>
             res.status(400).send('Error: ' + err)
         )
+});
+
+router.route('/update/:id').post(upload.single('file'), (req, res) => {
+    Image.findById(req.params.id)
+        .then(image => {
+            image.img.data = fs.readFileSync(req.file.path);
+            image.img.contentType = 'image/jpeg';
+            image.imgId =  req.body.imageId;
+
+            image.save()
+                .then(() => res.send('Product updated!'))
+                .catch(err =>
+                    res.status(400).json('Error: ' + err)
+                );
+        })
+        .catch(err =>
+            res.status(400).json('Error: ' + err)
+        );
 });
 // app.get('/images/:filename', (req, res) => {
 //     gfs.files.findOne({filename: req.params.filename}, (err, file) => {

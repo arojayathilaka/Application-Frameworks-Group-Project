@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import '../../stylesheets/products-products-list.css'
+import swal from "sweetalert";
 
 class ProductsList extends Component {
 
@@ -10,53 +11,52 @@ class ProductsList extends Component {
             name: '',
             price: 0,
             discount: 0,
-            allProducts: [],
-            imageIDs: []
+            allProducts: []
         }
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/products/')
+        axios.get('http://localhost:5000/products')
             .then(res => {
-                this.setState({allProducts: res.data})
+                this.setState({
+                    allProducts: res.data
+                })
             })
             .catch(err => {
                 console.error(err)
             });
+    }
+
+    deleteProduct = (_id, prodId) => {
+        axios.delete('http://localhost:5000/products/delete/' + _id)
+            .then(res => {
+                console.log(res.data);
+                swal({
+                    title: "Product Deleted!",
+                    text: "You successfully deleted the product.",
+                    icon: "success",
+                    button: true,
+                })
+            })
+            .catch(err => console.error(err));
 
         axios.get('http://localhost:5000/images')
             .then(res => {
                 console.log(res.data);
-                const imageIDs = [];
-                res.data.forEach(image => {
-                    imageIDs.push(image._id);
-                });
-                this.setState({
-                    imageIDs: imageIDs
-                })
+                const imageData = res.data.find(imageData => (imageData.imgId === prodId));
+                console.log(imageData);
+                if (imageData !== undefined) {
+                    axios.delete('http://localhost:5000/images/delete/' + imageData._id)
+                        .then(res => {
+                            console.log(res.data);
+                        })
+                        .catch(err => console.error(err));
+                }
             });
-    }
-
-    deleteProduct = id => {
-        axios.delete('http://localhost:5000/products/delete/' + id)
-            .then(res => {
-                console.log(res.data);
-                alert('Product Image Deleted!')
-            })
-            .catch(err => console.error(err));
 
         this.setState({
-            allProducts: this.state.allProducts.filter(product => product._id !== id)
+            allProducts: this.state.allProducts.filter(product => product._id !== _id)
         })
-    };
-
-    deleteProductImage = id => {
-        axios.delete('http://localhost:5000/images/delete/' + id)
-            .then(res => {
-                console.log(res.data);
-                alert('Product Image Deleted!')
-            })
-            .catch(err => console.error(err));
     };
 
     render() {
@@ -85,43 +85,18 @@ class ProductsList extends Component {
                                     className="btn btn-secondary"
                                 >
                                     Edit
-                                </a>
-                                {/*| <button*/}
-                                {/*    className="btn btn-danger"*/}
-                                {/*    onClick={() => this.deleteProductImage(this.state.imageIDs[product.prodId-1])}*/}
-                                {/*>*/}
-                                {/*    Delete Product Image*/}
-                                {/*</button> | <button*/}
-                                {/*    className="btn btn-danger"*/}
-                                {/*    onClick={() => this.deleteProduct(product._id)}*/}
-                                {/*>*/}
-                                {/*    Delete Product*/}
-                                {/*</button>*/}
+                                </a> | <button
+                                    className="btn btn-danger"
+                                    onClick={() => this.deleteProduct(product._id, product.prodId)}
+                                >
+                                    Delete Product
+                                </button>
                             </td>
                         </tr>
                     ))}
                     </tbody>
                 </table>
             </div>
-            // products.map(product => (
-            //     <div key={product.prodId}>
-            //         <div>
-            //             <div className="product">
-            //                 <div className="productImage">
-            //                     <img
-            //                         src={this.state.image}
-            //                         // src={img}
-            //                         alt={product.name}/>
-            //                 </div>
-            //                 <div className="productDetails">
-            //                     <p>{product.name}</p>
-            //                     <p>{product.price}</p>
-            //                     <p>{product.discount}</p>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //     </div>
-            // ))
         );
     }
 }
