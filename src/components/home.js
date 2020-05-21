@@ -80,7 +80,7 @@ class Home extends Component{
             price: price,
             discount: discount,
             quantity: this.state.quantity,
-            totalPrice: this.state.quantity * price ,
+            totalPrice: (this.state.quantity * price)-(discount) ,
 
 
         };
@@ -97,6 +97,12 @@ class Home extends Component{
     window.location = '/cartItems/';
 
 };
+
+
+
+
+
+
 
     arrayBufferToBase64(buffer) {
         let binary = '';
@@ -147,6 +153,7 @@ class Home extends Component{
                                     <p>{product.name}</p>
                                     <p>{product.price}</p>
                                     <p>{product.discount}</p>
+
                                     <form
                                         // onSubmit={this.onSubmit(product.prodId, product.name, product.price, product.discount)}
                                         onSubmit={event => this.onSubmit(event, product.prodId, product.name, product.price, product.discount)}
@@ -164,6 +171,7 @@ class Home extends Component{
                                         </div>
                                     </form>
                                 <br/>
+
 
                                     <br/>
 
