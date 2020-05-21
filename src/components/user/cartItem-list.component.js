@@ -76,7 +76,9 @@ import axios from 'axios';
     };
 
 
-
+    selectPaymentMethod = () => {
+        window.location = "/selectPaymentMethod";
+    }
 
 
     render() {
@@ -139,11 +141,9 @@ import axios from 'axios';
 
 
                 <p>TOTAL PAYMENT = 10000 </p>
-
                 <div className="form-group">
-                    <input type="submit" value="CHECKOUT" className="btn btn-primary" />
+                    <input type="submit" value="CHECKOUT" className="btn btn-primary" onClick={this.selectPaymentMethod}/>
                 </div>
-
 
                 </div>
 
