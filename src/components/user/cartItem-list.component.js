@@ -39,17 +39,27 @@ import axios from 'axios';
 
 
              axios.get('http://localhost:5000/cartItems/')
-            .then((cartItems) => {
-                  let payment = 0;
-                for (var i = 0; i < this.cartItems.length; i++) {
-                    payment = payment += (this.state.totalPrice);
-                }
-
-
-
-                this.setState({  payment });
-            })
-
+            // .then((cartItems) => {
+            //       let payment = 0;
+            //     for (var i = 0; i < this.cartItems.length; i++) {
+            //         payment = payment += (this.state.totalPrice);
+            //     }
+            //
+            //
+            //
+            //     this.setState({  payment });
+            // })
+                 .then( res => {
+                     console.log(res.data);
+                     let totPrice = 0;
+                     res.data.forEach(cartItem => {
+                         totPrice = totPrice + cartItem.totalPrice;
+                     });
+                     this.setState({
+                         totalPrice: totPrice
+                     });
+                     console.log(this.state.totalPrice);
+                 })
 
     }
 
@@ -66,7 +76,9 @@ import axios from 'axios';
     };
 
 
-
+    selectPaymentMethod = () => {
+        window.location = "/selectPaymentMethod";
+    }
 
 
     render() {
@@ -129,11 +141,9 @@ import axios from 'axios';
 
 
                 <p>TOTAL PAYMENT = 10000 </p>
-
                 <div className="form-group">
-                    <input type="submit" value="CHECKOUT" className="btn btn-primary" />
+                    <input type="submit" value="CHECKOUT" className="btn btn-primary" onClick={this.selectPaymentMethod}/>
                 </div>
-
 
                 </div>
 

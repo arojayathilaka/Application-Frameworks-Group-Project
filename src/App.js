@@ -19,6 +19,7 @@ import Category from "./components/admin/goCategory";
 import AdminHome from "./components/admin/admin-home";
 import CartItemList from "./components/user/cartItem-list.component";
 import EditCartItem from "./components/edit-cartItem.component";
+import Application from "./components/user/selectPaymentMethod.component";
 
 import Navlink from "./components/user/navlink.component";
 import creditCardPayment from "./components/user/creditCardPayment.component";
@@ -52,6 +53,7 @@ function App() {
               <Route path="/cartItems" exact component={CartItemList}/>
               <Route path="/product/:id" exact component={Product}/>
               <Route path="/edit/:id" exact component={EditProduct}/>
+              <Route path="/selectPaymentMethod" exact component={Application}/>
           </Router>
     </div>
 

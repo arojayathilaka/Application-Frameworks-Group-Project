@@ -19,6 +19,15 @@ export default class cashOnDelivery extends Component{
         })
     }
 
+    componentDidMount() {
+        axios.get('http://localhost:5000/cartItems/' )
+            .then(res => {
+                this.setState({
+                })
+            })
+            .catch(err => console.log(err));
+    }
+
     onSubmit(e){
         e.preventDefault();
 
@@ -34,7 +43,8 @@ export default class cashOnDelivery extends Component{
     render() {
         return (
             <div>
-                <h3>Cash On Delivery</h3>
+                <h3><u>Cash On Delivery</u></h3>
+                <h4>Total Price : </h4>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label> Delivery Address: </label>

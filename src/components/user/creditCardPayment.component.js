@@ -18,6 +18,7 @@ export default class creditCardPayment extends Component{
             cardNumber: "",
             expiration: new Date(),
             cvc: 0,
+            // totalPrice: 0
         }
     }
 
@@ -45,14 +46,24 @@ export default class creditCardPayment extends Component{
         })
     }
 
-    onSubmit(e){
-        e.preventDefault();
+    componentDidMount() {
+        axios.get('http://localhost:5000/cartItems/' )
+            .then(res => {
+                this.setState({
+                })
+            })
+            .catch(err => console.log(err));
+    }
+
+    onSubmit = (event, totalPrice) => {
+        event.preventDefault();
 
         const payment = {
             userName: this.state.userName,
             cardNumber: this.state.cardNumber,
             expiration: this.state.expiration,
-            cvc: this.state.cvc
+            cvc: this.state.cvc,
+            // totalPrice: 10000
         }
 
         console.log(payment);
@@ -63,8 +74,9 @@ export default class creditCardPayment extends Component{
     render() {
         return (
             <div>
-                <h3>Payment</h3>
-                <form onSubmit={this.onSubmit}>
+                <h3><u>Payment</u></h3>
+                <h4>Total Price : </h4>
+                <form onSubmit={event => this.onSubmit(event)}>
                     <div className="form-group">
                         <label> Name On Card: </label>
                         <input type="text"
