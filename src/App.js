@@ -44,7 +44,7 @@ function App() {
               <Route path="/addSM" component={AddStoreManager} />
               <Route path="/updateSM/:id" component={UpdateStoreManager} />
               <Route path="/deleteSM/:id" component={DeleteStoreManager} />
-              <Link to="/cartItems">Shopping Cart</Link>
+
               <Link to="/add">add</Link>
               <Route path="/" exact component={Home}/>
               <Route path="/add" exact component={AddProduct}/>
