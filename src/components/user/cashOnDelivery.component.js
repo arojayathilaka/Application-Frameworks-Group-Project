@@ -94,7 +94,7 @@ export default class cashOnDelivery extends Component{
                                onChange={this.onChangeContactNumber}/>
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Submit" className="btn btn-primary"/>
+                        <input type="submit" value="Submit" className="btn btn-primary" style={{backgroundColor: "#AF7AC5"}}/>
                     </div>
                 </form>
             </div>

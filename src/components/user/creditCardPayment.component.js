@@ -133,7 +133,7 @@ export default class creditCardPayment extends Component{
                                onChange={this.onChangeCVC}/>
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Pay" className="btn btn-primary"/>
+                        <input type="submit" value="Pay" className="btn btn-primary" style={{backgroundColor: "#AF7AC5"}}/>
                     </div>
                 </form>
             </div>

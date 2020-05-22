@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faStar} from '@fortawesome/free-solid-svg-icons';
+import * as prodDetails from "mongoose";
 
 library.add(faStar);
 
@@ -16,8 +17,12 @@ class Product extends Component{
         this.state = {
             prodId: 0,
             nickname: "",
-            comments: "",
-            ratings: 0
+            comments: '',
+            ratings: 0,
+            // prodIdArr: [],
+            commentsArr: [],
+            ratingsArr: [],
+            nicknameArr: []
         }
     }
 
@@ -56,13 +61,44 @@ class Product extends Component{
                 })
             })
 
-        axios.get('http://localhost:5000/productDetails/')
+        axios.get('http://localhost:5000/productDetails')
             .then(res => {
-                this.setState({
-                    nicknameget: res.data.nickname,
-                    commentsget: res.data.comments,
-                    ratingsget: res.data.ratings
+                console.log(res.data)
+                const prodDetails = res.data;
+                // let prodId = [];
+                let nickname = [];
+                let comments = [];
+                let ratings = [];
+                // prodDetails.forEach(prodDetails => {
+                //     prodId.push(prodDetail.prodId);
+                // })
+                // this.setState({
+                //     prodIdArr: prodId
+                // });
+                prodDetails.forEach(prodDetail => {
+                    nickname.push(prodDetail.nickname);
                 })
+                this.setState({
+                    nicknameArr: nickname
+                });
+                prodDetails.forEach(prodDetail => {
+                    comments.push(prodDetail.comments);
+                })
+                this.setState({
+                    commentsArr: comments
+                });
+                prodDetails.forEach(prodDetail => {
+                    ratings.push(prodDetail.ratings);
+                })
+                this.setState({
+                    ratingsArr: ratings
+                });
+                console.log(comments)
+                // this.setState({
+                //     nicknameget: res.data.map,
+                //     commentsget: res.data.map,
+                //     ratingsget: res.data.map
+                // })
             })
 
         console.log(this.state.prodId)
@@ -137,9 +173,49 @@ class Product extends Component{
                     <br/>
                     <h3><u>User Ratings and Comments</u></h3>
                     <br/>
-                    <h4 align="left">Nickname : {this.state.nickname}</h4>
-                    <h4 align="left">Comment : {this.state.comments}</h4>
-                    <h4 align="left">Rating : {this.state.ratings}</h4>
+                    {/*<table className="table table-hover" style={{backgroundColor:"#EBDEF0"}}>*/}
+                    {/*    <thead style={{backgroundColor:"#AF7AC5"}}>*/}
+                    {/*    <tr>*/}
+                    {/*        <th scope="col">Nickname</th>*/}
+                    {/*        <th scope="col">Comment</th>*/}
+                    {/*        <th scope="col">Rating</th>*/}
+                    {/*        <th/>*/}
+                    {/*    </tr>*/}
+                    {/*    </thead>*/}
+                    {/*    <tbody>*/}
+                    {/*    <tr>*/}
+                    {/*        {this.state.nicknameArr.map(comment => (*/}
+
+                    {/*                <td>{comment}</td>*/}
+
+                    {/*        ))}*/}
+                    {/*        {this.state.commentsArr.map(comment => (*/}
+                    {/*                <td>{comment}</td>*/}
+                    {/*        ))}*/}
+                    {/*        {this.state.ratingsArr.map(comment => (*/}
+
+                    {/*                <td>{comment}</td>*/}
+
+                    {/*        ))}*/}
+                    {/*    </tr>*/}
+
+                    {/*    </tbody>*/}
+                    {/*</table>*/}
+                    {/*{this.state.prodIdArr.map(comment => (*/}
+                    {/*    <p>{comment}</p>*/}
+                    {/*))}*/}
+                    {this.state.nicknameArr.map(comment => (
+                        <p>{comment}</p>
+                    ))}
+                    {this.state.commentsArr.map(comment => (
+                        <p>{comment}</p>
+                    ))}
+                    {this.state.ratingsArr.map(comment => (
+                        <p>{comment}</p>
+                    ))}
+                    {/*<h4 align="left">Nickname : {this.state.nicknameget}</h4>*/}
+                    {/*<h4 align="left">Comment : {this.state.commentsget}</h4>*/}
+                    {/*<h4 align="left">Rating : {this.state.ratingsget}</h4>*/}
                     <br/>
                     <hr/>
                 </form>
