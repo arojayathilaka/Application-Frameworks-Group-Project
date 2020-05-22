@@ -23,6 +23,7 @@ import Application from "./components/user/selectPaymentMethod.component";
 // import Navlink from "./components/user/navlink.component";
 import creditCardPayment from "./components/user/creditCardPayment.component";
 import cashOnDelivery from "./components/user/cashOnDelivery.component";
+import reviewDetails from "./components/user/productDetails.component";
 
 function App() {
   return (
@@ -52,6 +53,8 @@ function App() {
               <Route path="/product/:id" exact component={Product}/>
               <Route path="/editProduct/:id" exact component={EditProduct}/>
               <Route path="/selectPaymentMethod" exact component={Application}/>
+              <Route path="/productDetails/:id" exact component={reviewDetails}/>
+              <Route path="/cartItemList/" exact component={CartItemList}/>
           </Router>
     </div>
 

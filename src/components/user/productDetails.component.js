@@ -78,6 +78,14 @@ class Product extends Component{
                 this.setState({
                     reviews: reviewItems
                 });
+                let averageRating = 0;
+                res.data.forEach(prodDetails => {
+                    averageRating = (averageRating + prodDetails.ratings) / (1);
+                });
+                this.setState({
+                    ratings: averageRating
+                });
+
                 // this.setState({
                 //     prodIdArr: prodId
                 // });
@@ -136,16 +144,18 @@ class Product extends Component{
     render() {
         return (
             <div className="container">
+                <br/>
                 <h2 align="center">Product Name : {this.state.name}</h2>
                 <hr/><br/><br/>
                 <h3><u>Product Details</u></h3><br/>
                 <h4 align="left">Product Price : {this.state.price} Rps.</h4>
                 <h4 align="left">Product Category : {this.state.category}</h4>
                 <h4 align="left">Product Discount : {this.state.discount} Rps.</h4>
-                <h4 align="left">Average User Rating : __</h4>
+                <h4 align="left">Average User Rating : {this.state.ratings}</h4>
                 <br/><br/><hr/>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
+                        <br/>
                         <label> Nickname * </label>
                         <input type="text"
                                required
@@ -175,6 +185,7 @@ class Product extends Component{
                     <div className="form-group">
                         <input type="submit" value="Submit Review & Ratings" className="btn btn-primary"/>
                     </div>
+                    <br/>
                     <hr/>
                     <br/>
                     <h3><u>User Ratings and Comments</u></h3>

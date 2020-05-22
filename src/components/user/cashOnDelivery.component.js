@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import '../../stylesheets/cashOnDelivery.css';
+
 const Swal = require('sweetalert2');
 
 export default class cashOnDelivery extends Component{
@@ -29,10 +31,10 @@ export default class cashOnDelivery extends Component{
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/cartItems/' )
+        axios.get('http://localhost:5000/cartItemList/')
             .then(res => {
                 this.setState({
-                    FinaltotPrice: res.data.FinaltotPrice
+                    FinaltotPrice: res.data.totalPrice
                 })
                 console.log(this.state.FinaltotPrice)
             })
@@ -73,8 +75,8 @@ export default class cashOnDelivery extends Component{
 
     render() {
         return (
-            <div>
-                <h3><u>Cash On Delivery</u></h3>
+            <div id="all">
+                <h3 id="intro"><u>Cash On Delivery</u></h3>
                 <h4>Total Price : {this.state.FinaltotPrice}</h4>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
