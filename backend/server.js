@@ -99,6 +99,7 @@ mongoose
 const productsRouter = require('./routes/products');
 const imagesRouter = require('./routes/images');
 const cartItemsRouter = require('./routes/cartItems');
+const wishlistItemsRouter = require('./routes/wishlist');
 const finalPaymentRouter = require('./routes/finalPayment');
 const creditCardPaymentRouter = require('./routes/creditCardPayment');
 const cashOnDeliveryRouter = require('./routes/cashOnDelivery');
@@ -110,7 +111,8 @@ app.use('/creditCardPayment', creditCardPaymentRouter);
 app.use('/cashOnDelivery', cashOnDeliveryRouter);
 app.use('/products', productsRouter);
 app.use('/images', imagesRouter);
-app.use('/cartItems', cartItemsRouter)
+app.use('/cartItems', cartItemsRouter);
+app.use('/wishlistItems', wishlistItemsRouter);
 app.use('/finalPayment', finalPaymentRouter);
 app.use('/userDetails', userDetailsRouter);
 app.use('/categories', categoriesRouter);
