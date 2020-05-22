@@ -90,7 +90,7 @@ class CategoryAdd extends Component{
                         />
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Add Category" style={{color:"#fff",backgroundColor:"#2E86C1"}} className="btn"/>
+                        <input type="submit" value="Add Category" style={{color:"#fff",backgroundColor:"#208FC8"}} className="btn"/>
                     </div>
                 </form>
             </div>
