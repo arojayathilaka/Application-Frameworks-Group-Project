@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faStar} from '@fortawesome/free-solid-svg-icons';
-import * as prodDetails from "mongoose";
 
 library.add(faStar);
 
@@ -20,9 +19,7 @@ class Product extends Component{
             comments: '',
             ratings: 0,
             // prodIdArr: [],
-            commentsArr: [],
-            ratingsArr: [],
-            nicknameArr: []
+            reviews: []
         }
     }
 
@@ -61,44 +58,53 @@ class Product extends Component{
                 })
             })
 
-        axios.get('http://localhost:5000/productDetails')
+        axios.get('http://localhost:5000/productDetails/')
             .then(res => {
                 console.log(res.data)
                 const prodDetails = res.data;
                 // let prodId = [];
-                let nickname = [];
-                let comments = [];
-                let ratings = [];
-                // prodDetails.forEach(prodDetails => {
-                //     prodId.push(prodDetail.prodId);
-                // })
+                // let item = {};
+                // let nickname = [];
+                // let comments = [];
+                // let ratings = [];
+                let reviewItems = [];
+                prodDetails.forEach(prodDetail => {
+                    let item = {};
+                    item["nickname"] = prodDetail.nickname;
+                    item["comment"] = prodDetail.comments;
+                    item["ratings"] = prodDetail.ratings;
+                    reviewItems.push(item);
+                });
+                this.setState({
+                    reviews: reviewItems
+                });
                 // this.setState({
                 //     prodIdArr: prodId
                 // });
-                prodDetails.forEach(prodDetail => {
-                    nickname.push(prodDetail.nickname);
-                })
-                this.setState({
-                    nicknameArr: nickname
-                });
-                prodDetails.forEach(prodDetail => {
-                    comments.push(prodDetail.comments);
-                })
-                this.setState({
-                    commentsArr: comments
-                });
-                prodDetails.forEach(prodDetail => {
-                    ratings.push(prodDetail.ratings);
-                })
-                this.setState({
-                    ratingsArr: ratings
-                });
-                console.log(comments)
-                // this.setState({
-                //     nicknameget: res.data.map,
-                //     commentsget: res.data.map,
-                //     ratingsget: res.data.map
+                // prodDetails.forEach(prodDetail => {
+                //     nickname.push(prodDetail.nickname);
                 // })
+                // this.setState({
+                //     nicknameArr: nickname
+                // });
+                // prodDetails.forEach(prodDetail => {
+                //     comments.push(prodDetail.comments);
+                // })
+                // this.setState({
+                //     commentsArr: comments
+                // });
+                // prodDetails.forEach(prodDetail => {
+                //     ratings.push(prodDetail.ratings);
+                // })
+                // this.setState({
+                //     ratingsArr: ratings
+                // });
+                // console.log(comments)
+                // // this.setState({
+                // //     nicknameget: res.data.map,
+                // //     commentsget: res.data.map,
+                // //     ratingsget: res.data.map
+                // // })
             })
 
         console.log(this.state.prodId)
@@ -204,15 +210,22 @@ class Product extends Component{
                     {/*{this.state.prodIdArr.map(comment => (*/}
                     {/*    <p>{comment}</p>*/}
                     {/*))}*/}
-                    {this.state.nicknameArr.map(comment => (
-                        <p>{comment}</p>
-                    ))}
-                    {this.state.commentsArr.map(comment => (
-                        <p>{comment}</p>
-                    ))}
-                    {this.state.ratingsArr.map(comment => (
-                        <p>{comment}</p>
-                    ))}
+                    {this.state.reviews.map(review => (
+                        <p>Nickname : {review.nickname} <br/> Comment : {review.comment} <br/> Rating : {review.ratings}</p>
+                        ))}
+                    {/*<hr/>*/}
+                    {/*{this.state.reviewItems.map(nickname => (*/}
+                    {/*    <p>Nickname : {nickname}</p>*/}
+                    {/*))}*/}
+                    {/*<hr/>*/}
+                    {/*{this.state.reviewItems.map(comment => (*/}
+                    {/*    <p>Comment : {comment}</p>*/}
+                    {/*))}*/}
+                    {/*<hr/>*/}
+                    {/*{this.state.reviewItems.map(rating => (*/}
+                    {/*    <p>Rating : {rating}</p>*/}
+                    {/*))}*/}
+                    <hr/>
                     {/*<h4 align="left">Nickname : {this.state.nicknameget}</h4>*/}
                     {/*<h4 align="left">Comment : {this.state.commentsget}</h4>*/}
                     {/*<h4 align="left">Rating : {this.state.ratingsget}</h4>*/}
