@@ -15,10 +15,18 @@ class Product extends Component{
 
         this.state = {
             prodId: 0,
+            nickname: "",
             comments: "",
             ratings: 0
         }
     }
+
+    onChangeNickname = event => {
+        this.setState({
+            nickname: event.target.value
+        });
+        console.log(this.state.comments)
+    };
 
     onChangeComments = event => {
         this.setState({
@@ -42,15 +50,27 @@ class Product extends Component{
                     prodId: res.data.prodId,
                     name: res.data.name,
                     price: res.data.price,
-                    discount: res.data.discount
+                    discount: res.data.discount,
+                    // comments: res.data.comments,
+                    // ratings: res.data.ratings
                 })
-                console.log(this.state.prodId)
-                console.log(this.state.category)
-                console.log(this.state.comments)
-                console.log(this.state.ratings)
-    })
-            .catch(err => console.log(err));
+            })
+
+        axios.get('http://localhost:5000/productDetails/')
+            .then(res => {
+                this.setState({
+                    nicknameget: res.data.nickname,
+                    commentsget: res.data.comments,
+                    ratingsget: res.data.ratings
+                })
+            })
+
+        console.log(this.state.prodId)
+        console.log(this.state.category)
+        console.log(this.state.comments)
+        console.log(this.state.ratings)
     }
+
 
     onSubmit = e => {
         e.preventDefault();
@@ -60,6 +80,7 @@ class Product extends Component{
         console.log(this.state.ratings);
         const commentRating = {
             prodId: this.state.prodId,
+            nickname: this.state.nickname,
             comments: this.state.comments,
             ratings: this.state.ratings
         };
@@ -73,13 +94,25 @@ class Product extends Component{
     render() {
         return (
             <div className="container">
-                <h2 align="center">{this.state.name}</h2>
-                <h2 align="center">{this.state.price}</h2>
-                <h2 align="center">{this.state.category}</h2>
-                <h2 align="center">{this.state.prodId}</h2>
+                <h2 align="center">Product Name : {this.state.name}</h2>
+                <hr/><br/><br/>
+                <h3><u>Product Details</u></h3><br/>
+                <h4 align="left">Product Price : {this.state.price} Rps.</h4>
+                <h4 align="left">Product Category : {this.state.category}</h4>
+                <h4 align="left">Product Discount : {this.state.discount} Rps.</h4>
+                <h4 align="left">Average User Rating : __</h4>
+                <br/><br/><hr/>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label> Comments: </label>
+                        <label> Nickname * </label>
+                        <input type="text"
+                               required
+                               className="form-control"
+                               value={this.state.nickname}
+                               onChange={this.onChangeNickname}/>
+                    </div>
+                    <div className="form-group">
+                        <label> Comment * </label>
                         <input type="text"
                                required
                                className="form-control"
@@ -87,7 +120,8 @@ class Product extends Component{
                                onChange={this.onChangeComments}/>
                     </div>
                     <div className="form-group">
-                        <label> Ratings 1-5 : </label>
+                        <label> Ratings * </label>
+                        <br/>
                         <select id="lang" onChange={this.onChangeRatings} value={this.state.value}>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -95,19 +129,21 @@ class Product extends Component{
                             <option value="4">4</option>
                             <option value="5">5</option>
                         </select>
-                        {/*<input*/}
-                        {/*    type="text"*/}
-                        {/*       required*/}
-                        {/*       className="form-control"*/}
-                        {/*       value={this.state.ratings}*/}
-                        {/*       onChange={this.onChangeRatings}/>*/}
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Submit Comments & Ratings" className="btn btn-primary"/>
+                        <input type="submit" value="Submit Review & Ratings" className="btn btn-primary"/>
                     </div>
+                    <hr/>
+                    <br/>
+                    <h3><u>User Ratings and Comments</u></h3>
+                    <br/>
+                    <h4 align="left">Nickname : {this.state.nickname}</h4>
+                    <h4 align="left">Comment : {this.state.comments}</h4>
+                    <h4 align="left">Rating : {this.state.ratings}</h4>
+                    <br/>
+                    <hr/>
                 </form>
             </div>
-
         )
     }
 }

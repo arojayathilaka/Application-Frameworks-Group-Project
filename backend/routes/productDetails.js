@@ -9,11 +9,13 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
     const prodId = req.body.prodId;
+    const nickname = req.body.nickname;
     const comments = req.body.comments;
     const ratings = req.body.ratings;
 
     const newProductDetails = new ProductDetails({
         prodId,
+        nickname,
         comments,
         ratings
     });
@@ -39,6 +41,7 @@ router.route('/update/:id').post((req, res) => {
     ProductDetails.findById(req.params.id)
         .then(productDetails => {
             productDetails.prodId = req.body.prodId;
+            productDetails.nickname = req.body.nickname;
             productDetails.comments = req.body.comments;
             productDetails.ratings = req.body.ratings;
 

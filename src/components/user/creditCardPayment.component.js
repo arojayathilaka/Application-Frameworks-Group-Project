@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+const Swal = require('sweetalert2');
 
 export default class creditCardPayment extends Component{
     constructor(props) {
@@ -50,7 +51,9 @@ export default class creditCardPayment extends Component{
         axios.get('http://localhost:5000/cartItems/' )
             .then(res => {
                 this.setState({
+                    FinaltotPrice: res.data.FinaltotPrice
                 })
+                console.log(this.state.FinaltotPrice)
             })
             .catch(err => console.log(err));
     }
@@ -68,14 +71,33 @@ export default class creditCardPayment extends Component{
 
         console.log(payment);
         axios.post('http://localhost:5000/creditCardPayment/add', payment)
-            .then(res => console.log(res.data));
+            .then(res => console.log(res.data),
+            Swal.fire({
+                position: 'center',
+                title: "Are you sure you want to continue your payment?",
+                text: "",
+                icon: 'warning',
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: 'Go back',
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Pay",
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire(
+                        'Payment Successful!',
+                        'Thank You For Using Our Services',
+                        'success',
+                    )}
+            })
+            );
     }
 
     render() {
         return (
             <div>
                 <h3><u>Payment</u></h3>
-                <h4>Total Price : </h4>
+                <h4>Total Price : {this.state.FinaltotPrice} </h4>
                 <form onSubmit={event => this.onSubmit(event)}>
                     <div className="form-group">
                         <label> Name On Card: </label>
