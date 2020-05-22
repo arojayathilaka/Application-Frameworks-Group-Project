@@ -20,10 +20,10 @@ import AdminHome from "./components/admin/admin-home";
 import CartItemList from "./components/user/cartItem-list.component";
 import EditCartItem from "./components/user/edit-cartItem.component";
 import Application from "./components/user/selectPaymentMethod.component";
-
-import Navlink from "./components/user/navlink.component";
+// import Navlink from "./components/user/navlink.component";
 import creditCardPayment from "./components/user/creditCardPayment.component";
 import cashOnDelivery from "./components/user/cashOnDelivery.component";
+import reviewDetails from "./components/user/productDetails.component";
 
 function App() {
   return (
@@ -34,7 +34,7 @@ function App() {
               <Route path="/adminHome" component={AdminHome} />
               <Route path="/smLogin" component={StoreManagerLogin} />
               <div className="container">
-                  <Navlink/>
+                  {/*<Navlink/>*/}
                   <Route path="/creditCardPayment" exact component={creditCardPayment}/>
                   <Route path="/cashOnDelivery" exact component={cashOnDelivery}/>
               </div>
@@ -53,6 +53,8 @@ function App() {
               <Route path="/product/:id" exact component={Product}/>
               <Route path="/editProduct/:id" exact component={EditProduct}/>
               <Route path="/selectPaymentMethod" exact component={Application}/>
+              <Route path="/productDetails/:id" exact component={reviewDetails}/>
+              <Route path="/cartItemList/" exact component={CartItemList}/>
           </Router>
     </div>
 
