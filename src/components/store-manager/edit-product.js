@@ -146,20 +146,35 @@ class EditProduct extends Component {
     };
 
     deleteProductImage = id => {
-        axios.delete('http://localhost:5000/images/delete/' + id)
-            .then(res => {
-                console.log(res.data);
-                swal({
-                    title: "Product Image Deleted!",
-                    text: "You successfully deleted the product image.",
-                    icon: "success",
-                    button: true,
-                });
-                this.setState({
-                    isDeleted: true
-                })
-            })
-            .catch(err => console.error(err));
+        swal({
+            title: "Are you sure?",
+            text: "You want to delete product image of " + this.state.name,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then(willDelete => {
+           if (willDelete) {
+               axios.delete('http://localhost:5000/images/delete/' + id)
+                   .then(res => {
+                       console.log(res.data);
+                       swal({
+                           title: "Product Image Deleted!",
+                           text: "You successfully deleted the product image.",
+                           icon: "success",
+                           button: true,
+                       });
+                       this.setState({
+                           isDeleted: true
+                       })
+                   })
+                   .catch(err => console.error(err));
+           } else {
+               swal("Product image is not deleted!", {
+                   icon: "success",
+                   buttons: "OK",
+               });
+           }
+        });
     };
 
     render() {

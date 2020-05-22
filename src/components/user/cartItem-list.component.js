@@ -77,7 +77,9 @@ import axios from 'axios';
 
     };
 
-
+    selectPayment = () => {
+        window.location = "/selectPaymentMethod"
+    }
 
 
 
@@ -146,7 +148,7 @@ import axios from 'axios';
                     <br/>
 
                 <div className="form-group">
-                    <input type="submit" value="CHECKOUT" className="btn btn-primary " style={{backgroundColor: "#AF7AC5",float:"right"}} />
+                    <input type="submit" value="CHECKOUT" className="btn btn-primary " onClick={this.selectPayment}  style={{backgroundColor: "#AF7AC5",float:"right"}} />
                 </div>
 
 

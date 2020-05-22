@@ -9,8 +9,9 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
     const deliveryAddress = req.body.deliveryAddress;
+    const contactNumber = req.body.contactNumber;
 
-    const newCashOnDelivery = new CashOnDelivery({deliveryAddress});
+    const newCashOnDelivery = new CashOnDelivery({deliveryAddress, contactNumber});
 
     newCashOnDelivery.save()
         .then(() => res.json('Delivery Address Added!'))

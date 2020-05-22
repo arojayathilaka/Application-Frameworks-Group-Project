@@ -27,36 +27,55 @@ class ProductsList extends Component {
             });
     }
 
-    deleteProduct = (_id, prodId) => {
-        axios.delete('http://localhost:5000/products/delete/' + _id)
-            .then(res => {
-                console.log(res.data);
-                swal({
-                    title: "Product Deleted!",
-                    text: "You successfully deleted the product.",
-                    icon: "success",
-                    button: true,
-                })
-            })
-            .catch(err => console.error(err));
-
-        axios.get('http://localhost:5000/images')
-            .then(res => {
-                console.log(res.data);
-                const imageData = res.data.find(imageData => (imageData.imgId === prodId));
-                console.log(imageData);
-                if (imageData !== undefined) {
-                    axios.delete('http://localhost:5000/images/delete/' + imageData._id)
-                        .then(res => {
-                            console.log(res.data);
+    deleteProduct = (_id, prodId, name) => {
+        swal({
+            title: "Are you sure?",
+            text: "You want to delete " + name,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then(willDelete => {
+            if (willDelete) {
+                axios.delete('http://localhost:5000/products/delete/' + _id)
+                    .then(res => {
+                        console.log(res.data);
+                        swal({
+                            title: "Product Deleted!",
+                            text: "You successfully deleted the product.",
+                            icon: "success",
+                            button: true,
                         })
-                        .catch(err => console.error(err));
-                }
-            });
+                    })
+                    .catch(err => console.error(err));
 
-        this.setState({
-            allProducts: this.state.allProducts.filter(product => product._id !== _id)
+                axios.get('http://localhost:5000/images')
+                    .then(res => {
+                        console.log(res.data);
+                        const imageData = res.data.find(imageData => (imageData.imgId === prodId));
+                        console.log(imageData);
+                        if (imageData !== undefined) {
+                            axios.delete('http://localhost:5000/images/delete/' + imageData._id)
+                                .then(res => {
+                                    console.log(res.data);
+                                })
+                                .catch(err => console.error(err));
+                        }
+                    });
+
+                this.setState({
+                    allProducts: this.state.allProducts.filter(product => product._id !== _id)
+                })
+            } else {
+                swal("Product is not deleted!", {
+                    icon: "success",
+                    buttons: "OK",
+                });
+            }
         })
+    };
+
+    gotoAddProduct = () => {
+      window.location = '/addProduct';
     };
 
     render() {
@@ -81,13 +100,13 @@ class ProductsList extends Component {
                             <td>{product.discount}</td>
                             <td>
                                 <a
-                                    href={'/edit/'+ product._id}
+                                    href={'/editProduct/'+ product._id}
                                     className="btn btn-secondary"
                                 >
                                     Edit
                                 </a> | <button
                                     className="btn btn-danger"
-                                    onClick={() => this.deleteProduct(product._id, product.prodId)}
+                                    onClick={() => this.deleteProduct(product._id, product.prodId, product.name)}
                                 >
                                     Delete Product
                                 </button>
@@ -96,6 +115,7 @@ class ProductsList extends Component {
                     ))}
                     </tbody>
                 </table>
+                <button className="gotoAddBtn" onClick={this.gotoAddProduct}>Add a new product</button>
             </div>
         );
     }
