@@ -18,7 +18,7 @@ import DeleteStoreManager from "./components/admin/delete-storemanager";
 import Category from "./components/admin/goCategory";
 import AdminHome from "./components/admin/admin-home";
 import CartItemList from "./components/user/cartItem-list.component";
-import EditCartItem from "./components/edit-cartItem.component";
+import EditCartItem from "./components/user/edit-cartItem.component";
 import Application from "./components/user/selectPaymentMethod.component";
 
 import Navlink from "./components/user/navlink.component";

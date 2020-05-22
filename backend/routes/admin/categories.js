@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Categories = require('../models/Category');
+let Categories = require('../../models/admin/Category');
 
 router.route('/addCategory').post((req, res) => {
     const categoryname = req.body.categoryname;

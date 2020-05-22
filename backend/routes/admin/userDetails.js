@@ -1,6 +1,6 @@
 const router = require('express').Router();
-let userDetail = require('../models/userDetails.models');
-let UserSession = require('../models/UserSession');
+let userDetail = require('../../models/admin/userDetails.models');
+let UserSession = require('../../models/admin/UserSession');
 
 const nodemailer = require('nodemailer');
 

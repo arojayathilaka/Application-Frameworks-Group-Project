@@ -96,14 +96,14 @@ mongoose
 //     })
 // });
 //..
-const productsRouter = require('./routes/products');
-const imagesRouter = require('./routes/images');
-const cartItemsRouter = require('./routes/cartItems');
-const creditCardPaymentRouter = require('./routes/creditCardPayment');
-const cashOnDeliveryRouter = require('./routes/cashOnDelivery');
-const userDetailsRouter = require('./routes/userDetails');
-const categoriesRouter = require('./routes/categories');
-const productDetailsRouter = require('./routes/productDetails');
+const productsRouter = require('./routes/store-manager/products');
+const imagesRouter = require('./routes/store-manager/images');
+const cartItemsRouter = require('./routes/user/cartItems');
+const creditCardPaymentRouter = require('./routes/user/creditCardPayment');
+const cashOnDeliveryRouter = require('./routes/user/cashOnDelivery');
+const userDetailsRouter = require('./routes/admin/userDetails');
+const categoriesRouter = require('./routes/admin/categories');
+const productDetailsRouter = require('./routes/user/productDetails');
 
 app.use('/creditCardPayment', creditCardPaymentRouter);
 app.use('/cashOnDelivery', cashOnDeliveryRouter);

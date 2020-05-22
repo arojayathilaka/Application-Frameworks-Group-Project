@@ -1,5 +1,5 @@
 const router= require('express').Router();
-let ProductDetails = require('../models/productDetails.model');
+let ProductDetails = require('../../models/user/productDetails.model');
 
 router.route('/').get((req, res) => {
     ProductDetails.find()

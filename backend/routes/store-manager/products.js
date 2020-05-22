@@ -1,16 +1,29 @@
 const router = require('express').Router();
-const Product = require('../models/product.model');
+const Product = require('../../models/store-manager/product.model');
 
+/**
+ * Get details of all the products from the database
+ * @returns {Product[]} array of products / error message
+ */
 router.route('/').get((req, res) => {
     Product.find()
         .then(products =>
             res.status(200).send(products)
         )
         .catch(err =>
-            res.status(400).send('Error: ' + err)
+            res.status(400).send({message: 'Error: ' + err})
         );
 });
 
+/**
+ * Add a new product to the database
+ * @param {string} category Category of the product
+ * @param {number} prodId Id of the product
+ * @param {string} name Name of the product
+ * @param {number} price Price of the product
+ * @param {number} discount Discount of the product
+ * @returns success or error message
+ */
 router.route('/add').post((req, res) => {
     const category = req.body.category;
     const prodId = Number(req.body.prodId);
@@ -31,31 +44,46 @@ router.route('/add').post((req, res) => {
     });
 
     newProduct.save()
-        .then(() => res.send('Product added!'))
+        .then(() => res.send({message: 'Product added!'}))
         .catch(err =>
-            res.status(400).send('Error: ' + err)
+            res.status(400).send({message: 'Error: ' + err})
         );
 });
 
+/**
+ * Get details of a product from the database
+ * @param object id of the product
+ * @returns {Product} product / error message
+ */
 router.route('/:id').get((req, res) => {
     Product.findById(req.params.id)
         //.then(product => res.json(product))
         .then(product => {
-            res.status(200).send(product);
+            res.status(200).send(product)
         })
         .catch(err =>
             res.status(400).send('Error: ' + err)
         );
 });
 
+/**
+ * Delete a product from the database
+ * @param object id of the product
+ * @returns success or error message
+ */
 router.route('/delete/:id').delete((req, res) => {
     Product.findByIdAndDelete(req.params.id)
-        .then(() => res.send('Product deleted!'))
+        .then(() => res.send({message: 'Product deleted!'}))
         .catch(err =>
-            res.status(400).send('Error: ' + err)
+            res.status(400).send({message: 'Error: ' + err})
         );
 });
 
+/**
+ * Update details of a product
+ * @param object id of the product
+ * @returns success or error message
+ */
 router.route('/update/:id').put((req, res) => {
     Product.findById(req.params.id)
         .then(product => {
@@ -68,9 +96,9 @@ router.route('/update/:id').put((req, res) => {
             product.ratings = req.body.ratings;
 
             product.save()
-                .then(() => res.send('Product updated!'))
+                .then(() => res.send({message:'Product updated!'}))
                 .catch(err =>
-                    res.status(400).json('Error: ' + err)
+                    res.status(400).send({message: 'Error: ' + err})
                 );
         })
         .catch(err =>
