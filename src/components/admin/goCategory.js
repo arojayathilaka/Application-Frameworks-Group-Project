@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 import axios from "axios";
 
+/**
+ * functional component
+ * create vertical navigation bar to display categories added by admin
+ * */
 const CategoryView = props => (
     <div className="nav flex-column nav-pills" aria-orientation="vertical">
         <a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" style={{color:"#000"}} href={"/productsList/" + props.categoryview.categoryname}
@@ -16,6 +20,10 @@ class Category extends Component{
             categories: []
         }
     }
+
+    /**
+     * adding category details to the categories array using get end point
+     * */
     componentDidMount() {
         axios.post('http://localhost:5000/categories/get')
             .then(response =>{
@@ -27,6 +35,10 @@ class Category extends Component{
             });
     }
 
+    /**
+     * setting the objects in the elements in the category array to the CategoryView component
+     * after return it
+     * */
     categoriesList(){
         return this.state.categories.map(currentcategory =>{
             return <CategoryView categoryview={currentcategory}/>

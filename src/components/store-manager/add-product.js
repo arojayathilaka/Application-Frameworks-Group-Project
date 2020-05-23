@@ -34,38 +34,64 @@ class AddProduct extends Component {
             });
     }
 
+    /**
+     * Assigning the input value of prodId to state
+     * @param {*} event The event object
+     */
     onChangeProdId = event => {
         this.setState({
             prodId: event.target.value
         })
     };
 
+    /**
+     * Assigning the input value of name to state
+     * @param {*} event The event object
+     */
     onChangeName = event => {
         this.setState({
             name: event.target.value
         })
     };
 
+    /**
+     * Assigning the input value of price to state
+     * @param {*} event The event object
+     */
     onChangePrice = event => {
         this.setState({
             price: event.target.value
         })
     };
 
+    /**
+     * Assigning the input value of discount to state
+     * @param {*} event The event object
+     */
     onChangeDiscount = event => {
         this.setState({
             discount: event.target.value
         })
     };
 
+    /**
+     * Assigning the input value of category to state
+     * @param {*} event The event object
+     */
     onChangeCategory = event => {
         this.setState({
             category: event.target.value
         })
     };
 
+    /**
+     * Adding the new product to the database
+     * @param {*} event The event object
+     */
     onSubmit = event => {
         event.preventDefault();
+
+        // creating a product object
         const product = {
             category: this.state.category,
             prodId: this.state.prodId,

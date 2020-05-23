@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
 
 class Navbar extends Component{
     render() {
@@ -14,7 +17,11 @@ class Navbar extends Component{
                         <li className="navbar-item">
                             <Link to="/smLogin" className="nav-link">Store Managers Login</Link>
                         </li>
+                        <li className="navbar-item">
+                            <Link to="/cartItems" className="nav-link">Shopping Cart</Link>
+                        </li>
                     </ul>
+
                 </div>
             </nav>
         );

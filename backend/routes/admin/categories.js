@@ -1,6 +1,14 @@
 const router = require('express').Router();
-let Categories = require('../models/Category');
+let Categories = require('../../models/admin/Category');
 
+/**
+ * use to add categories
+ * checking whether the new category is added before
+ * if it not added previously
+ * adding new category to database
+ * if it added previously
+ * display an error message
+ * */
 router.route('/addCategory').post((req, res) => {
     const categoryname = req.body.categoryname;
     if (!categoryname){
@@ -9,7 +17,7 @@ router.route('/addCategory').post((req, res) => {
             message: 'Categories Name can not be blank.'
         });
     }
-    console.log('here');
+    //console.log('here');
     Categories.find({
         categoryname: categoryname
     },(err, previousCategories) =>{
@@ -44,6 +52,11 @@ router.route('/addCategory').post((req, res) => {
         }
     });
 });
+
+/**
+ * In here
+ * get all categories
+ * */
 router.route('/get').post((req, res) =>{
     Categories.find()
         .then(categories => res.json(categories))

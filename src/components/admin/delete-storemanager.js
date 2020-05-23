@@ -21,6 +21,11 @@ class DeleteStoreManager extends Component{
             password: ''
         }
     }
+
+    /**
+     * setting the details of the store manager that admin wants to delete
+     * by using the object id
+     * */
     componentDidMount() {
         axios.get('http://localhost:5000/userDetails/'+this.props.match.params.id)
             .then(response =>{
@@ -62,6 +67,19 @@ class DeleteStoreManager extends Component{
         });
     }
 
+    /**
+     * create an object and pass the values in the text fields to that object
+     * asking admin that he exactly want to delete store manager by using sweetalert
+     * if admin gives cancel
+     * then store manager will not delete
+     * if admin gives ok
+     * the values in the object is send to the delete end point by using axios
+     * if the success value that is returned from the backend is true
+     * display successfully deleted alert using sweetalert
+     * text fields converted to empty
+     * if the success value that is returned from the backend is false
+     * display an error alert
+     * */
     onSubmit(e){
         e.preventDefault();
 

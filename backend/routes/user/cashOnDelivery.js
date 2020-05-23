@@ -1,5 +1,5 @@
 const router= require('express').Router();
-let CashOnDelivery = require('../models/cashOnDelivery.model');
+let CashOnDelivery = require('../../models/user/cashOnDelivery.model');
 
 router.route('/').get((req, res) => {
     CashOnDelivery.find()

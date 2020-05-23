@@ -1,5 +1,5 @@
 const router= require('express').Router();
-let Payment = require('../models/creditCardPayment.model');
+let Payment = require('../../models/user/creditCardPayment.model');
 
 router.route('/').get((req, res) => {
     Payment.find()

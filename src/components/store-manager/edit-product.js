@@ -28,7 +28,6 @@ class EditProduct extends Component {
                 if (res.data.length > 0) {
                     this.setState({
                         categories: res.data,
-                        // category: res.data[0].categoryname
                     });
                 }
             })
@@ -52,13 +51,19 @@ class EditProduct extends Component {
         axios.get('http://localhost:5000/images')
             .then(res => {
                 console.log(res.data);
+
+                // finding the corresponding image to the product
                 const imageData = res.data.find(imageData => (imageData.imgId === this.state.prodId));
+
+                // checking whether there is an image already in the database
                 if (imageData !== undefined) {
                     this.setState({
                         imageData: imageData,
                         isDeleted: false
                     });
                     console.log(imageData._id);
+
+                    // creating an image using image data
                     const base64Flag = 'data:image/jpeg;base64,';
                     const imageStr = this.arrayBufferToBase64(imageData.img.data.data);
                     const image = base64Flag + imageStr;
@@ -66,6 +71,7 @@ class EditProduct extends Component {
                         image: image
                     })
                 } else {
+                    // if no image was found, it means it has been deleted or has no added yet
                     this.setState({
                         isDeleted: true
                     })
@@ -74,36 +80,60 @@ class EditProduct extends Component {
         console.log(this.state.isEditing)
     }
 
+    /**
+     * Assigning the input value of prodId to state
+     * @param {*} event The event object
+     */
     onChangeId = event => {
         this.setState({
             prodId: event.target.value
         })
     };
 
+    /**
+     * Assigning the input value of name to state
+     * @param {*} event The event object
+     */
     onChangeName = event => {
         this.setState({
             name: event.target.value
         })
     };
 
+    /**
+     * Assigning the input value of price to state
+     * @param {*} event The event object
+     */
     onChangePrice = event => {
         this.setState({
             price: event.target.value
         })
     };
 
+    /**
+     * Assigning the input value of discount to state
+     * @param {*} event The event object
+     */
     onChangeDiscount = event => {
         this.setState({
             discount: event.target.value
         })
     };
 
+    /**
+     * Assigning the input value of category to state
+     * @param {*} event The event object
+     */
     onChangeCategory = event => {
         this.setState({
             category: event.target.value
         })
     };
 
+    /**
+     * To update the product with newly entered values
+     * @param {*} event The event object
+     */
     onSubmit = event => {
         event.preventDefault();
 
@@ -132,6 +162,11 @@ class EditProduct extends Component {
         //window.location = '/';
     };
 
+    /**
+     * To convert arrayBuffer to base64 string
+     * @param buffer
+     * @returns {string} the image string
+     */
     arrayBufferToBase64(buffer) {
         let binary = '';
         const bytes = [].slice.call(new Uint8Array(buffer));
@@ -139,12 +174,19 @@ class EditProduct extends Component {
         return window.btoa(binary);
     };
 
+    /**
+     * To know when a user is editing the product image
+     */
     setIsEditing = () => {
       this.setState({
           isEditing: true
       })
     };
 
+    /**
+     * To delete product image
+     * @param {*} id object id of the image
+     */
     deleteProductImage = id => {
         swal({
             title: "Are you sure?",
@@ -153,6 +195,7 @@ class EditProduct extends Component {
             buttons: true,
             dangerMode: true,
         }).then(willDelete => {
+            // checking whether the user is going to delete the product image or not
            if (willDelete) {
                axios.delete('http://localhost:5000/images/delete/' + id)
                    .then(res => {
@@ -198,8 +241,7 @@ class EditProduct extends Component {
                                             value={category.categoryname}>{category.categoryname}
                                         </option>
                                     )
-                                })
-                                }
+                                })}
                             </select>
                         </div>
                         <div className="form-group">
@@ -281,7 +323,8 @@ class EditProduct extends Component {
                                     <img src={this.state.isEditing ? null : this.state.image} alt=""/>
                                     <form
                                         action={"http://localhost:5000/images/update/" + this.state.imageData._id}
-                                        method="POST" encType="multipart/form-data"
+                                        method="POST"
+                                        encType="multipart/form-data"
                                     >
                                         <input
                                             type="hidden"
@@ -311,7 +354,9 @@ class EditProduct extends Component {
                                         <input
                                             type={this.state.isEditing ? "submit" : "hidden"}
                                             value="Update Product Image"
-                                            className="btnUpdateImg" />
+                                            className="btnUpdateImg"
+                                            onClick={this.goBack}
+                                        />
                                     </form>
 
                                     <input

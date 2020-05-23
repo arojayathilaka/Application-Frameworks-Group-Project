@@ -96,25 +96,27 @@ mongoose
 //     })
 // });
 //..
-const productsRouter = require('./routes/products');
-const imagesRouter = require('./routes/images');
-const cartItemsRouter = require('./routes/cartItems');
+const productsRouter = require('./routes/store-manager/products');
+const imagesRouter = require('./routes/store-manager/images');
+const cartItemsRouter = require('./routes/user/cartItems');
+const wishlistItemsRouter = require('./routes/wishlist');
 const finalPaymentRouter = require('./routes/finalPayment');
-const creditCardPaymentRouter = require('./routes/creditCardPayment');
-const cashOnDeliveryRouter = require('./routes/cashOnDelivery');
-const userDetailsRouter = require('./routes/userDetails');
-const categoriesRouter = require('./routes/categories');
-const productDetailsRouter = require('./routes/productDetails');
+const creditCardPaymentRouter = require('./routes/user/creditCardPayment');
+const cashOnDeliveryRouter = require('./routes/user/cashOnDelivery');
+const userDetailsRouter = require('./routes/admin/userDetails');
+const categoriesRouter = require('./routes/admin/categories');
+const productDetailsRouter = require('./routes/user/productDetails');
 
 app.use('/creditCardPayment', creditCardPaymentRouter);
 app.use('/cashOnDelivery', cashOnDeliveryRouter);
 app.use('/products', productsRouter);
 app.use('/images', imagesRouter);
-app.use('/cartItems', cartItemsRouter)
+app.use('/cartItems', cartItemsRouter);
+app.use('/wishlistItems', wishlistItemsRouter);
 app.use('/finalPayment', finalPaymentRouter);
 app.use('/userDetails', userDetailsRouter);
 app.use('/categories', categoriesRouter);
-app.use('/productDetails', productDetailsRouter)
+app.use('/productDetails', productDetailsRouter);
 
 app.listen(port, err => {
     if (err) {

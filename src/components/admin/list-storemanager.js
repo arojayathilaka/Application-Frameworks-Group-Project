@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+/**
+ * functional component
+ * create a table to display store manger details added by admin
+ * create link to update store manager page and delete store manager page
+ * */
 const StoreManager = props => (
     <tr>
         <td>{props.storemanager.userid}</td>
@@ -20,6 +25,10 @@ class ViewStoreManager extends Component{
 
         this.state = {userDetails: []};
     }
+
+    /**
+     * adding store manager details to the userDetails array using userDetails end point
+     * */
     componentDidMount() {
         axios.get('http://localhost:5000/userDetails/')
             .then(response =>{
@@ -29,6 +38,11 @@ class ViewStoreManager extends Component{
                 console.log(error);
             })
     }
+
+    /**
+     * setting the objects in the elements in the userDetails array to the StoreManager component
+     * after return it
+     * */
     storeManagerList(){
         return this.state.userDetails.map(currentstoremanager =>{
             return <StoreManager storemanager={currentstoremanager} key={currentstoremanager._id}/>
