@@ -24,6 +24,8 @@ import Application from "./components/user/selectPaymentMethod.component";
 import creditCardPayment from "./components/user/creditCardPayment.component";
 import cashOnDelivery from "./components/user/cashOnDelivery.component";
 import reviewDetails from "./components/user/productDetails.component";
+import finalPayment from "./components/user/cartItem-list.component";
+import cashOnDeliveryDetails from "./components/user/cashOnDeliveryDetails.component";
 
 function App() {
   return (
@@ -33,11 +35,8 @@ function App() {
               <Route path="/adminLogin" component={AdminLogin} />
               <Route path="/adminHome" component={AdminHome} />
               <Route path="/smLogin" component={StoreManagerLogin} />
-              <div className="container">
-                  {/*<Navlink/>*/}
-                  <Route path="/creditCardPayment" exact component={creditCardPayment}/>
-                  <Route path="/cashOnDelivery" exact component={cashOnDelivery}/>
-              </div>
+              <Route path="/creditCardPayment" exact component={creditCardPayment}/>
+              <Route path="/cashOnDelivery" exact component={cashOnDelivery}/>
               <Route path="/gocategory" component={Category} />
               <Route path="/addCategory" component={CategoryAdd} />
               <Route path="/viewSM" component={ViewStoreManager} />
@@ -55,6 +54,8 @@ function App() {
               <Route path="/selectPaymentMethod" exact component={Application}/>
               <Route path="/productDetails/:id" exact component={reviewDetails}/>
               <Route path="/cartItemList/" exact component={CartItemList}/>
+              <Route path="/finalPayment/" exact component={finalPayment}/>
+              <Route path="/cashOnDeliveryDetails/:contactNumber" exact component={cashOnDeliveryDetails}/>
           </Router>
     </div>
 
