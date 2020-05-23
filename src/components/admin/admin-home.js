@@ -3,9 +3,9 @@ import {Link} from "react-router-dom";
 
 const goAdminPages = (
     <div className="jumbotron">
-        <Link to={"/viewSM"} style={{textDecoration:"none"}}><input type="submit" style={{ color:"#fff", backgroundColor:"#3EE2E6"}} value="View Store Managers" class="btn btn-lg btn-block"/><br/><br/></Link>
-        <Link to={"/addSM"} style={{textDecoration:"none"}}><input type="submit" style={{color:"#fff",backgroundColor:"#C86691"}} value="Add Store Managers" class="btn btn-lg btn-block" /><br/><br/></Link>
-        <Link to={"/addCategory"} style={{textDecoration:"none"}}><input type="submit" style={{color:"#fff",backgroundColor:"#9DDA54"}} value="Add Category" class="btn btn-lg btn-block" /></Link>
+        <Link to={"/viewSM"} style={{textDecoration:"none"}}><input type="submit" style={{ color:"#fff", fontSize:"18px", fontWeight:"bold", backgroundColor:"#3EE2E6"}} value="View Store Managers" class="btn btn-block"/><br/><br/></Link>
+        <Link to={"/addSM"} style={{textDecoration:"none"}}><input type="submit" style={{color:"#fff",fontSize:"18px", fontWeight:"bold",backgroundColor:"#C86691"}} value="Add Store Managers" class="btn btn-block" /><br/><br/></Link>
+        <Link to={"/addCategory"} style={{textDecoration:"none"}}><input type="submit" style={{color:"#fff",fontSize:"18px", fontWeight:"bold",backgroundColor:"#9DDA54"}} value="Add Category" class="btn btn-block" /></Link>
     </div>
 )
 

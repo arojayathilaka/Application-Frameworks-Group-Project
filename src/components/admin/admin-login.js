@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 const goAdminHome = (
     <div>
-        <Link to={"/adminHome"} style={{textDecoration:"none"}}><input type="submit" style={{ color:"#fff", backgroundColor:"#9B59B6"}} value="Go To Admin Home" class="btn btn-lg btn-block"/><br/><br/></Link>
+        <Link to={"/adminHome"} style={{textDecoration:"none"}}><input type="submit" style={{ color:"#fff", fontSize:"18px", fontWeight:"bold", paddingBottom:"20px", backgroundColor:"#9B59B6"}} value="Go To Admin Home" class="btn btn-block"/><br/><br/></Link>
     </div>
 );
 
@@ -88,16 +88,14 @@ class AdminLogin extends Component{
         if(this.state.isLogin){
             return (
                 <div className="container">
-
                     <br/>
                     <br/>
                     <div className="jumbotron" style={{backgroundColor:"#E8DAEF"}}>
-                        <img src={"adminwelcom.png"}/>
+                        <img src={"adminwelcom.png"} style={{width:"700px", height:"200px"}}/>
                         <h1 style={{color:"#4A235A",marginLeft:"700px", fontFamily:"Lucida Console"}}>Admin</h1>
                         <br/>
                         {this.goAdminHome()}
                     </div>
-
                 </div>
             );
         }

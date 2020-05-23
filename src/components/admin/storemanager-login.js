@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 const goCategoryHome = (
     <div>
-        <Link to={"/gocategory"} style={{textDecoration:"none"}}><input type="submit" style={{ color:"#fff", backgroundColor:"#9B59B6"}} value="Go to Category List" class="btn btn-lg btn-block"/><br/><br/></Link>
+        <Link to={"/gocategory"} style={{textDecoration:"none"}}><input type="submit" style={{ color:"#fff", fontSize:"18px", fontWeight:"bold", backgroundColor:"#9B59B6"}} value="Go to Category List" class="btn btn-lg btn-block"/><br/><br/></Link>
     </div>
 )
 
@@ -126,7 +126,7 @@ class StoreManagerLogin extends Component{
                     <br/>
                     <br/>
                     <div className="jumbotron" style={{backgroundColor:"#E8DAEF"}}>
-                        <img src={"adminwelcom.png"}/>
+                        <img src={"adminwelcom.png"} style={{width:"700px", height:"200px"}}/>
                         <h1 style={{color:"#4A235A",marginLeft:"500px", fontFamily:"Lucida Console"}}>to the Web Site</h1>
                         <br/>
                         {this.goCategoryHome()}
