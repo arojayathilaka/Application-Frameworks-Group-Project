@@ -27,6 +27,12 @@ class ProductsList extends Component {
             });
     }
 
+    /**
+     * To delete the product
+     * @param {*} _id object Id of product
+     * @param {number} prodId Id of the product
+     * @param {string} name Name of the product
+     */
     deleteProduct = (_id, prodId, name) => {
         swal({
             title: "Are you sure?",
@@ -35,6 +41,7 @@ class ProductsList extends Component {
             buttons: true,
             dangerMode: true,
         }).then(willDelete => {
+            // checking whether the user is going to delete the product or not
             if (willDelete) {
                 axios.delete('http://localhost:5000/products/delete/' + _id)
                     .then(res => {
@@ -62,6 +69,7 @@ class ProductsList extends Component {
                         }
                     });
 
+                // removing the deleted product from the array and setting the state again
                 this.setState({
                     allProducts: this.state.allProducts.filter(product => product._id !== _id)
                 })
@@ -74,6 +82,9 @@ class ProductsList extends Component {
         })
     };
 
+    /**
+     * to navigate to the add-product page
+     */
     gotoAddProduct = () => {
       window.location = '/addProduct';
     };

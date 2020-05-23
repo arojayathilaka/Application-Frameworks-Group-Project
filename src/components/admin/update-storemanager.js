@@ -21,6 +21,11 @@ class UpdateStoreManager extends Component{
             password: ''
         }
     }
+
+    /**
+     * setting the details of the store manager that admin wants to update
+     * by using the object id
+     * */
     componentDidMount() {
         axios.get('http://localhost:5000/userDetails/'+this.props.match.params.id)
             .then(response =>{
@@ -65,6 +70,19 @@ class UpdateStoreManager extends Component{
         });
     }
 
+    /**
+     * create an object and pass the values in the text fields to that object
+     * checking password is valid
+     * if it is not valid
+     * display an error message
+     * if it is valid
+     * the values in the object is send to the update end point by using axios
+     * if the success value that is returned from the backend is true
+     * display successfully added alert using sweetalert
+     * text fields change to empty
+     * if the success value that is returned from the backend is false
+     * display an error alert
+     * */
     onSubmit(e){
         e.preventDefault();
 

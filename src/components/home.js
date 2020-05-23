@@ -148,14 +148,17 @@ class Home extends Component {
                                     <img
                                         //src={this.createImage(this.state.imagesData.find(imageData => (imageData.imgId === product.prodId)))}
                                         //src={() => {this.createImage(product.prodId)}}
-                                        // src={() => {this.state.imagesData.forEach(imageData => {
+                                        // src={this.state.imagesData.forEach(imageData => {
                                         //     if (imageData.imgId === product.prodId) {
                                         //         const base64Flag = 'data:image/jpeg;base64,';
                                         //         const imageStr = this.arrayBufferToBase64(imageData.img.data.data);
                                         //         return base64Flag + imageStr;
                                         //     }
-                                        // })}}
-                                        src={this.state.image}
+                                        // })}
+                                        // src = {
+                                        //     this.state.imagesData.find(imageData => (imageData.imgId === product.prodId))
+                                        // }
+                                         src={this.state.image}
                                         // src={img}
                                         alt={product.name}/>
                                 </div>

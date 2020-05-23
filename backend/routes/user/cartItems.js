@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let CartItem = require('../models/cartItem.model');
+let CartItem = require('../../models/user/cartItem.model');
 
 router.route('/').get((req, res) => {
     CartItem.find()
