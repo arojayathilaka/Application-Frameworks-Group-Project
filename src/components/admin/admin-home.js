@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
 
+/**
+ * Functional component
+ * created 3 buttons
+ * used those buttons to go to view store manager page, add store manager page and add category page
+ * */
 const goAdminPages = (
     <div className="jumbotron">
         <Link to={"/viewSM"} style={{textDecoration:"none"}}><input type="submit" style={{ color:"#fff", fontSize:"18px", fontWeight:"bold", backgroundColor:"#3EE2E6"}} value="View Store Managers" class="btn btn-block"/><br/><br/></Link>

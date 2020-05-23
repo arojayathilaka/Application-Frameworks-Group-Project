@@ -3,6 +3,11 @@ import axios from "axios";
 import swal from 'sweetalert';
 import {Link} from "react-router-dom";
 
+/**
+ * Functional component
+ * created a button
+ * used it to go to admin home page
+ * */
 const goAdminHome = (
     <div>
         <Link to={"/adminHome"} style={{textDecoration:"none"}}><input type="submit" style={{ color:"#fff", fontSize:"18px", fontWeight:"bold", paddingBottom:"20px", backgroundColor:"#9B59B6"}} value="Go To Admin Home" class="btn btn-block"/><br/><br/></Link>
@@ -36,6 +41,10 @@ class AdminLogin extends Component{
         });
     }
 
+    /**
+     * to display the successfully logged in message
+     * after log in islogin is set to true
+     * */
     sweetalertfunction(){
         swal({
             title: "Logged in!",
@@ -53,10 +62,17 @@ class AdminLogin extends Component{
         return (goAdminHome);
     }
 
+    /**
+     * create an object and pass the values in the text fields to that object
+     * the values in the object is send to the admin end point by using axios
+     * if the success value that is returned from the backend is true
+     * display successfully logged in alert using sweetalert
+     * if the success value that is returned from the backend is false
+     * display an error alert
+     * */
     onSubmit(e){
         e.preventDefault();
 
-        console.log("print");
 
         const storemanager = {
             name: this.state.name,
@@ -65,7 +81,7 @@ class AdminLogin extends Component{
 
         console.log(storemanager);
 
-        console.log("print");
+
 
         axios.post('http://localhost:5000/userDetails/admin', storemanager)
             .then(res => {
@@ -84,6 +100,12 @@ class AdminLogin extends Component{
             })
     }
 
+    /**
+     * if islogin is equal to true
+     * then if statement is executed
+     * if login is equal to false
+     * else statement is executed
+     * */
     render() {
         if(this.state.isLogin){
             return (

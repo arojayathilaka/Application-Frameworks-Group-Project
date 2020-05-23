@@ -18,6 +18,11 @@ class CategoryAdd extends Component{
             categoryname: e.target.value
         });
     }
+
+    /**
+     * to display the successfully added new category message
+     * after adding new category text field covert to empty
+     * */
     sweetalertfunction(){
         swal({
             title: "New Category Added",
@@ -30,6 +35,15 @@ class CategoryAdd extends Component{
             });
         });
     }
+
+    /**
+     * create an object and pass the values in the text field to that object
+     * the values in the object is send to the addCategory end point by using axios
+     * if the success value that is returned from the backend is true
+     * display successfully added alert using sweetalert
+     * if the success value that is returned from the backend is false
+     * display an error alert
+     * */
     onSubmit(e){
         e.preventDefault();
 

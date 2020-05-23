@@ -4,12 +4,21 @@ let UserSession = require('../../models/admin/UserSession');
 
 const nodemailer = require('nodemailer');
 
+/**
+ * In here
+ * getting all store manager details
+ * */
 router.route('/').get((req, res) => {
     userDetail.find()
         .then(userDetails => res.json(userDetails))
         .catch(err => res.status(400).json('Error: '+err));
 });
 
+/**
+ * In here
+ * get all store manager details
+ * according to a relevant store manager id
+ * */
 router.route('/:id').get((req, res) => {
     userDetail.findById(req.params.id)
         .then(userDetails => res.json(userDetails))
@@ -17,7 +26,18 @@ router.route('/:id').get((req, res) => {
 });
 
 
-
+/**
+ * In here
+ * adding new store manager
+ * checking the user id and email when adding a new store manager
+ * if above two parameters have used previously
+ * error message is shown
+ * store manager will not add
+ * if above two parameters have not used previously
+ * store manager will be added successfully
+ * when creating store manager account
+ * An email will be sent automatically to the relevant store manager
+ * */
 router.route('/add').post((req, res) => {
 
     const userid = Number(req.body.userid);
@@ -57,8 +77,7 @@ router.route('/add').post((req, res) => {
         });
     }
 
-    console.log('here');
-    console.log('ravindu');
+
 
     email = email.toLowerCase();
 
@@ -145,20 +164,18 @@ router.route('/add').post((req, res) => {
     });
 });
 
-router.route('/getSM').post((req, res) => {
 
-    let email = req.body.email;
 
-    console.log('here');
 
-    email = email.toLowerCase();
-
-    userDetail.find({
-        email: email
-    }).then(smdetails => res.json(smdetails))
-        .catch(err => res.status(400).json('Error: '+err));
-});
-
+/**
+ * In here
+ * store manager details are updated
+ * store manager details are updated according to the id of the store manager
+ * if email address is updated to a new one
+ * checking whether the email is added previously
+ * if it is not added then updating store manager
+ * if it is added previously then not updating store manager and showing an error message
+ * */
 router.route('/update').put((req, res) => {
 
     const userid = Number(req.body.userid);
@@ -292,6 +309,10 @@ router.route('/update').put((req, res) => {
 
 });
 
+/**
+ * In here
+ * deleting a store manager according to a relevant id
+ * */
 router.route('/delete').post((req, res) => {
 
     const userid = Number(req.body.userid);
@@ -340,6 +361,18 @@ router.route('/delete').post((req, res) => {
 
 });
 
+/**
+ * In here
+ * sign in store manager to the site
+ * when sign in
+ * getting the email and password of the store manager
+ * checking the given email and password
+ * if they are not valid
+ * display an error message
+ * if they are valid
+ * successfully sign in the store manager
+ * name of the store manager, time and date that store manager has logged in to the system are stored in data base
+ * */
 router.route('/signin').post((req, res) => {
 
     let email = req.body.email;
@@ -410,6 +443,14 @@ router.route('/signin').post((req, res) => {
 
 });
 
+/**
+ * In here
+ * admin logged in to the system
+ * if the username and password respectively equal to the admin and admin123
+ * successfully logged into the site
+ * if the given username and password is not equal to the above mentioned values
+ * display an error message and not logged into the site
+ * */
 router.route('/admin').post((req, res) => {
 
     const name = req.body.name;
