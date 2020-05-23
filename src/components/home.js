@@ -2,8 +2,13 @@ import React, {Component} from "react";
 import axios from "axios";
 import '../stylesheets/products-home.css';
 import '../stylesheets/home.css';
+import swal from "sweetalert";
+import Application from "./user/selectPaymentMethod.component";
+import {Link} from "react-router-dom";
 
-class Home extends Component{
+
+
+class Home extends Component {
 
     constructor(props) {
         super(props);
@@ -16,7 +21,7 @@ class Home extends Component{
             images: [],
             imagesData: [],
             image: '',
-            quantity:0,
+            quantity: 0,
 
         }
     }
@@ -41,34 +46,34 @@ class Home extends Component{
 
         axios.get('http://localhost:5000/images')
             .then(res => {
-               console.log(res.data);
-               this.setState({
-                   imagesData: res.data
-               });
-               // const images = [];
-               // res.data.forEach(img => {
-               //     const base64Flag = 'data:image/jpeg;base64,';
-               //     const imageStr = this.arrayBufferToBase64(img.img.data.data);
-               //     const image = base64Flag + imageStr;
-               //     images.push(image);
-               // });
-               // this.setState({
-               //     images: images
-               // })
+                console.log(res.data);
+                this.setState({
+                    imagesData: res.data
+                });
+                // const images = [];
+                // res.data.forEach(img => {
+                //     const base64Flag = 'data:image/jpeg;base64,';
+                //     const imageStr = this.arrayBufferToBase64(img.img.data.data);
+                //     const image = base64Flag + imageStr;
+                //     images.push(image);
+                // });
+                // this.setState({
+                //     images: images
+                // })
                 //console.log(images)
             });
 
-            axios.get('http://localhost:5000/products')
-                .then(res => {
-                    this.setState({
-                        products: res.data
-                    });
-                    console.log(this.state.products)
-                })
-                .catch(err => {
-                    console.log(err)
+        axios.get('http://localhost:5000/products')
+            .then(res => {
+                this.setState({
+                    products: res.data
                 });
-        }
+                console.log(this.state.products)
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
 
     onSubmit = (event, prodId, name, price, discount) => {
         event.preventDefault();
@@ -80,7 +85,7 @@ class Home extends Component{
             price: price,
             discount: discount,
             quantity: this.state.quantity,
-            totalPrice: (this.state.quantity * price)-(discount) ,
+            totalPrice: (this.state.quantity * price) - (discount),
 
 
         };
@@ -90,18 +95,19 @@ class Home extends Component{
         axios.post('http://localhost:5000/cartItems/add', cartItem)
             .then(res => {
                 console.log(res.data);
-                alert("Product Added to the Shopping Cart!");
+                //alert("Product Added to the Shopping Cart!");
+                swal({
+                    title: "Product Added to the Cart!",
+                    icon: "success",
+                    button: true,
+                })
             })
+
             .catch(err => console.log(err));
 
-    window.location = '/cartItems/';
+        //window.location = '/cartItems/';
 
-};
-
-
-
-
-
+    };
 
 
     arrayBufferToBase64(buffer) {
@@ -110,6 +116,8 @@ class Home extends Component{
         bytes.forEach((b) => binary += String.fromCharCode(b));
         return window.btoa(binary);
     };
+
+
 
     // createImage = (prodId) => {
     //     const imgData = this.state.imagesData.find(imageData => (imageData.imgId === prodId));
@@ -122,7 +130,9 @@ class Home extends Component{
     render() {
         //let image;
         return (
-                this.state.products.map(product => (
+
+            this.state.products.map(product => (
+                <div className="background">
                     <div key={product.prodId}>
                         <div className="prodArea">
                             <div className="prod">
@@ -150,41 +160,46 @@ class Home extends Component{
                                         alt={product.name}/>
                                 </div>
                                 <div className="prodDetails">
-                                    <p>{product.name}</p>
-                                    <p>{product.price}</p>
-                                    <p>{product.discount}</p>
+                                    <h4>{product.name}</h4>
+                                    <h6>Price: LKR {product.price}.00</h6>
+                                    <h6>Discount: LKR {product.discount}.00</h6>
+
 
                                     <form
                                         // onSubmit={this.onSubmit(product.prodId, product.name, product.price, product.discount)}
                                         onSubmit={event => this.onSubmit(event, product.prodId, product.name, product.price, product.discount)}
                                     >
-                                    <label>Quantity: </label>
-                                    <input
-                                        type="text"
-                                        required
-                                        className="form-control"
-                                        value={this.state.quantity}
-                                        onChange={this.onChangeQuantity}
-                                    />
                                         <div className="form-group">
-                                            <input type="submit" value="Add To Shpping Cart" className="btn btn-primary" />
+                                            <h6>Quantity: </h6>
+                                            <input
+                                                type="text"
+                                                required
+                                                pattern="\d+"
+                                                className="form-control"
+                                                placeholder="Quantity"
+                                                value={this.state.quantity}
+                                                onChange={this.onChangeQuantity}
+                                            />
                                         </div>
+
+                                        <input type="submit" value="Add To Shopping Cart" className="btn btn-primary "
+                                               style={{backgroundColor: "#8E44AD", width: "280px"}}/>
+
                                     </form>
-                                <br/>
-
-
                                     <br/>
 
-                                    <br/>
 
                                     <a href={"/product/" + product._id}>more details</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                ))
-            );
-        }
+                </div>
+
+            ))
+
+        );
+    }
 }
 
 export default Home
