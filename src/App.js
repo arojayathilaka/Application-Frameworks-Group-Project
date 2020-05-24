@@ -29,6 +29,7 @@ import WishList from "./components/user/wishlist.component";
 import finalPayment from "./components/user/cartItem-list.component";
 import cashOnDeliveryDetails from "./components/user/cashOnDeliveryDetails.component";
 import cashOnDeliveryEdit from "./components/user/cashOnDeliveryEdit.component";
+import userLogin from "./components/user/user-login";
 
 function App() {
   return (
@@ -59,12 +60,12 @@ function App() {
               <Route path="/editProduct/:id" exact component={EditProduct}/>
               <Route path="/selectPaymentMethod" exact component={Application}/>
               <Route path="/productDetails/:id" exact component={reviewDetails}/>
-              <Route path="/wishlist" exact component={WishList}/>
               <Route path="/cartItemList/" exact component={CartItemList}/>
               <Route path="/wishlist/" exact component={WishList}/>
               <Route path="/finalPayment/" exact component={finalPayment}/>
               <Route path="/cashOnDeliveryDetails/:contactNumber" exact component={cashOnDeliveryDetails}/>
               <Route path="/cashOnDeliveryEdit/:contactNumber" exact component={cashOnDeliveryEdit}/>
+              <Route path="/userLogin/" exact component={userLogin}/>
           </Router>
     </div>
 

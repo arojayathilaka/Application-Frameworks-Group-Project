@@ -7,7 +7,6 @@ class EditProduct extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             categories: [],
             image: '',
@@ -207,6 +206,8 @@ class EditProduct extends Component {
 
     render() {
         return(
+
+
             <div className="backImg">
                 <div className="editProduct">
                     <br/>
@@ -345,6 +346,7 @@ class EditProduct extends Component {
                     }
                 </div>
             </div>
+
         );
     }
 }
