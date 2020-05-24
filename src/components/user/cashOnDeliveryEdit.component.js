@@ -18,12 +18,16 @@ export default class EditCashOnDelivery extends Component {
 
 
     componentDidMount() {
-        axios.get('http://localhost:5000/cashOnDelivery/' + this.props.match.params.id)
-            .then(res =>
+        axios.get('http://localhost:5000/cashOnDelivery/')
+            .then(res => {
+                console.log(res.data);
+                const del = res.data.find(del => (del.contactNumber === Number(this.props.match.params.contactNumber)))
                 this.setState({
-                    deliveryAddress: "",
-                    contactNumber: 0,
-                }))
+                    del: del,
+                    deliveryAddress: del.deliveryAddress,
+                    contactNumber: del.contactNumber,
+                })
+            })
             .catch(err => console.log(err));
     }
 
@@ -51,10 +55,9 @@ export default class EditCashOnDelivery extends Component {
         console.log(cashOnDelivery);
 
 
-        axios.post('http://localhost:5000/cashOnDelivery/update/' + this.props.match.params.contactNumber, cashOnDelivery)
+        axios.put('http://localhost:5000/cashOnDelivery/update/' + this.state.del._id ,cashOnDelivery)
             .then(res => {
                 console.log(res.data);
-
                 swal({
                     title: "Product Quantity has been updated!",
                     icon: "success",

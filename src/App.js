@@ -24,7 +24,7 @@ import Application from "./components/user/selectPaymentMethod.component";
 import creditCardPayment from "./components/user/creditCardPayment.component";
 import cashOnDelivery from "./components/user/cashOnDelivery.component";
 import reviewDetails from "./components/user/productDetails.component";
-import WishList from "./components/user/wishlist.component";
+// import WishList from "./components/user/wishlist.component";
 
 import finalPayment from "./components/user/cartItem-list.component";
 import cashOnDeliveryDetails from "./components/user/cashOnDeliveryDetails.component";
@@ -60,15 +60,12 @@ function App() {
               <Route path="/selectPaymentMethod" exact component={Application}/>
               <Route path="/productDetails/:id" exact component={reviewDetails}/>
               <Route path="/cartItemList/" exact component={CartItemList}/>
-              <Route path="/wishlist/" exact component={WishList}/>
+              {/*<Route path="/wishlist/" exact component={WishList}/>*/}
               <Route path="/finalPayment/" exact component={finalPayment}/>
               <Route path="/cashOnDeliveryDetails/:contactNumber" exact component={cashOnDeliveryDetails}/>
-              <Route path="/cashOnDeliveryEdit" exact component={cashOnDeliveryEdit}/>
+              <Route path="/cashOnDeliveryEdit/:contactNumber" exact component={cashOnDeliveryEdit}/>
           </Router>
     </div>
-
-
-
 
   );
 }

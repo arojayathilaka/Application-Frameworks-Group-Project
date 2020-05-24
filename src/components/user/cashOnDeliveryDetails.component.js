@@ -77,7 +77,7 @@ class cashOnDeliveryDetails extends Component{
     }
 
     edit = () => {
-        window.location = "/cashOnDeliveryEdit"
+        window.location = "/cashOnDeliveryEdit/" + this.props.match.params.contactNumber
     }
 
 
