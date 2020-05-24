@@ -47,7 +47,7 @@ router.route('/add').post((req, res) => {
 });
 
 /**
- * Get details of a product from the database
+ * Get details of a particular product from the database
  * @param object id of the product
  * @returns {Product} product / error message
  */
