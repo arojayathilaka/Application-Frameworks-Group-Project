@@ -2,6 +2,14 @@ import React, {Component} from "react";
 import axios from "axios";
 import '../stylesheets/products-home.css';
 import '../stylesheets/home.css';
+import swal from "sweetalert";
+import Application from "./user/selectPaymentMethod.component";
+import {Link} from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+
+
+
 
 class Home extends Component {
 
@@ -23,16 +31,8 @@ class Home extends Component {
         })
     };
 
+
     componentDidMount() {
-        // axios.get('http://localhost:5000/images/image')
-        //     .then(res => {
-        //         console.log(res.data);
-        //         const base64Flag = 'data:image/jpeg;base64,';
-        //         const imageStr = this.arrayBufferToBase64(res.data.img.data.data);
-        //         this.setState({
-        //             image: base64Flag + imageStr
-        //         })
-        //     });
 
         axios.get('http://localhost:5000/images')
             .then(res => {
@@ -110,11 +110,40 @@ class Home extends Component {
         axios.post('http://localhost:5000/cartItems/add', cartItem)
             .then(res => {
                 console.log(res.data);
-                alert("Product Added to the Shopping Cart!");
+                swal({
+                    title: "Product Added to the Cart!",
+                    icon: "success",
+                    button: true,
+                })
             })
+
             .catch(err => console.log(err));
 
-        window.location = '/cartItems/';
+
+
+    };
+
+    addToWishlist = (prodId,name) => {
+
+        const wishlistItem = {
+
+            itemId: prodId,
+            itemName: name,
+
+        };
+
+        console.log(wishlistItem);
+        axios.post('http://localhost:5000/wishlistItems/add',wishlistItem)
+            .then(res => {
+                console.log(res.data)
+
+                swal({
+                    title: "Product Added to the Wishlist!",
+                    icon: "success",
+                    button: true,
+                })
+            })
+            .catch(err => console.error(err));
 
     };
 
@@ -122,6 +151,7 @@ class Home extends Component {
         const products = this.state.products;
         return (
             Object.keys(products).map(product => (
+                <div className="background">
                 <div key={products[product].id}>
                     <div className="prodArea">
                         <div className="prod">
@@ -130,36 +160,40 @@ class Home extends Component {
                                      alt={products[product].name}/>
                             </div>
                             <div className="prodDetails">
-                                <p>{products[product].name}</p>
-                                <p>{products[product].price}</p>
-                                <p>{products[product].discount}</p>
+                                <h4>{products[product].name} <FontAwesomeIcon icon={faHeart} onClick={() => this.addToWishlist(product.prodId,product.name)}/></h4>
+                                <h6>Price: LKR {products[product].price}.00</h6>
+                                <h6>Discount: LKR {products[product].discount}.00</h6>
 
-                                <form
-                                    onSubmit={event => this.onSubmit(event,
-                                        products[product].id,
-                                        products[product].name,
-                                        products[product].price,
-                                        products[product].discount)}
-                                >
-                                    <label>Quantity: </label>
-                                    <input
-                                        type="text"
-                                        required
-                                        className="form-control"
-                                        value={this.state.quantity}
-                                        onChange={this.onChangeQuantity}
-                                    />
-                                    <div className="form-group">
-                                        <input type="submit" value="Add To Shopping Cart" className="btn btn-primary"/>
-                                    </div>
-                                </form>
+                                    <form
+                                        // onSubmit={this.onSubmit(product.prodId, product.name, product.price, product.discount)}
+                                        onSubmit={event => this.onSubmit(event, product.prodId, product.name, product.price, product.discount)}
+                                    >
+                                        <div className="form-group">
+                                            <h6>Quantity: </h6>
+                                            <input
+                                                type="text"
+                                                required
+                                                pattern="\d+"
+                                                className="form-control"
+                                                placeholder="Quantity"
+                                                value={this.state.quantity}
+                                                onChange={this.onChangeQuantity}
+                                            />
+                                        </div>
+                                        <input type="submit" value="Add To Shopping Cart" className="btn btn-primary "
+                                               style={{backgroundColor: "#8E44AD", width: "280px"}}/>
+
+                                    </form>
+                                <br/>
+                                    <a href={"/product/" + products[product]._id}>more details</a>
+                                </div>
                             </div>
-                            <a href={"/product/" + products[product]._id}>more details</a>
                         </div>
                     </div>
                 </div>
-            )));
-    }
+                ))
+            );
+        }
 }
 
 export default Home

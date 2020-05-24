@@ -77,9 +77,26 @@ import axios from 'axios';
 
     };
 
+
+    onSubmit = event => {
+        event.preventDefault();
+
+        const finalPayment = {
+            fp: this.state.totalPrice,
+        }
+        console.log(finalPayment);
+        axios.post('http://localhost:5000/finalPayment/add', finalPayment)
+            .then(res => {
+                console.log(res.data);
+                alert("final payment added!");
+            })
+            .catch(err => console.log(err));
+    };
+
     selectPayment = () => {
-        window.location = "/selectPaymentMethod"
-    }
+         window.location = "/selectPaymentMethod"
+     }
+
 
 
 
@@ -148,7 +165,7 @@ import axios from 'axios';
                     <br/>
 
                 <div className="form-group">
-                    <input type="submit" value="CHECKOUT" className="btn btn-primary " onClick={this.selectPayment}  style={{backgroundColor: "#AF7AC5",float:"right"}} />
+                    <input type="submit" value="CHECKOUT" className="btn btn-primary " onClick={this.selectPayment} style={{backgroundColor: "#AF7AC5",float:"right"}} onSubmit={this.onSubmit}/>
                 </div>
 
 

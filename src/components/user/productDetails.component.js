@@ -70,6 +70,7 @@ class Product extends Component{
                 let reviewItems = [];
                 prodDetails.forEach(prodDetail => {
                     let item = {};
+                    item["prodId"] = prodDetail.prodId;
                     item["nickname"] = prodDetail.nickname;
                     item["comment"] = prodDetail.comments;
                     item["ratings"] = prodDetail.ratings;
@@ -78,6 +79,7 @@ class Product extends Component{
                 this.setState({
                     reviews: reviewItems
                 });
+
                 let averageRating = 0;
                 res.data.forEach(prodDetails => {
                     averageRating = (averageRating + prodDetails.ratings) / (1);
@@ -142,108 +144,111 @@ class Product extends Component{
     }
 
     render() {
+        const prodReviews = this.state.reviews.filter(review => (review.prodId === this.state.prodId))
         return (
-            <div className="container">
-                <br/>
-                <h2 align="center">Product Name : {this.state.name}</h2>
-                <hr/><br/><br/>
-                <h3><u>Product Details</u></h3><br/>
-                <h4 align="left">Product Price : {this.state.price} Rps.</h4>
-                <h4 align="left">Product Category : {this.state.category}</h4>
-                <h4 align="left">Product Discount : {this.state.discount} Rps.</h4>
-                <h4 align="left">Average User Rating : {this.state.ratings}</h4>
-                <br/><br/><hr/>
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
+                <div className="container">
+                    <br/>
+                    <form className="jumbotron" style={{backgroundColor:"#E8F8F5"}}>
+                    <h2 align="center">Product Name : {this.state.name}</h2>
+                    <hr/><br/><br/>
+                    <h3><u>Product Details</u></h3><br/>
+                    <h4 align="left">Product Price : {this.state.price} Rps.</h4>
+                    <h4 align="left">Product Category : {this.state.category}</h4>
+                    <h4 align="left">Product Discount : {this.state.discount} Rps.</h4>
+                    <h4 align="left">Average User Rating : {this.state.ratings}</h4>
+                    <br/><br/><hr/>
+                    <form onSubmit={this.onSubmit}>
+                        <div className="form-group">
+                            <br/>
+                            <h5><b>Please Use Review Section Respectfully</b></h5>
+                            <label> Anonymous Username * </label>
+                            <input type="text"
+                                   required
+                                   className="form-control"
+                                   value={this.state.nickname}
+                                   onChange={this.onChangeNickname}/>
+                        </div>
+                        <div className="form-group">
+                            <label> Comment * </label>
+                            <input type="text"
+                                   required
+                                   className="form-control"
+                                   value={this.state.comments}
+                                   onChange={this.onChangeComments}/>
+                        </div>
+                        <div className="form-group">
+                            <label> Ratings * </label>
+                            <br/>
+                            <select id="lang" onChange={this.onChangeRatings} value={this.state.value}>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <input type="submit" value="Submit Review & Ratings" className="btn btn-primary" style={{backgroundColor: "#AF7AC5"}}/>
+                        </div>
                         <br/>
-                        <label> Nickname * </label>
-                        <input type="text"
-                               required
-                               className="form-control"
-                               value={this.state.nickname}
-                               onChange={this.onChangeNickname}/>
-                    </div>
-                    <div className="form-group">
-                        <label> Comment * </label>
-                        <input type="text"
-                               required
-                               className="form-control"
-                               value={this.state.comments}
-                               onChange={this.onChangeComments}/>
-                    </div>
-                    <div className="form-group">
-                        <label> Ratings * </label>
+                        <hr/>
                         <br/>
-                        <select id="lang" onChange={this.onChangeRatings} value={this.state.value}>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <input type="submit" value="Submit Review & Ratings" className="btn btn-primary"/>
-                    </div>
-                    <br/>
-                    <hr/>
-                    <br/>
-                    <h3><u>User Ratings and Comments</u></h3>
-                    <br/>
-                    {/*<table className="table table-hover" style={{backgroundColor:"#EBDEF0"}}>*/}
-                    {/*    <thead style={{backgroundColor:"#AF7AC5"}}>*/}
-                    {/*    <tr>*/}
-                    {/*        <th scope="col">Nickname</th>*/}
-                    {/*        <th scope="col">Comment</th>*/}
-                    {/*        <th scope="col">Rating</th>*/}
-                    {/*        <th/>*/}
-                    {/*    </tr>*/}
-                    {/*    </thead>*/}
-                    {/*    <tbody>*/}
-                    {/*    <tr>*/}
-                    {/*        {this.state.nicknameArr.map(comment => (*/}
+                        <h3><u>User Ratings and Comments</u></h3>
+                        <br/>
+                        {/*<table className="table table-hover" style={{backgroundColor:"#EBDEF0"}}>*/}
+                        {/*    <thead style={{backgroundColor:"#AF7AC5"}}>*/}
+                        {/*    <tr>*/}
+                        {/*        <th scope="col">Nickname</th>*/}
+                        {/*        <th scope="col">Comment</th>*/}
+                        {/*        <th scope="col">Rating</th>*/}
+                        {/*        <th/>*/}
+                        {/*    </tr>*/}
+                        {/*    </thead>*/}
+                        {/*    <tbody>*/}
+                        {/*    <tr>*/}
+                        {/*        {this.state.nicknameArr.map(comment => (*/}
 
-                    {/*                <td>{comment}</td>*/}
+                        {/*                <td>{comment}</td>*/}
 
-                    {/*        ))}*/}
-                    {/*        {this.state.commentsArr.map(comment => (*/}
-                    {/*                <td>{comment}</td>*/}
-                    {/*        ))}*/}
-                    {/*        {this.state.ratingsArr.map(comment => (*/}
+                        {/*        ))}*/}
+                        {/*        {this.state.commentsArr.map(comment => (*/}
+                        {/*                <td>{comment}</td>*/}
+                        {/*        ))}*/}
+                        {/*        {this.state.ratingsArr.map(comment => (*/}
 
-                    {/*                <td>{comment}</td>*/}
+                        {/*                <td>{comment}</td>*/}
 
-                    {/*        ))}*/}
-                    {/*    </tr>*/}
+                        {/*        ))}*/}
+                        {/*    </tr>*/}
 
-                    {/*    </tbody>*/}
-                    {/*</table>*/}
-                    {/*{this.state.prodIdArr.map(comment => (*/}
-                    {/*    <p>{comment}</p>*/}
-                    {/*))}*/}
-                    {this.state.reviews.map(review => (
-                        <p>Nickname : {review.nickname} <br/> Comment : {review.comment} <br/> Rating : {review.ratings}</p>
-                        ))}
-                    {/*<hr/>*/}
-                    {/*{this.state.reviewItems.map(nickname => (*/}
-                    {/*    <p>Nickname : {nickname}</p>*/}
-                    {/*))}*/}
-                    {/*<hr/>*/}
-                    {/*{this.state.reviewItems.map(comment => (*/}
-                    {/*    <p>Comment : {comment}</p>*/}
-                    {/*))}*/}
-                    {/*<hr/>*/}
-                    {/*{this.state.reviewItems.map(rating => (*/}
-                    {/*    <p>Rating : {rating}</p>*/}
-                    {/*))}*/}
-                    <hr/>
-                    {/*<h4 align="left">Nickname : {this.state.nicknameget}</h4>*/}
-                    {/*<h4 align="left">Comment : {this.state.commentsget}</h4>*/}
-                    {/*<h4 align="left">Rating : {this.state.ratingsget}</h4>*/}
-                    <br/>
-                    <hr/>
-                </form>
-            </div>
+                        {/*    </tbody>*/}
+                        {/*</table>*/}
+                        {/*{this.state.prodIdArr.map(comment => (*/}
+                        {/*    <p>{comment}</p>*/}
+                        {/*))}*/}
+
+                        {prodReviews.map(review => (
+                            <p style={{color: "#000000"}}>Anonymous Username : {review.nickname} <br/> Comment : {review.comment} <br/> Rating : {review.ratings}<hr/></p>
+                            ))}
+                        {/*<hr/>*/}
+                        {/*{this.state.reviewItems.map(nickname => (*/}
+                        {/*    <p>Nickname : {nickname}</p>*/}
+                        {/*))}*/}
+                        {/*<hr/>*/}
+                        {/*{this.state.reviewItems.map(comment => (*/}
+                        {/*    <p>Comment : {comment}</p>*/}
+                        {/*))}*/}
+                        {/*<hr/>*/}
+                        {/*{this.state.reviewItems.map(rating => (*/}
+                        {/*    <p>Rating : {rating}</p>*/}
+                        {/*))}*/}
+                        <br/>
+                        {/*<h4 align="left">Nickname : {this.state.nicknameget}</h4>*/}
+                        {/*<h4 align="left">Comment : {this.state.commentsget}</h4>*/}
+                        {/*<h4 align="left">Rating : {this.state.ratingsget}</h4>*/}
+                    </form>
+                    </form>
+                </div>
         )
     }
 }

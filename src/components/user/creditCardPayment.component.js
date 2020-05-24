@@ -18,7 +18,7 @@ export default class creditCardPayment extends Component{
             userName: "",
             cardNumber: "",
             expiration: new Date(),
-            cvc: 0,
+            cvc: '',
             // totalPrice: 0
         }
     }
@@ -47,16 +47,16 @@ export default class creditCardPayment extends Component{
         })
     }
 
-    componentDidMount() {
-        axios.get('http://localhost:5000/cartItems/' )
-            .then(res => {
-                this.setState({
-                    FinaltotPrice: res.data.FinaltotPrice
-                })
-                console.log(this.state.FinaltotPrice)
-            })
-            .catch(err => console.log(err));
-    }
+    // componentDidMount() {
+    //     axios.get('http://localhost:5000/cartItems/' )
+    //         .then(res => {
+    //             this.setState({
+    //                 FinaltotPrice: res.data.FinaltotPrice
+    //             })
+    //             console.log(this.state.FinaltotPrice)
+    //         })
+    //         .catch(err => console.log(err));
+    // }
 
     onSubmit = (event, totalPrice) => {
         event.preventDefault();
@@ -88,6 +88,7 @@ export default class creditCardPayment extends Component{
                         'Payment Successful!',
                         'Thank You For Using Our Services',
                         'success',
+                        window.location = "/"
                     )}
             })
             );
@@ -96,46 +97,55 @@ export default class creditCardPayment extends Component{
     render() {
         return (
             <div>
-                <h3><u>Payment</u></h3>
-                <h4>Total Price : {this.state.FinaltotPrice} </h4>
-                <form onSubmit={event => this.onSubmit(event)}>
-                    <div className="form-group">
-                        <label> Name On Card: </label>
-                        <input type="text"
-                        required
-                        className="form-control"
-                        value={this.state.userName}
-                        onChange={this.onChangeUsername}/>
+                <br/><br/>
+                    <div className="container">
+                        <form className="jumbotron" style={{backgroundColor:"#E8F8F5"}}>
+                            <h3><u>Payment</u></h3>
+                            <h4>Total Price : {this.state.FinaltotPrice} </h4>
+                            <form onSubmit={event => this.onSubmit(event)}>
+                                <div className="form-group">
+                                    <label> Name On Card: </label>
+                                    <input type="text"
+                                    required
+                                    className="form-control"
+                                    value={this.state.userName}
+                                    onChange={this.onChangeUsername}/>
+                                </div>
+                                <div className="form-group">
+                                    <label> Card Number: </label>
+                                    <input type="text"
+                                           required
+                                           placeholder="16 digit number starting with 4"
+                                           pattern="4[0-9]{3}[0-9]{4}[0-9]{4}[0-9]{4}"
+                                           className="form-control"
+                                           value={this.state.cardNumber}
+                                           onChange={this.onChangeCardNumber}/>
+                                </div>
+                                <div className="form-group">
+                                    <label>Expiry Date: </label>
+                                    <div>
+                                        <DatePicker
+                                            selected={this.state.expiration}
+                                            onChange={this.onChangeExpiration}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <label> CVC/CW: </label>
+                                    <input type="text"
+                                           required
+                                           placeholder="xxx (3 digit number)"
+                                           pattern="[0-9]{3}"
+                                           className="form-control"
+                                           value={this.state.cvc}
+                                           onChange={this.onChangeCVC}/>
+                                </div>
+                                <div className="form-group">
+                                    <input type="submit" value="Pay" className="btn btn-primary" style={{backgroundColor: "#AF7AC5"}}/>
+                                </div>
+                            </form>
+                        </form>
                     </div>
-                    <div className="form-group">
-                        <label> Card Number: </label>
-                        <input type="text"
-                               required
-                               className="form-control"
-                               value={this.state.cardNumber}
-                               onChange={this.onChangeCardNumber}/>
-                    </div>
-                    <div className="form-group">
-                        <label> Date: </label>
-                        <div>
-                            <DatePicker
-                                selected={this.state.expiration}
-                                onChange={this.onChangeExpiration}
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label> CVC/CW: </label>
-                        <input type="text"
-                               required
-                               className="form-control"
-                               value={this.state.cvc}
-                               onChange={this.onChangeCVC}/>
-                    </div>
-                    <div className="form-group">
-                        <input type="submit" value="Pay" className="btn btn-primary" style={{backgroundColor: "#AF7AC5"}}/>
-                    </div>
-                </form>
             </div>
         )
     }

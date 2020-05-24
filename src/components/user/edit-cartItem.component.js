@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import swal from "sweetalert";
 
 
  class EditCartItem extends Component {
@@ -75,12 +76,16 @@ import axios from 'axios';
              .then(res => {
                  console.log(res.data);
 
-                 alert("Quantity has been updated");
+
+                 swal({
+                     title: "Product Quantity has been updated!",
+                     icon: "success",
+                     button: true,
+                 })
              })
              .catch(err => console.log(err));
 
 
-         window.location = '/cartItems';
      };
 
 
@@ -99,20 +104,20 @@ import axios from 'axios';
 
 
                      <div className="form-group">
-                         <label>New Quantity: </label>
+                         <h5>New Quantity: </h5>
                          <input
                              type="text"
                              required
-                             className="form-control"
+                             pattern="\d+" className="form-control"
                              value={this.state.quantity}
                              onChange={this.onChangeQuantity}
                          />
                      </div>
 
 
-                     <div className="form-group">
-                         <input type="submit" value="Update" className="btn btn-primary"/>
-                     </div>
+
+                         <input type="submit" value="Update" className="btn btn-primary" style={{backgroundColor: "#AF7AC5"}}/>
+
                  </form>
 
 

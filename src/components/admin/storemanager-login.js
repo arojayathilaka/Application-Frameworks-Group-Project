@@ -3,9 +3,14 @@ import axios from "axios";
 import swal from "sweetalert";
 import {Link} from "react-router-dom";
 
+/**
+ * Functional component
+ * created a button
+ * used it to go to category view page
+ * */
 const goCategoryHome = (
     <div>
-        <Link to={"/gocategory"} style={{textDecoration:"none"}}><input type="submit" style={{ color:"#fff", backgroundColor:"#9B59B6"}} value="Go to Category List" class="btn btn-lg btn-block"/><br/><br/></Link>
+        <Link to={"/gocategory"} style={{textDecoration:"none"}}><input type="submit" style={{ color:"#fff", fontSize:"18px", fontWeight:"bold", backgroundColor:"#9B59B6"}} value="Go to Category List" class="btn btn-lg btn-block"/><br/><br/></Link>
     </div>
 )
 
@@ -31,23 +36,7 @@ class StoreManagerLogin extends Component{
             smdetails: []
         }
     }
-    componentDidMount() {
 
-        if (!(this.state.email === '')){
-            //console.log(this.state.email)
-            const sm = {
-                email: this.state.email,
-            }
-            axios.post('http://localhost:5000/userDetails/getSM', sm)
-                .then(response =>{
-                    this.setState({smdetails: response.data})
-                    console.log(response.data);
-                })
-                .catch((error) =>{
-                    console.log(error);
-                });
-        }
-    }
     onChangeUserid(e){
         this.setState({
             userid: e.target.value
@@ -77,6 +66,10 @@ class StoreManagerLogin extends Component{
         return (goCategoryHome);
     }
 
+    /**
+     * to display the successfully logged in message
+     * after log in islogin is set to true
+     * */
     sweetalertfunction(){
         swal({
             title: "Logged in!",
@@ -84,13 +77,21 @@ class StoreManagerLogin extends Component{
             icon: "success",
             button: true,
         }).then(()=>{
-            this.componentDidMount();
             this.setState({
                 isLogin: true
             });
 
         });
     }
+
+    /**
+     * create an object and pass the values in the text fields to that object
+     * the values in the object is send to the signin end point by using axios
+     * if the success value that is returned from the backend is true
+     * display successfully logged in alert using sweetalert
+     * if the success value that is returned from the backend is false
+     * display an error alert
+     * */
     onSubmit(e){
         e.preventDefault();
 
@@ -119,6 +120,12 @@ class StoreManagerLogin extends Component{
 
     }
 
+    /**
+     * if islogin is equal to true
+     * then if statement is executed
+     * if login is equal to false
+     * else statement is executed
+     * */
     render() {
         if (this.state.isLogin){
             return (
@@ -126,7 +133,7 @@ class StoreManagerLogin extends Component{
                     <br/>
                     <br/>
                     <div className="jumbotron" style={{backgroundColor:"#E8DAEF"}}>
-                        <img src={"adminwelcom.png"}/>
+                        <img src={"adminwelcom.png"} style={{width:"700px", height:"200px"}}/>
                         <h1 style={{color:"#4A235A",marginLeft:"500px", fontFamily:"Lucida Console"}}>to the Web Site</h1>
                         <br/>
                         {this.goCategoryHome()}

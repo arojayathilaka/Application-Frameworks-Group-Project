@@ -1,5 +1,13 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+
+
 
 class Navbar extends Component{
     render() {
@@ -14,7 +22,10 @@ class Navbar extends Component{
                         <li className="navbar-item">
                             <Link to="/smLogin" className="nav-link">Store Managers Login</Link>
                         </li>
+
                     </ul>
+                    <Link to="/wishlist" className="nav-link"><FontAwesomeIcon icon={faHeart}/></Link>
+                    <Link to="/cartItems" className="nav-link"><FontAwesomeIcon icon={faShoppingCart}/></Link>
                 </div>
             </nav>
         );

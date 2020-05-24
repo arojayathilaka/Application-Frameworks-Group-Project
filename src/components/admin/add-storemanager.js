@@ -1,14 +1,8 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import swal from 'sweetalert';
-import {Link} from "react-router-dom";
 
-const goAdminHome = (
-    <div className="form-group">
-        <Link to={"/adminLogin"}><input type="submit" value="Back" className="btn badge-pill"/>   </Link>
-    </div>
 
-)
 
 class AddStoreManager extends Component{
     constructor(props) {
@@ -56,9 +50,11 @@ class AddStoreManager extends Component{
             password: e.target.value
         });
     }
-    goAdminHome(){
-        return goAdminHome;
-    }
+
+    /**
+     * to display the successfully added new store manager message
+     * after adding new category text fields covert to empty
+     * */
     sweetalertfunction(){
         swal({
             title: "Store Manager Added",
@@ -76,6 +72,18 @@ class AddStoreManager extends Component{
         });
     }
 
+    /**
+     * create an object and pass the values in the text fields to that object
+     * checking phone number and password are valid
+     * if they are not valid
+     * display an error message
+     * if they are valid
+     * the values in the object is send to the add end point by using axios
+     * if the success value that is returned from the backend is true
+     * display successfully added alert using sweetalert
+     * if the success value that is returned from the backend is false
+     * display an error alert
+     * */
     onSubmit(e){
         e.preventDefault();
 

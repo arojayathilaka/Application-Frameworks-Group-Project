@@ -14,7 +14,7 @@ export default class cashOnDelivery extends Component{
 
         this.state = {
             deliveryAddress: "",
-            contactNumber: 0,
+            contactNumber: '',
         }
     }
 
@@ -30,16 +30,16 @@ export default class cashOnDelivery extends Component{
         })
     }
 
-    componentDidMount() {
-        axios.get('http://localhost:5000/cartItemList/')
-            .then(res => {
-                this.setState({
-                    FinaltotPrice: res.data.totalPrice
-                })
-                console.log(this.state.FinaltotPrice)
-            })
-            .catch(err => console.log(err));
-    }
+    // componentDidMount() {
+    //     axios.get('http://localhost:5000/cartItemList/')
+    //         .then(res => {
+    //             this.setState({
+    //                 FinaltotPrice: res.data.totalPrice
+    //             })
+    //             console.log(this.state.FinaltotPrice)
+    //         })
+    //         .catch(err => console.log(err));
+    // }
 
     onSubmit(e){
         e.preventDefault();
@@ -48,6 +48,7 @@ export default class cashOnDelivery extends Component{
             deliveryAddress: this.state.deliveryAddress,
             contactNumber: this.state.contactNumber
         }
+
 
         console.log(cashOnDelivery);
         axios.post('http://localhost:5000/cashOnDelivery/add', cashOnDelivery)
@@ -62,12 +63,14 @@ export default class cashOnDelivery extends Component{
                     cancelButtonText: 'Go back',
                     confirmButtonClass: "btn-danger",
                     confirmButtonText: "Confirm Delivery Details",
-                }).then((result) => {
+                },
+                    ).then((result) => {
                     if (result.value) {
                         Swal.fire(
-                            'Your order successfully added!',
-                            'Thank You For Using Our Services',
+                            'Delivery Added',
+                            '',
                             'success',
+                            window.location = "/cashOnDeliveryDetails/"+this.state.contactNumber
                         )}
                 })
             );
@@ -76,8 +79,13 @@ export default class cashOnDelivery extends Component{
     render() {
         return (
             <div id="all">
+                <br/><br/><br/><br/><br/>
+                <div className="container">
+                <form className="jumbotron" style={{backgroundColor:"#E8F8F5"}}>
                 <h3 id="intro"><u>Cash On Delivery</u></h3>
+                    <br/>
                 <h4>Total Price : {this.state.FinaltotPrice}</h4>
+                    <br/>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label> Delivery Address: </label>
@@ -91,14 +99,19 @@ export default class cashOnDelivery extends Component{
                         <label> Contact Number: </label>
                         <input type="text"
                                required
+                               placeholder="10 digit number starting with 0"
+                               pattern="0[0-9]{9}"
                                className="form-control"
                                value={this.state.contactNumber}
                                onChange={this.onChangeContactNumber}/>
                     </div>
+                    <br/>
                     <div className="form-group">
                         <input type="submit" value="Submit" className="btn btn-primary" style={{backgroundColor: "#AF7AC5"}}/>
                     </div>
                 </form>
+                </form>
+                </div>
             </div>
         )
     }
