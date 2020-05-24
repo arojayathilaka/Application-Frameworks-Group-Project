@@ -5,6 +5,9 @@ import '../stylesheets/home.css';
 import swal from "sweetalert";
 import Application from "./user/selectPaymentMethod.component";
 import {Link} from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+
 
 
 
@@ -110,6 +113,26 @@ class Home extends Component {
     };
 
 
+
+
+    /*addToWishlist = (prodId,name) => {
+
+        const wishlistItem = {
+
+            itemId: prodId,
+            itemName: name,
+
+        };
+
+        console.log(wishlistItem);
+        axios.post('http://localhost:5000/wishlistItems/add',wishlistItem)
+            .then(res => console.log(res.data))
+            .catch(err => console.error(err));
+
+    };*/
+
+
+
     arrayBufferToBase64(buffer) {
         let binary = '';
         const bytes = [].slice.call(new Uint8Array(buffer));
@@ -163,9 +186,10 @@ class Home extends Component {
                                         alt={product.name}/>
                                 </div>
                                 <div className="prodDetails">
-                                    <h4>{product.name}</h4>
+                                    <h4>{product.name} <Link to="/wishlist" ><FontAwesomeIcon icon={faHeart}/></Link></h4>
                                     <h6>Price: LKR {product.price}.00</h6>
                                     <h6>Discount: LKR {product.discount}.00</h6>
+
 
 
                                     <form
