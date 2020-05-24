@@ -160,7 +160,8 @@ class Product extends Component{
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <br/>
-                            <label> Nickname * </label>
+                            <h5><b>Please Use Review Section Respectfully</b></h5>
+                            <label> Anonymous Username * </label>
                             <input type="text"
                                    required
                                    className="form-control"
@@ -187,7 +188,7 @@ class Product extends Component{
                             </select>
                         </div>
                         <div className="form-group">
-                            <input type="submit" value="Submit Review & Ratings" className="btn btn-primary"/>
+                            <input type="submit" value="Submit Review & Ratings" className="btn btn-primary" style={{backgroundColor: "#AF7AC5"}}/>
                         </div>
                         <br/>
                         <hr/>
@@ -227,7 +228,7 @@ class Product extends Component{
                         {/*))}*/}
 
                         {prodReviews.map(review => (
-                            <p>Nickname : {review.nickname} <br/> Comment : {review.comment} <br/> Rating : {review.ratings}</p>
+                            <p style={{color: "#000000"}}>Anonymous Username : {review.nickname} <br/> Comment : {review.comment} <br/> Rating : {review.ratings}<hr/></p>
                             ))}
                         {/*<hr/>*/}
                         {/*{this.state.reviewItems.map(nickname => (*/}
@@ -241,7 +242,7 @@ class Product extends Component{
                         {/*{this.state.reviewItems.map(rating => (*/}
                         {/*    <p>Rating : {rating}</p>*/}
                         {/*))}*/}
-                        <br/><hr/>
+                        <br/>
                         {/*<h4 align="left">Nickname : {this.state.nicknameget}</h4>*/}
                         {/*<h4 align="left">Comment : {this.state.commentsget}</h4>*/}
                         {/*<h4 align="left">Rating : {this.state.ratingsget}</h4>*/}
