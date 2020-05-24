@@ -76,7 +76,7 @@ import swal from "sweetalert";
              .then(res => {
                  console.log(res.data);
 
-                 //alert("Quantity has been updated");
+
                  swal({
                      title: "Product Quantity has been updated!",
                      icon: "success",
@@ -85,7 +85,7 @@ import swal from "sweetalert";
              })
              .catch(err => console.log(err));
 
-        // window.location = '/cartItems';
+
      };
 
 
