@@ -161,13 +161,13 @@ class Home extends Component {
                                      alt={products[product].name}/>
                             </div>
                             <div className="prodDetails">
-                                <h4>{products[product].name} <FontAwesomeIcon icon={faHeart} onClick={() => this.addToWishlist(product.prodId,product.name)}/></h4>
+                                <h4>{products[product].name} <FontAwesomeIcon icon={faHeart} onClick={() => this.addToWishlist(products[product].id,products[product].name)}/></h4>
                                 <h6>Price: LKR {products[product].price}.00</h6>
                                 <h6>Discount: LKR {products[product].discount}.00</h6>
 
                                     <form
                                         // onSubmit={this.onSubmit(product.prodId, product.name, product.price, product.discount)}
-                                        onSubmit={event => this.onSubmit(event, product.prodId, product.name, product.price, product.discount)}
+                                        onSubmit={event => this.onSubmit(event, products[product].id, products[product].name, products[product].price, products[product].discount)}
                                     >
                                         <div className="form-group">
                                             <h6>Quantity: </h6>
