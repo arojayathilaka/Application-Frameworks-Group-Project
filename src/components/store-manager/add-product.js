@@ -8,14 +8,8 @@ class AddProduct extends Component {
         super(props);
 
         this.state = {
-            category: '',
-            prodId: '',
-            name: '',
-            price: '',
-            discount: '',
-            comments: '',
-            ratings: '',
-            categories: []
+            categories: [],
+            discount: ''
         }
     }
 
@@ -124,18 +118,6 @@ class AddProduct extends Component {
                     dangerMode: true,
                 });
             });
-
-        // this.setState({
-        //     category: '',
-        //     prodId: '',
-        //     name: '',
-        //     price: '',
-        //     discount: '',
-        //     comments: '',
-        //     ratings: ''
-        // })
-
-        //window.location = '/';
     };
 
     render() {

@@ -30,17 +30,13 @@ router.route('/add').post((req, res) => {
     const name = req.body.name;
     const price = Number(req.body.price);
     const discount = Number(req.body.discount);
-    const comments = req.body.comments;
-    const ratings = Number(req.body.ratings);
 
     const newProduct = new Product({
         category,
         prodId,
         name,
         price,
-        discount,
-        comments,
-        ratings
+        discount
     });
 
     newProduct.save()
@@ -57,9 +53,9 @@ router.route('/add').post((req, res) => {
  */
 router.route('/:id').get((req, res) => {
     Product.findById(req.params.id)
-        //.then(product => res.json(product))
         .then(product => {
-            res.status(200).send(product)
+            res.status(200).send(product);
+            console.log(product)
         })
         .catch(err =>
             res.status(400).send('Error: ' + err)
@@ -88,12 +84,9 @@ router.route('/update/:id').put((req, res) => {
     Product.findById(req.params.id)
         .then(product => {
             product.category = req.body.category;
-            product.prodId = req.body.prodId;
             product.name = req.body.name;
             product.price = req.body.price;
             product.discount = req.body.discount;
-            product.comments = req.body.comments;
-            product.ratings = req.body.ratings;
 
             product.save()
                 .then(() => res.send({message:'Product updated!'}))
