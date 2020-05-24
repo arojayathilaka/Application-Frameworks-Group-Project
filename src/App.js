@@ -58,8 +58,8 @@ function App() {
               <Route path="/editProduct/:id" exact component={EditProduct}/>
               <Route path="/selectPaymentMethod" exact component={Application}/>
               <Route path="/productDetails/:id" exact component={reviewDetails}/>
+              <Route path="/wishlist" exact component={WishList}/>
               <Route path="/cartItemList/" exact component={CartItemList}/>
-              <Route path="/wishlist/" exact component={WishList}/>
               <Route path="/finalPayment/" exact component={finalPayment}/>
               <Route path="/cashOnDeliveryDetails/:contactNumber" exact component={cashOnDeliveryDetails}/>
           </Router>
