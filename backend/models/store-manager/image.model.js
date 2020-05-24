@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 // creating a schema for images
 const imageSchema = new Schema({
     img: { data: Buffer, contentType: String},
-    imgId: { type: Number, required: true }
+    imgId: { type: Number, required: true, unique: true }
 }, {
     timestamps: true
 });

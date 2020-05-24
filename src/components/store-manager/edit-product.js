@@ -9,11 +9,6 @@ class EditProduct extends Component {
         super(props);
 
         this.state = {
-            category: '',
-            prodId: '',
-            name: '',
-            price: '',
-            discount: '',
             categories: [],
             image: '',
             imageData: '',
@@ -42,7 +37,7 @@ class EditProduct extends Component {
                     prodId: res.data.prodId,
                     name: res.data.name,
                     price: res.data.price,
-                    duration: res.data.duration
+                    discount: res.data.discount
                 });
                 console.log(this.state.prodId);
                 })
@@ -79,16 +74,6 @@ class EditProduct extends Component {
             });
         console.log(this.state.isEditing)
     }
-
-    /**
-     * Assigning the input value of prodId to state
-     * @param {*} event The event object
-     */
-    onChangeId = event => {
-        this.setState({
-            prodId: event.target.value
-        })
-    };
 
     /**
      * Assigning the input value of name to state
@@ -243,16 +228,6 @@ class EditProduct extends Component {
                                     )
                                 })}
                             </select>
-                        </div>
-                        <div className="form-group">
-                            <label>Product ID: </label>
-                            <br/>
-                            <input  type="text"
-                                    required
-                                    pattern="\d+"
-                                    value={this.state.prodId}
-                                    onChange={this.onChangeId}
-                            />
                         </div>
                         <div className="form-group">
                             <label>Product Name: </label>

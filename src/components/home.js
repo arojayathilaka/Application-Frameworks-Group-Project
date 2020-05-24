@@ -3,7 +3,7 @@ import axios from "axios";
 import '../stylesheets/products-home.css';
 import '../stylesheets/home.css';
 
-class Home extends Component{
+class Home extends Component {
 
     constructor(props) {
         super(props);
@@ -13,11 +13,7 @@ class Home extends Component{
 
         this.state = {
             products: [],
-            images: [],
-            imagesData: [],
-            image: '',
-            quantity:0,
-
+            quantity: 0
         }
     }
 
@@ -27,62 +23,86 @@ class Home extends Component{
         })
     };
 
-
     componentDidMount() {
-        axios.get('http://localhost:5000/images/image')
-            .then(res => {
-                console.log(res.data);
-                const base64Flag = 'data:image/jpeg;base64,';
-                const imageStr = this.arrayBufferToBase64(res.data.img.data.data);
-                this.setState({
-                    image: base64Flag + imageStr
-                })
-            });
+        // axios.get('http://localhost:5000/images/image')
+        //     .then(res => {
+        //         console.log(res.data);
+        //         const base64Flag = 'data:image/jpeg;base64,';
+        //         const imageStr = this.arrayBufferToBase64(res.data.img.data.data);
+        //         this.setState({
+        //             image: base64Flag + imageStr
+        //         })
+        //     });
 
         axios.get('http://localhost:5000/images')
             .then(res => {
-               console.log(res.data);
-               this.setState({
-                   imagesData: res.data
-               });
-               // const images = [];
-               // res.data.forEach(img => {
-               //     const base64Flag = 'data:image/jpeg;base64,';
-               //     const imageStr = this.arrayBufferToBase64(img.img.data.data);
-               //     const image = base64Flag + imageStr;
-               //     images.push(image);
-               // });
-               // this.setState({
-               //     images: images
-               // })
-                //console.log(images)
+                console.log(res.data);
+                this.setState({
+                    imagesData: res.data
+                });
+                this.imageMapper();
             });
 
-            axios.get('http://localhost:5000/products')
-                .then(res => {
-                    this.setState({
-                        products: res.data
-                    });
-                    console.log(this.state.products)
-                })
-                .catch(err => {
-                    console.log(err)
+        axios.get('http://localhost:5000/products')
+            .then(res => {
+                console.log(res.data);
+                this.setState({
+                    products: res.data
                 });
-        }
+
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
+
+    imageMapper = () => {
+        let products = {};
+
+        this.state.products.forEach(prod => {
+            this.state.imagesData.forEach(imageData => {
+                if (imageData.imgId === prod.prodId) {
+                    products[prod.prodId] = {
+                        _id: prod._id,
+                        id: prod.prodId,
+                        name: prod.name,
+                        price: prod.price,
+                        image: this.imageConverter(imageData.img.data.data)
+                    };
+                    console.log(products[prod.prodId]);
+                }
+            })
+        });
+
+        this.setState({
+            products: products
+        });
+    };
+
+    arrayBufferToBase64(buffer) {
+        let binary = '';
+        const bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        return window.btoa(binary);
+    };
+
+    imageConverter = data => {
+        const base64Flag = 'data:image/jpeg;base64,';
+        const imageStr = this.arrayBufferToBase64(data);
+        return base64Flag + imageStr;
+    };
+
 
     onSubmit = (event, prodId, name, price, discount) => {
         event.preventDefault();
 
         const cartItem = {
-
             itemId: prodId,
             itemName: name,
             price: price,
             discount: discount,
             quantity: this.state.quantity,
-            totalPrice: (this.state.quantity * price)-(discount) ,
-
-
+            totalPrice: (this.state.quantity * price) - (discount),
         };
 
         console.log(cartItem);
@@ -94,73 +114,33 @@ class Home extends Component{
             })
             .catch(err => console.log(err));
 
-    window.location = '/cartItems/';
+        window.location = '/cartItems/';
 
-};
-
-
-
-
-
-
-
-    arrayBufferToBase64(buffer) {
-        let binary = '';
-        const bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach((b) => binary += String.fromCharCode(b));
-        return window.btoa(binary);
     };
 
-    // createImage = (prodId) => {
-    //     const imgData = this.state.imagesData.find(imageData => (imageData.imgId === prodId));
-    //     console.log(imgData);
-    //     const base64Flag = 'data:image/jpeg;base64,';
-    //     const imageStr = this.arrayBufferToBase64(imgData.img.data.data);
-    //     return base64Flag + imageStr;
-    // };
-
     render() {
-        //let image;
+        const products = this.state.products;
         return (
-                this.state.products.map(product => (
-                    <div key={product.prodId}>
-                        <div className="prodArea">
-                            <div className="prod">
-                                <div className="prodImage">
-                                    {/*{console.log(this.state.imagesData.find(imageData => (imageData.imgId === product.prodId)))}*/}
-                                    {/*{this.state.imagesData.forEach(imageData => {*/}
-                                    {/*    if (imageData.imgId === product.prodId) {*/}
-                                    {/*        const base64Flag = 'data:image/jpeg;base64,';*/}
-                                    {/*        const imageStr = this.arrayBufferToBase64(imageData.img.data.data);*/}
-                                    {/*        const image =  base64Flag + imageStr;*/}
-                                    {/*    }*/}
-                                    {/*})}*/}
-                                    <img
-                                        //src={this.createImage(this.state.imagesData.find(imageData => (imageData.imgId === product.prodId)))}
-                                        //src={() => {this.createImage(product.prodId)}}
-                                        // src={this.state.imagesData.forEach(imageData => {
-                                        //     if (imageData.imgId === product.prodId) {
-                                        //         const base64Flag = 'data:image/jpeg;base64,';
-                                        //         const imageStr = this.arrayBufferToBase64(imageData.img.data.data);
-                                        //         return base64Flag + imageStr;
-                                        //     }
-                                        // })}
-                                        // src = {
-                                        //     this.state.imagesData.find(imageData => (imageData.imgId === product.prodId))
-                                        // }
-                                         src={this.state.image}
-                                        // src={img}
-                                        alt={product.name}/>
-                                </div>
-                                <div className="prodDetails">
-                                    <p>{product.name}</p>
-                                    <p>{product.price}</p>
-                                    <p>{product.discount}</p>
+            Object.keys(products).map(product => (
+                <div key={products[product].id}>
+                    <div className="prodArea">
+                        <div className="prod">
+                            <div className="prodImage">
+                                <img src={products[product].image}
+                                     alt={products[product].name}/>
+                            </div>
+                            <div className="prodDetails">
+                                <p>{products[product].name}</p>
+                                <p>{products[product].price}</p>
+                                <p>{products[product].discount}</p>
 
-                                    <form
-                                        // onSubmit={this.onSubmit(product.prodId, product.name, product.price, product.discount)}
-                                        onSubmit={event => this.onSubmit(event, product.prodId, product.name, product.price, product.discount)}
-                                    >
+                                <form
+                                    onSubmit={event => this.onSubmit(event,
+                                        products[product].id,
+                                        products[product].name,
+                                        products[product].price,
+                                        products[product].discount)}
+                                >
                                     <label>Quantity: </label>
                                     <input
                                         type="text"
@@ -169,25 +149,17 @@ class Home extends Component{
                                         value={this.state.quantity}
                                         onChange={this.onChangeQuantity}
                                     />
-                                        <div className="form-group">
-                                            <input type="submit" value="Add To Shpping Cart" className="btn btn-primary" />
-                                        </div>
-                                    </form>
-                                <br/>
-
-
-                                    <br/>
-
-                                    <br/>
-
-                                    <a href={"/product/" + product._id}>more details</a>
-                                </div>
+                                    <div className="form-group">
+                                        <input type="submit" value="Add To Shopping Cart" className="btn btn-primary"/>
+                                    </div>
+                                </form>
                             </div>
+                            <a href={"/product/" + products[product]._id}>more details</a>
                         </div>
                     </div>
-                ))
-            );
-        }
+                </div>
+            )));
+    }
 }
 
 export default Home

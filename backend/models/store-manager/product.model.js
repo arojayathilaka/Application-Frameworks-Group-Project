@@ -8,9 +8,7 @@ const productSchema = new Schema({
     prodId: { type: Number, required: true},
     name: { type: String, required: true },
     price: { type: Number, required: true },
-    discount: { type: Number },
-    comments: {type: String},
-    ratings: {type: Number}
+    discount: { type: Number }
 }, {
     timestamps: true
 });
