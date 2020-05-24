@@ -98,7 +98,6 @@ class Home extends Component {
         axios.post('http://localhost:5000/cartItems/add', cartItem)
             .then(res => {
                 console.log(res.data);
-                //alert("Product Added to the Shopping Cart!");
                 swal({
                     title: "Product Added to the Cart!",
                     icon: "success",
@@ -108,7 +107,7 @@ class Home extends Component {
 
             .catch(err => console.log(err));
 
-        //window.location = '/cartItems/';
+
 
     };
 
