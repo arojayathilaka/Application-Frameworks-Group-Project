@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import axios from 'axios';
+import swal from "sweetalert";
 
 
  class CartItemList extends Component {
@@ -18,7 +19,7 @@ import axios from 'axios';
             quantity: 0,
             totalPrice: 0,
             cartItems: [],
-           // payment:0
+
 
         }
     }
@@ -41,16 +42,7 @@ import axios from 'axios';
 
 
              axios.get('http://localhost:5000/cartItems/')
-            // .then((cartItems) => {
-            //       let payment = 0;
-            //     for (var i = 0; i < this.cartItems.length; i++) {
-            //         payment = payment += (this.state.totalPrice);
-            //     }
-            //
-            //
-            //
-            //     this.setState({  payment });
-            // })
+
                  .then( res => {
                      console.log(res.data);
                      let FinaltotPrice = 0;
@@ -66,10 +58,47 @@ import axios from 'axios';
     }
 
 
-    deleteCartItem = id => {
+
+     onSubmit = event => {
+         event.preventDefault();
+
+         const finalPayment = {
+
+
+             totalPrice: this.state.totalPrice,
+
+
+         };
+
+         console.log(finalPayment);
+
+         axios.post('http://localhost:5000/finalPayment/add', finalPayment)
+             .then(res => {
+                 console.log(res.data);
+                 alert("final payment amount added");
+             })
+             .catch(err => console.log(err));
+
+
+
+     };
+
+
+
+
+
+
+
+     deleteCartItem = id => {
         axios.delete('http://localhost:5000/cartItems/' + id)
             .then(res => console.log(res.data))
             .catch(err => console.error(err));
+
+         swal({
+             title: "Pruduct deleted from the Cart.!",
+             button: true,
+             dangerMode: true,
+         });
 
         this.setState({
             cartItems: this.state.cartItems.filter(cartItem => cartItem._id !== id)
@@ -94,7 +123,7 @@ import axios from 'axios';
     };
 
     selectPayment = () => {
-         window.location = "/selectPaymentMethod"
+         window.location = "/userLogin"
      }
 
 
@@ -159,7 +188,7 @@ import axios from 'axios';
                     </table>
 
 
-                <h3 style={{float:"right"}}>Total Price = {this.state.totalPrice} </h3>
+                <h3 style={{float:"right"}}>Total Price = LKR {this.state.totalPrice}.00 </h3>
 
                 <br/>
                     <br/>
