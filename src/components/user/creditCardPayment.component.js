@@ -18,7 +18,7 @@ export default class creditCardPayment extends Component{
             userName: "",
             cardNumber: "",
             expiration: new Date(),
-            cvc: 0,
+            cvc: '',
             // totalPrice: 0
         }
     }
@@ -115,6 +115,8 @@ export default class creditCardPayment extends Component{
                                     <label> Card Number: </label>
                                     <input type="text"
                                            required
+                                           placeholder="16 digit number starting with 4"
+                                           pattern="4[0-9]{3}[0-9]{4}[0-9]{4}[0-9]{4}"
                                            className="form-control"
                                            value={this.state.cardNumber}
                                            onChange={this.onChangeCardNumber}/>
@@ -132,6 +134,8 @@ export default class creditCardPayment extends Component{
                                     <label> CVC/CW: </label>
                                     <input type="text"
                                            required
+                                           placeholder="xxx (3 digit number)"
+                                           pattern="[0-9]{3}"
                                            className="form-control"
                                            value={this.state.cvc}
                                            onChange={this.onChangeCVC}/>

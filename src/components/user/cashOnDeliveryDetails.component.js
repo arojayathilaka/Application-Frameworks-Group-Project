@@ -76,6 +76,9 @@ class cashOnDeliveryDetails extends Component{
         window.location = "/"
     }
 
+    edit = () => {
+        window.location = "/cashOnDeliveryEdit/" + this.props.match.params.contactNumber
+    }
 
 
     render() {
@@ -87,14 +90,11 @@ class cashOnDeliveryDetails extends Component{
                 <br/><br/><br/><br/><br/><br/><br/>
                 <div className="container" align="center">
                     <div className="jumbotron" style={{backgroundColor:"#E8F8F5"}}>
-                    <h4>Delivery Address : {this.state.delivery.deliveryAddress}</h4>
-                        <br/>
-                    <h4>Contact Number : {this.state.delivery.contactNumber}</h4>
-                        <br/><br/>
-
-                        <button className="btn btn-primary btn-lg" onClick={this.deleteCashOnDeliveryItem} style={{backgroundColor: "#AF7AC5"}}>Cancel Delivery Order</button>
-                    <br/><br/>
-                    <button className="btn btn-primary btn-lg" onClick={this.homepage} style={{backgroundColor: "#AF7AC5"}}>Back To Home</button>
+                    <h4>Delivery Address : {this.state.delivery.deliveryAddress}</h4><br/>
+                    <h4>Contact Number : {this.state.delivery.contactNumber}</h4><br/><br/>
+                    <button className="btn btn-primary btn-lg" onClick={this.deleteCashOnDeliveryItem} style={{backgroundColor: "#AF7AC5"}}>Cancel Delivery Order</button><br/><br/>
+                    <button className="btn btn-primary btn-lg" onClick={this.homepage} style={{backgroundColor: "#AF7AC5"}}>Back To Home</button><br/><br/>
+                    <button className="btn btn-primary btn-lg" onClick={this.edit} style={{backgroundColor: "#AF7AC5"}}>Edit Delivery Information</button>
                     </div>
                 </div>
             </div>

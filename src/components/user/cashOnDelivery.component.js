@@ -14,7 +14,7 @@ export default class cashOnDelivery extends Component{
 
         this.state = {
             deliveryAddress: "",
-            contactNumber: 0,
+            contactNumber: '',
         }
     }
 
@@ -99,6 +99,8 @@ export default class cashOnDelivery extends Component{
                         <label> Contact Number: </label>
                         <input type="text"
                                required
+                               placeholder="10 digit number starting with 0"
+                               pattern="0[0-9]{9}"
                                className="form-control"
                                value={this.state.contactNumber}
                                onChange={this.onChangeContactNumber}/>
