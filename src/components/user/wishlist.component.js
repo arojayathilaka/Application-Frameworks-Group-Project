@@ -41,8 +41,8 @@ class WishList extends Component {
 
     render() {
         return (
-            <div>
 
+<div>
                 <h2>My WishList</h2>
                 <table className="table table-dark table-hover">
                     <thead>
@@ -86,8 +86,8 @@ class WishList extends Component {
 
 
 
-
 </div>
+
         );
     }
 
